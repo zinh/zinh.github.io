@@ -27,7 +27,7 @@ Theo tài liệu của Rails, hiện tại, Rails hỗ trợ các kiểu cache n
 
 __2. Chi tiết__
 
-2.1. Page Caching: cache toàn bộ một page. Toàn bộ HTML của trang được cache sẽ được lưu vào một file html ở thư mục public. Do đó khi request lại trang này, Rails sẽ trả về trang html đó mà không phải qua bất cứ xử lý nào của các middleware, controller. Do đó có thể nói page caching cho tốc độ nhanh nhất, nhưng cũng ít tùy biến nhất.
+2.1. Page Caching: cache toàn bộ một page. Toàn bộ HTML của trang được cache sẽ được lưu vào một file html ở thư mục public. Do đó khi request lại trang này, Rails sẽ trả về trang html đó mà không phải qua bất cứ xử lý nào của các middleware, controller. Do đó có thể nói page caching cho tốc độ nhanh nhất, nhưng cũng ít tùy biến nhất.Tuy nhiên do không qua xử lý của middle, controller các chức năng như authenticate sẽ không sử đụng được.
 
 2.2. Action caching caching: một đặc điểm của page caching chính là page được cache không phải qua bất cứ xử lý nào của các rack middleware, controller. Tuy nhiên không phải lúc nào cũng làm được việc đó.
 
