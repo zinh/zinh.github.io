@@ -44,4 +44,4 @@ Action caching rất thuận tiện những trường hợp như bạn muốn ca
 
 2.5. Raw caching: ngoài các loại hình caching cung cấp sẵn, Rails còn có các hàm dựng sẵn dùng cho việc đọc/ghi một giá trị từ cache. Ta có thể dùng nó để cache lại giá trị của một biến nào đó. Hoặc cũng có thể dùng nó để cache lại kết quả của API...
 
-Trên đây là sơ lược về Caching trong Rails. Trong các bài kế tiếp, mình sẽ giới thiệu chi tiết hơn về cách sử dụng cũng như ưu khuyết điểm của từng loại.
+*Trên đây là sơ lược về Caching trong Rails. Trong các bài kế tiếp, mình sẽ giới thiệu chi tiết hơn về cách sử dụng cũng như ưu khuyết điểm của từng loại.*
