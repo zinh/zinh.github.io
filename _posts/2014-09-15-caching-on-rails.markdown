@@ -9,7 +9,8 @@ categories: rails
 Caching chính là một công cụ lợi hại để tối ưu hoá tốc độ của một ứng dụng web. Nếu được sử dụng đúng cách, thích hợp, caching sẽ giúp tăng tốc độ
 load trang lên một cách rất đáng kể.
 
-Caching có rất nhiểu loại, ở nhiều tầng khác nhau. Từ Browser cache, server header(ETag), đến server cache.
+Caching có rất nhiểu loại, ở nhiều tầng khác nhau. Từ Browser cache, server header(ETag, Not-Modified
+), đến server cache.
 
 Trong phạm vi bài này mình sẽ giới thiệu về các loại hình caching ở tầng Web server được Rails hỗ trợ.
 
