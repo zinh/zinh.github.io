@@ -42,6 +42,6 @@ Action caching rất thuận tiện những trường hợp như bạn muốn ca
 
 2.4. SQL caching: mặc định khi dùng ActiveRecord nếu ta gọi cùng một câu query nhiều lần thì chỉ có lần đầu tiên Rails thực hiện query đến Database và cache kết quả trả về lại. Các lần gọi kế tiếp sẽ không cần phải connect đến database.
 
-2.5. Raw caching: ngoài các loại hình caching cung cấp sẵn, Rails còn có các hàm dựng sẵn dùng cho việc đọc/ghi một giá trị từ cache. Ta có thể dùng nó để cache lại giá trị của một biến nào đó. Hoặc cũng có thể dùng nó để cache lại kết quả của API...
+2.5. Raw caching: ngoài các loại hình caching cung cấp sẵn, Rails còn có các hàm dựng sẵn dùng cho việc đọc/ghi một giá trị trực tiếp từ cache. Ta có thể dùng nó để cache lại giá trị của một biến nào đó hoặc cache lại kết quả của API...
 
 *Trên đây là sơ lược về Caching trong Rails. Trong các bài kế tiếp, mình sẽ giới thiệu chi tiết hơn về cách sử dụng cũng như ưu khuyết điểm của từng loại.*
