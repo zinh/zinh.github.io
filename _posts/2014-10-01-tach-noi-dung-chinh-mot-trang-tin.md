@@ -35,5 +35,7 @@ Trước hết ta có quan sát như sau:
 Từ quan sát trên ta phát thảo một thuật toán như sau:
 
 B1: Duyệt qua từng node trong cây.
+
 B2: Với mỗi node thứ N ta gọi: text(N) = text trong N, và các con của N
+
      link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
