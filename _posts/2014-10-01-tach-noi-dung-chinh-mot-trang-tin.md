@@ -8,8 +8,10 @@ categories: ruby
 
 Vấn đề: với một người rất hay đọc báo/blog online như mình, chức năng Reader của Safari rất hữu dụng.
 Chức năng này rất đơn giản, mỗi khi bạn truy cập vào một trang web nào đó(chủ yếu là trang web về tin tức),
-khi bạn dùng Reader nội dung chính của trang web sẽ được hiển thị riêng ra, các phần khác như menu, quảng cáo...
+khi bạn dùng Reader, nội dung chính của trang web sẽ được hiển thị riêng ra, các phần khác như menu, quảng cáo...
 đều bị ẩn đi, font chữ được phóng to lên, giúp cho bạn tập trung vào bài báo.
+
+![Demo Safari Reader](http://i.i.cbsi.com/cnwk.1d/i/tim//2010/06/09/SafariReaderActive.png)
 
 Tuy nhiên, một nhược điểm của Reader là chỉ có Safari mới có, nghĩa là phải dùng Mac hoặc iOS thì mới dùng được.
 Chuyển qua Linux thì bó tay. Vì vậy mình thử viết một ứng dụng web nho nhỏ để giải quyết vấn đề này xem sao.
@@ -25,3 +27,13 @@ dung của trang web đó về, tách bỏ các phần râu ria đi, chi hiển 
   
 Cách 2 có vẻ khoai, nên thử cách 1 trước xem sao!
 
+Trước hết ta có quan sát như sau:
+
+*Quan sát 1:* Nội dung chính thường chứa nhiều text hơn link.
+Điều này khá hiển nhiên, nội dung chính mà chỉ toàn link, kèm theo vài đoạn text thì chắc là spam rồi.
+
+Từ quan sát trên ta phát thảo một thuật toán như sau:
+
+B1: Duyệt qua từng node trong cây.
+B2: Với mỗi node thứ N ta gọi: text(N) = text trong N, và các con của N
+     link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
