@@ -60,8 +60,8 @@ __B 1.2:__ Ta tính tỉ lệ giữa link và text bằng công thức:
   
 __B 1.3:__ Node có radio lớn nhất chính là node cần tìm.
 
-Thuật toán rất đơn giản! Tuy nhiên có môt nhược điểm rất lớn ở đây: thuật toán có khuynh hướng lấy các đoạn chỉ
-toàn text và không chứa bất cứ link nào, khi đó node sẽ có radio = 1(lớn nhất!). Ví dụ một node có radio = 1
+Thuật toán rất đơn giản! Tuy nhiên có môt nhược điểm rất lớn ở đây: thuật toán có khuynh hướng lấy các node chỉ
+toàn text và không chứa bất cứ link nào, khi đó node đó sẽ có radio = 1(lớn nhất!). Ví dụ một node có radio = 1
 
     <p>This node will have a radio of 1<p>
     
