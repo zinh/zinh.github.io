@@ -22,7 +22,7 @@ __Yêu cầu:__ một ứng dụng web đơn giản, cho nhập vào địa ch�
 
 http://newslook.herokuapp.com
 
-Đến đây, mình có 2 hướng giải quyết:
+Trở lại vấn đề, mình có 2 hướng giải quyết:
 
   1. Dùng một số đánh giá Heuristic đơn giản để lựa ra phần có nội dung có vẻ là nội dung chính nhất.
   2. Dùng Machine Learning/Statistic: cho một số pattern mẫu vào training set, dùng các thuật toán Supervised
@@ -57,7 +57,7 @@ __B 1.2:__ Ta tính tỉ lệ giữa link và text bằng công thức:
 __B 1.3:__ Node có radio lớn nhất chính là node cần tìm.
 
 Thuật toán rất đơn giản! Tuy nhiên có môt nhược điểm rất lớn ở đây: thuật toán có khuynh hướng lấy các đoạn chỉ
-toàn text và không chứa bất cứ link nào. Khi đó radio = 1(lớn nhất). Ví dụ một node có radio = 1
+toàn text và không chứa bất cứ link nào, khi đó node sẽ có radio = 1(lớn nhất!). Ví dụ một node có radio = 1
 
     <p>This node will have a radio of 1<p>
     
