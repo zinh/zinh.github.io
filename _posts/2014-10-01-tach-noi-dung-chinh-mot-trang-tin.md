@@ -32,16 +32,23 @@ Trước hết ta có quan sát như sau:
 *Quan sát 1:* Nội dung chính thường chứa nhiều text hơn link.
 Điều này khá hiển nhiên, nội dung chính mà chỉ toàn link, kèm theo vài đoạn text thì chắc là spam rồi.
 
+Trước khi đi vào thuật toán, mình xin nhắc lại một chút về HTML.
+
+*Một tài liệu HTML(hay XML) có thể biểu diễn thành dạng cây, với mỗi một node là thẻ HTML.*
+
+![HTML tree](http://lwp.interglacial.com/figs/plwp_0901.gif)
+
 Từ quan sát trên ta phát thảo một thuật toán như sau:
 
-B1: Duyệt qua từng node trong cây.
+__B 1:__ Duyệt qua từng node trong cây.
 
-B2: Với mỗi node thứ N ta gọi: text(N) = text trong N, và các con của N
+__B 1.1:__ Với mỗi node thứ N ta gọi:
 
-  link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
+    text(N) = text trong N, và các con của N
+    link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
   
-B3: Ta tính tỉ lệ giữa link và text bằng công thức:
+__B 1.2:__ Ta tính tỉ lệ giữa link và text bằng công thức:
 
-  radio(N) = [text(N) - link(N)] / text(N)
+    radio(N) = [text(N) - link(N)] / text(N)
   
-B4: Node có radio lớn nhất chính là node cần tìm.
+__B 1.3:__ Node có radio lớn nhất chính là node cần tìm.
