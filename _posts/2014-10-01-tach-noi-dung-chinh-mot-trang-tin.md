@@ -38,4 +38,10 @@ B1: Duyệt qua từng node trong cây.
 
 B2: Với mỗi node thứ N ta gọi: text(N) = text trong N, và các con của N
 
-     link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
+  link(N) = tất cả các link thuộc node N(bao gồm cả node con, node cháu...)
+  
+B3: Ta tính tỉ lệ giữa link và text bằng công thức:
+
+  radio(N) = [text(N) - link(N)] / text(N)
+  
+B4: Node có radio lớn nhất chính là node cần tìm.
