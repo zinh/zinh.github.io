@@ -32,7 +32,7 @@ __2. Chi tiết__
 
 2.1. Page Caching: cache toàn bộ một page. Toàn bộ HTML của trang được cache sẽ được lưu vào một file html ở thư mục public. Do đó khi request lại trang này, Rails sẽ trả về trang html đó mà không phải qua bất cứ xử lý nào của các middleware, controller.
 
-Do đó có thể nói page caching cho tốc độ nhanh nhất, nhưng cũng ít tùy biến nhất.Tuy nhiên do không qua xử lý của middle, controller các chức năng như authenticate sẽ không sử đụng được.
+Do đó có thể nói page caching cho tốc độ nhanh nhất, nhưng cũng ít tùy biến nhất. Tuy nhiên do không qua xử lý của middleware, controller các chức năng như authenticate sẽ không sử đụng được.
 
 2.2. Action caching caching: để khắc phục nhược điểm của page caching, ta có thể sử dụng Action Caching. Kết quả xử lý của một action sẽ được cache lại. Khi có request gọi đến một action đã được cache, request đó vẫn qua các middleware của Rails, vẫn được xử lý bởi các hàm hook như before_filter.
 
