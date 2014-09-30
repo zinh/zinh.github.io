@@ -75,8 +75,7 @@ trong node N trên toàn bộ text của trang web. Khi đó công thức tính 
     
 Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất. Có thể đánh giá dựa trên các tỉ lệ precision, recall, ... Hiện tại mình đang dùng p = 0.99, q = 0.01
 
-Đến đây thì thuật toán của ta cũng gần gần hoàn thiện, nếu tinh chỉnh hệ số p, q thích hợp, tỉ lệ đánh giá
-đúng (true positive) khá cao.
+Đến đây thì thuật toán của ta cũng gần gần hoàn thiện, nếu tinh chỉnh hệ số p, q thích hợp độ chính xác khá cao.
 
 Trong bài sau, mình sẽ trình bày một số cái tiến khác, đồng thời thử áp dụng cách thứ 2 xem có hiệu quả hơn không.
 
