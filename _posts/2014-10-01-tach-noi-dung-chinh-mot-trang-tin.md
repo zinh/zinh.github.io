@@ -22,6 +22,10 @@ __Yêu cầu:__ một ứng dụng web đơn giản, cho nhập vào địa ch�
 
 http://newslook.herokuapp.com
 
+link một bài báo sau khi đã tách được nội dung chính:
+
+http://newslook.herokuapp.com/read?url=http%3A%2F%2Fdulich.tuoitre.vn%2Ftin%2F20140929%2Fdi-tren-nhung-cay-cau-ky-la-nhat-the-gioi%2F651937.html
+
 Trở lại vấn đề, mình có 2 hướng giải quyết:
 
   1. Dùng một số đánh giá Heuristic đơn giản để lựa ra phần có nội dung có vẻ là nội dung chính nhất.
