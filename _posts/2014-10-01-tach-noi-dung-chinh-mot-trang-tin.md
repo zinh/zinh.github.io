@@ -20,15 +20,15 @@ __Yêu cầu:__ một ứng dụng web đơn giản, cho nhập vào địa ch�
 
 Đây là ứng dụng mình demo trên Heroku, dùng Ruby on Rails, cùng với thư viện parse XML Nokogiri.
 
-http://newslook.herokuapp.com
+[http://newslook.herokuapp.com](http://newslook.herokuapp.com)
 
 link một bài báo sau khi đã tách được nội dung chính:
 
-Link gốc: http://dulich.tuoitre.vn/tin/20140929/di-tren-nhung-cay-cau-ky-la-nhat-the-gioi/651937.html
+Link gốc: [http://dulich.tuoitre.vn/tin/20140929/di-tren-nhung-cay-cau-ky-la-nhat-the-gioi/651937.html](http://dulich.tuoitre.vn/tin/20140929/di-tren-nhung-cay-cau-ky-la-nhat-the-gioi/651937.html)
 
 Sau khi đã tách nội dung chính: 
 
-http://newslook.herokuapp.com/read?url=http%3A%2F%2Fdulich.tuoitre.vn%2Ftin%2F20140929%2Fdi-tren-nhung-cay-cau-ky-la-nhat-the-gioi%2F651937.html
+[http://newslook.herokuapp.com/read?url=http%3A%2F%2Fdulich.tuoitre.vn%2Ftin%2F20140929%2Fdi-tren-nhung-cay-cau-ky-la-nhat-the-gioi%2F651937.html](http://newslook.herokuapp.com/read?url=http%3A%2F%2Fdulich.tuoitre.vn%2Ftin%2F20140929%2Fdi-tren-nhung-cay-cau-ky-la-nhat-the-gioi%2F651937.html)
 
 Trở lại vấn đề, mình có 2 hướng giải quyết:
 
@@ -82,5 +82,3 @@ Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất. Có th�
 Đến đây thì thuật toán của ta cũng gần gần hoàn thiện, nếu tinh chỉnh hệ số p, q thích hợp độ chính xác khá cao.
 
 Trong bài sau, mình sẽ trình bày một số cái tiến khác, đồng thời thử áp dụng cách thứ 2 xem có hiệu quả hơn không.
-
-Stay tuned!
