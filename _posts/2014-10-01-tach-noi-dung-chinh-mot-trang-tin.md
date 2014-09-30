@@ -24,6 +24,10 @@ http://newslook.herokuapp.com
 
 link một bài báo sau khi đã tách được nội dung chính:
 
+Link gốc: http://dulich.tuoitre.vn/tin/20140929/di-tren-nhung-cay-cau-ky-la-nhat-the-gioi/651937.html
+
+Sau khi đã tách nội dung chính: 
+
 http://newslook.herokuapp.com/read?url=http%3A%2F%2Fdulich.tuoitre.vn%2Ftin%2F20140929%2Fdi-tren-nhung-cay-cau-ky-la-nhat-the-gioi%2F651937.html
 
 Trở lại vấn đề, mình có 2 hướng giải quyết:
