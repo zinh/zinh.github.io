@@ -9,12 +9,12 @@ categories: ruby
 __Vấn đề:__ với một người rất hay đọc báo/blog online như mình, chức năng Reader của Safari rất hữu dụng.
 Chức năng này rất đơn giản, mỗi khi bạn truy cập vào một trang web nào đó(chủ yếu là trang web về tin tức),
 khi bạn dùng Reader, nội dung chính của trang web sẽ được hiển thị riêng ra, các phần khác như menu, quảng cáo...
-đều bị ẩn đi, font chữ được phóng to lên, giúp cho bạn tập trung vào bài báo.
+đều bị ẩn đi, font chữ được phóng to lên, giúp cho bạn tập trung vào bài báo dễ dàng hơn.
 
 ![Demo Safari Reader](http://i.i.cbsi.com/cnwk.1d/i/tim//2010/06/09/SafariReaderActive.png)
 
 Tuy nhiên, một nhược điểm của Reader là chỉ có Safari mới có, nghĩa là phải dùng Mac hoặc iOS thì mới dùng được.
-Chuyển qua Linux thì bó tay. Vì vậy mình thử viết một ứng dụng web nho nhỏ để giải quyết vấn đề này xem sao.
+Chuyển qua Linux, hoặc dùng các trình duyệt khác thì bó tay. Vì vậy mình thử viết một ứng dụng web nho nhỏ để giải quyết vấn đề này xem sao.
 
 __Yêu cầu:__ một ứng dụng web đơn giản, cho nhập vào địa chỉ một bài báo(hay một link blog), ứng dụng sẽ tự động lấy nội dung của trang web đó về, tách bỏ các phần râu ria đi, chi hiển thị nội dung chính của bài báo đó.
 
@@ -78,6 +78,6 @@ Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất. Có th�
 Đến đây thì thuật toán của ta cũng gần gần hoàn thiện, nếu tinh chỉnh hệ số p, q thích hợp, tỉ lệ đánh giá
 đúng (true positive) khá cao.
 
-Tuy nhiên, vẫn còn có thể cải tiến thêm một ít nữa.
+Trong bài sau, mình sẽ trình bày một số cái tiến khác, đồng thời thử áp dụng cách thứ 2 xem có hiệu quả hơn không.
 
-Và cải tiến như thế nào nữa thì mình xin hẹn dịp khác để trình bày rõ hơn.
+Stay tuned!
