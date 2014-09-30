@@ -6,7 +6,7 @@ summary: Trong bài viết này mình xin trình bày một thuật toán để 
 categories: ruby
 ---
 
-Vấn đề: với một người rất hay đọc báo/blog online như mình, chức năng Reader của Safari rất hữu dụng.
+__Vấn đề:__ với một người rất hay đọc báo/blog online như mình, chức năng Reader của Safari rất hữu dụng.
 Chức năng này rất đơn giản, mỗi khi bạn truy cập vào một trang web nào đó(chủ yếu là trang web về tin tức),
 khi bạn dùng Reader, nội dung chính của trang web sẽ được hiển thị riêng ra, các phần khác như menu, quảng cáo...
 đều bị ẩn đi, font chữ được phóng to lên, giúp cho bạn tập trung vào bài báo.
@@ -16,10 +16,13 @@ khi bạn dùng Reader, nội dung chính của trang web sẽ được hiển t
 Tuy nhiên, một nhược điểm của Reader là chỉ có Safari mới có, nghĩa là phải dùng Mac hoặc iOS thì mới dùng được.
 Chuyển qua Linux thì bó tay. Vì vậy mình thử viết một ứng dụng web nho nhỏ để giải quyết vấn đề này xem sao.
 
-Yêu cầu: một trang web đơn giản, cho nhập vào địa chỉ một bài báo, một link blog, ứng dụng sẽ tự động lấy nội
-dung của trang web đó về, tách bỏ các phần râu ria đi, chi hiển thị nội dung chính của bài báo đó.
+__Yêu cầu:__ một ứng dụng web đơn giản, cho nhập vào địa chỉ một bài báo(hay một link blog), ứng dụng sẽ tự động lấy nội dung của trang web đó về, tách bỏ các phần râu ria đi, chi hiển thị nội dung chính của bài báo đó.
 
-Đến đây thì có 2 hướng giải quyết:
+Đây là ứng dụng mình demo trên Heroku, dùng Ruby on Rails, cùng với thư viện parse XML Nokogiri.
+
+http://newslook.herokuapp.com
+
+Đến đây, mình có 2 hướng giải quyết:
 
   1. Dùng một số đánh giá Heuristic đơn giản để lựa ra phần có nội dung có vẻ là nội dung chính nhất.
   2. Dùng Machine Learning/Statistic: cho một số pattern mẫu vào training set, dùng các thuật toán Supervised
