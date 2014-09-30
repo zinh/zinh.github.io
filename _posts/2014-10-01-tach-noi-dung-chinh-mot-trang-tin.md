@@ -27,7 +27,7 @@ dung của trang web đó về, tách bỏ các phần râu ria đi, chi hiển 
   
 Cách 2 có vẻ khoai, nên thử cách 1 trước xem sao!
 
-Trước hết ta có quan sát như sau:
+Trước hết ta có quan sát đơn giản như sau:
 
 *Quan sát 1:* Nội dung chính thường chứa nhiều text hơn link.
 Điều này khá hiển nhiên, nội dung chính mà chỉ toàn link, kèm theo vài đoạn text thì chắc là spam rồi.
@@ -52,3 +52,25 @@ __B 1.2:__ Ta tính tỉ lệ giữa link và text bằng công thức:
     radio(N) = [text(N) - link(N)] / text(N)
   
 __B 1.3:__ Node có radio lớn nhất chính là node cần tìm.
+
+Thuật toán rất đơn giản! Tuy nhiên có môt nhược điểm rất lớn ở đây: thuật toán có khuynh hướng lấy các đoạn chỉ
+toàn text và không chứa bất cứ link nào. Khi đó radio = 1(lớn nhất). Ví dụ một node có radio = 1
+
+    <p>This node will have a radio of 1<p>
+    
+Vì thế, ta có một cải tiến nho nhỏ như sau:
+
+*Cải tiến 1*: thay vì chỉ đánh giá radio(N) theo text và link, ta đánh giá thêm một tham số nữa: tỉ lệ text chứa
+trong node N trên toàn bộ text của trang web. Khi đó công thức tính radio của ta sẽ trở thành:
+
+    radio(N) = p * [text(N) - link(N)] / text(N) + q * text(N) / total_text
+    Trong đó để đảm bảo radio thuộc khoang [0,1] ta ràng buộc p + q = 1
+    
+Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất.
+
+Đến đây thì thuật toán của ta cũng gần gần hoàn thiện, nếu tinh chỉnh hệ số p, q thích hợp, tỉ lệ đánh giá
+đúng (true positive) khá cao.
+
+Tuy nhiên, vẫn còn có thể cải tiến thêm một ít nữa.
+
+Và cải tiến như thế nào nữa thì mình xin hẹn dịp khác để trình bày rõ hơn.
