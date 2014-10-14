@@ -18,3 +18,20 @@ Rack là một thư viện được viết bằng Ruby, giúp đơn giản hóa 
 
 __1. Rack application là gì?__
 
+Một Rack application có cấu trúc rất đơn giản: nó là một Ruby Object, định nghĩa hàm call. Hàm call này có tham số là một request và trả về response.
+
+Ta thử viết một Rack application đơn giản như sau:
+
+Tạo file `config.ru` có nội dung như sau:
+
+```ruby
+# config.ru
+class SimpleRack
+  self.call(env)
+    [200,
+      {"Content-Type" => "text/plain"},
+      ["Hello from Rack!"]
+    ]
+  end
+end
+```
