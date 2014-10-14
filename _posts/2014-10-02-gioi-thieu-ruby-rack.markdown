@@ -74,19 +74,19 @@ end
 
 Restart ứng dụng rack và request http://localhost:9292 ta thấy nội dung trả về chính là nội dung của biến env. Trong đó có một số key cần chú ý:
 
-`PATH_INFO`: path của request. Mặc định sẽ là `\\`
-`QUERY_STRING`: params của request
-`REQUEST_METHOD`: http method, GET, POST,...
+  - `PATH_INFO`: path của request. Mặc định sẽ là `/`
+  - `QUERY_STRING`: params của request
+  - `REQUEST_METHOD`: http method, GET, POST,...
 
 Thử access bằng địa chỉ: http://localhost:9292/index.php?id=1010 ta sẽ thấy các value tương ứng với các key trên:
 
-`PATH_INFO`: /index.php
-`QUERY_STRING`: id=1010
-`REQUEST_METHOD`: GET
+  - `PATH_INFO`: /index.php
+  - `QUERY_STRING`: id=1010
+  - `REQUEST_METHOD`: GET
 
 Ta thấy tất các các tham số liên quan đến request đều được gói trong biến env.
 
-Thử chỉnh lại SimpleRack,  trả về chuỗi `QUERY_STRING` xem sao!
+Thử chỉnh lại SimpleRack, trả về chuỗi `QUERY_STRING` xem sao!
 
 ```ruby
 # config.ru
@@ -108,7 +108,7 @@ class SimpleRack
 end
 ```
 
-Trong ví dụ trên, mình immplement một hàm để parse params từ dạng chuỗi sang dạng hash.
+Trong ví dụ trên, để tiện cho việc xử lý mình immplement một hàm đơn giản để parse params từ dạng chuỗi sang dạng hash.
 
 Tiếp theo mình sẽ gắn chức năng routing cho nó. Để đơn giản mình dùng một hàm switch để xét các route. Thông tin về path được lưu trong key `PATH_INFO` của biến env.
 
