@@ -27,11 +27,83 @@ Tạo file `config.ru` có nội dung như sau:
 ```ruby
 # config.ru
 class SimpleRack
-  self.call(env)
+  def self.call(env)
     [200,
       {"Content-Type" => "text/plain"},
       ["Hello from Rack!"]
     ]
+  end
+end
+
+run SimpleRack
+```
+
+`gem install rack`  nếu chưa cài gem rack.
+
+Để chạy ứng dụng trên ta dùng lệnh
+```bash
+$ rackup
+[2014-10-14 18:07:27] INFO  WEBrick 1.3.1
+[2014-10-14 18:07:27] INFO  ruby 2.1.2 (2014-05-08) [x86_64-linux]
+[2014-10-14 18:07:27] INFO  WEBrick::HTTPServer#start: pid=11701 port=9292
+```
+
+Giải thích hoạt động của ứng dụng trên:
+
+Ứng dụng này làm  một nhiệm vụ rất đơn giản, với tất cả các request, trả về respose là đoạn text "Hello from Rack!", cùng với response code 200.
+Khi `rackup` ở trên, mặc định Rack sẽ dùng web server có sẵn của Ruby là WEBrick làm web server. Ở đây ta hoàn toàn có thể config để dùng các web server khác
+như nginx, apache...
+
+WEBrick sẽ lắng nghe ở cổng 9292. Khi dùng browser access vào địa chỉ: http://localhost:9292 ta sẽ thấy nội dung trả về là dòng text: "Hello from Rack!"
+Khi WEBrick nhận request từ browser, nó sẽ gọi hàm call của SimpleRack mà ta viết ở trên, truyền vào biến env, lấy nội dung trả về của hàm này để trả về cho browser.
+
+Ta thử xem biến env này có nội dung như thế nào bằng cách trả về nội dung của env trong response như sau:
+
+
+```ruby
+# config.ru
+class SimpleRack
+  def self.call(env)
+    [200,
+      {"Content-Type" => "text/plain"},
+      [env.inspect]
+    ]
+  end
+end
+```
+
+Restart ứng dụng rack và request http://localhost:9292 ta thấy nội dung trả về chính là nội dung của biến env. Trong đó có một số key cần chú ý:
+
+`PATH_INFO`: path của request. Mặc định sẽ là `\`
+`QUERY_STRING`: params của request
+`REQUEST_METHOD`: http method, GET, POST,...
+
+Thử access bằng địa chỉ: http://localhost:9292/index.php?id=1010 ta sẽ thấy các value tương ứng với các key trên:
+
+`PATH_INFO`: /index.php
+`QUERY_STRING`: id=1010
+`REQUEST_METHOD`: GET
+
+Ta thấy tất các các tham số liên quan đến request đều được gói trong biến env.
+
+Thử chỉnh lại SimpleRack, access key `QUERY_STRING` xem sao!
+
+```ruby
+# config.ru
+class SimpleRack
+  def self.call(env)
+    params = self.parse_param(env['QUERY_STRING'])
+    params.map
+    [200,
+      {"Content-Type" => "text/plain"},
+      ["Hello #{params['name']}"]
+    ]
+  end
+
+  # input: "params1=value1&params2=value2"
+  # output: {"params1" => "value1", "params2" => "value2"}
+  def self.parse_param(query_string)
+    Hash[*str.split(/[&=]/)] unless query_string.nil?
   end
 end
 ```
