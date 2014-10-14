@@ -74,7 +74,7 @@ end
 
 Restart ứng dụng rack và request http://localhost:9292 ta thấy nội dung trả về chính là nội dung của biến env. Trong đó có một số key cần chú ý:
 
-`PATH_INFO`: path của request. Mặc định sẽ là `\`
+`PATH_INFO`: path của request. Mặc định sẽ là `\\`
 `QUERY_STRING`: params của request
 `REQUEST_METHOD`: http method, GET, POST,...
 
@@ -86,7 +86,7 @@ Thử access bằng địa chỉ: http://localhost:9292/index.php?id=1010 ta s�
 
 Ta thấy tất các các tham số liên quan đến request đều được gói trong biến env.
 
-Thử chỉnh lại SimpleRack, access key `QUERY_STRING` xem sao!
+Thử chỉnh lại SimpleRack,  trả về chuỗi `QUERY_STRING` xem sao!
 
 ```ruby
 # config.ru
@@ -104,6 +104,40 @@ class SimpleRack
   # output: {"params1" => "value1", "params2" => "value2"}
   def self.parse_param(query_string)
     Hash[*str.split(/[&=]/)] unless query_string.nil?
+  end
+end
+```
+
+Trong ví dụ trên, mình immplement một hàm để parse params từ dạng chuỗi sang dạng hash.
+
+Tiếp theo mình sẽ gắn chức năng routing cho nó. Để đơn giản mình dùng một hàm switch để xét các route. Thông tin về path được lưu trong key `PATH_INFO` của biến env.
+
+```ruby
+# config.ru
+class SimpleRack
+  def self.call(env)
+    params = self.parse_param(env['QUERY_STRING'])
+    
+    routing(env['PATH_INFO'], params)
+
+    [200,
+      {"Content-Type" => "text/plain"},
+      ["Hello #{params['name']}"]
+    ]
+  end
+
+  # input: "params1=value1&params2=value2"
+  # output: {"params1" => "value1", "params2" => "value2"}
+  def self.parse_param(query_string)
+    Hash[*str.split(/[&=]/)] unless query_string.nil?
+  end
+
+  def routing(path, params)
+    case(path)
+    when 'index.html':
+    when 'login.html':
+    else
+    end
   end
 end
 ```
