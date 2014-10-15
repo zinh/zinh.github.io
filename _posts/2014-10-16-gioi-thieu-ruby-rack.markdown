@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Giới thiệu Ruby Rack"
-date:   2014-10-01 23:55:00
+date:   2014-10-16 23:55:00
 summary: Giới thiệu Ruby Rack.
 categories: ruby
 ---
