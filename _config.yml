@@ -9,3 +9,5 @@ github_username:  zinh
 
 # Build settings
 markdown: kramdown
+gems:
+  - jekyll-sitemap
