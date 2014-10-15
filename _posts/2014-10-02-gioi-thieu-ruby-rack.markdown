@@ -144,7 +144,7 @@ end
 
 __2. Rack middleware__
 
-Sức mạnh của Rack middle nằm ở chỗ chúng ta có thể nối nhiều Rack application lại với nhau, ouput của Rack application sẽ là input của application khác.
+Sức mạnh của Rack middle nằm ở chỗ chúng ta có thể nối nhiều Rack application lại với nhau, ouput của Rack application sẽ là input của application khác. Việc này cung cấp t ính mềm déo cho ứng dụng Rack, ta có thể thêm hoặc bớt các middleware theo ý mình mà không sợ ảnh hưởng đến middleware có sẵn.
 
 Ví dụ điển hình nhất chính là Rails. Rails là một Rack application được tạo thành bởi nhiều Rack middleware. Chẳng hạn:
 
@@ -157,6 +157,7 @@ ActionDispatch::ParamsParser
 Rails.application.routes
 ```
 
+Ta viết lại ứng dụng SimpleRack với 2 middleware như sau:
 Code:
 
 ```ruby
@@ -228,4 +229,4 @@ run Rails.application.routes
 Ta thấy để một request đến được tầng xử lý của Controller đã qua rất nhiều middleware khác nhau.
 
 Mình sẽ dành việc đi sâu vào các middleware này trong một bài blog khác. Các bạn cũng có thể tham khảo
-về các middleware này tại địa chỉ: ["http://guides.rubyonrails.org/rails_on_rack.html"](http://guides.rubyonrails.org/rails_on_rack.html)
+về các middleware này tại địa chỉ: [http://guides.rubyonrails.org/rails_on_rack.html](http://guides.rubyonrails.org/rails_on_rack.html)
