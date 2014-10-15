@@ -16,7 +16,7 @@ nguyên yêu cầu là tài nguyên tĩnh(images, videos,...), vói các nội d
 
 Rack là một thư viện được viết bằng Ruby, giúp đơn giản hóa việc xử lý http request/response.
 
-__1. Rack application là gì?__
+__1. Ứng dụng Rack đơn giản__
 
 Một Rack application có cấu trúc rất đơn giản: nó là một Ruby Object, định nghĩa hàm call. Hàm call này có tham số là một request và trả về response.
 
@@ -141,3 +141,56 @@ class SimpleRack
   end
 end
 ```
+
+__2. Rack middleware__
+
+Sức mạnh của Rack middle nằm ở chỗ chúng ta có thể nối nhiều Rack application lại với nhau, ouput của Rack application sẽ là input của application khác.
+
+Ví dụ điển hình nhất chính là Rails. Rails là một Rack application được tạo thành bởi nhiều Rack middleware. Chẳng hạn:
+```
+Rails::Rack::Logger
+ActiveRecord::QueryCache
+ActionDispatch::Cookies
+ActionDispatch::Session::CookieStore
+ActionDispatch::ParamsParser
+Rails.application.routes
+```
+
+Code:
+
+```
+# config.ru
+
+class Logger
+  def initialize
+    @app = app
+  end
+  
+  def call(env)
+    status, header, body = @app.call(env)
+    body.unshift("#{Time.now} Info: This is log of Logger middleware")
+    
+    [status, header, body]
+  end
+end
+
+class SimpleRack
+  def self.call(env)
+    [200,
+      {"Content-Type" => "text/plain"},
+      ["Hello from Rack!"]
+    ]
+  end
+end
+
+user Logger
+run SimpleRack
+```
+
+Thứ tự thực hiện của ứng dụng Rack trên như sau:
+
+```
+Request --> Logger --> SimpleRack --> Logger --> Browser
+```
+
+Logger sẽ pass request cho SimpleRack xử lý, SimpleRack xử lý xong trả response lại cho Logger, Logger append một dòng log vào response và trả response này về lại cho Browser.
