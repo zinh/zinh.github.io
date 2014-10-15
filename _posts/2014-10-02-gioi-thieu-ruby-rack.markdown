@@ -24,7 +24,7 @@ Ta thử viết một Rack application đơn giản như sau:
 
 Tạo file `config.ru` có nội dung như sau:
 
-```ruby
+{% highlight ruby %}
 # config.ru
 class SimpleRack
   def self.call(env)
@@ -36,17 +36,17 @@ class SimpleRack
 end
 
 run SimpleRack
-```
+{% endhighlight %}
 
 `gem install rack`  nếu chưa cài gem rack.
 
 Để chạy ứng dụng trên ta dùng lệnh
-```bash
+{% highlight bash %}
 $ rackup
 [2014-10-14 18:07:27] INFO  WEBrick 1.3.1
 [2014-10-14 18:07:27] INFO  ruby 2.1.2 (2014-05-08) [x86_64-linux]
 [2014-10-14 18:07:27] INFO  WEBrick::HTTPServer#start: pid=11701 port=9292
-```
+{% endhighlight %}
 
 Giải thích hoạt động của ứng dụng trên:
 
@@ -60,7 +60,7 @@ Khi WEBrick nhận request từ browser, nó sẽ gọi hàm call của SimpleRa
 Ta thử xem biến env này có nội dung như thế nào bằng cách trả về nội dung của env trong response như sau:
 
 
-```ruby
+{% highlight ruby %}
 # config.ru
 class SimpleRack
   def self.call(env)
@@ -70,7 +70,7 @@ class SimpleRack
     ]
   end
 end
-```
+{% endhighlight %}
 
 Restart ứng dụng rack và request http://localhost:9292 ta thấy nội dung trả về chính là nội dung của biến env. Trong đó có một số key cần chú ý:
 
@@ -88,7 +88,7 @@ Ta thấy tất các các tham số liên quan đến request đều được g�
 
 Thử chỉnh lại SimpleRack, trả về chuỗi `QUERY_STRING` xem sao!
 
-```ruby
+{% highlight ruby %}
 # config.ru
 class SimpleRack
   def self.call(env)
@@ -106,13 +106,13 @@ class SimpleRack
     Hash[*str.split(/[&=]/)] unless query_string.nil?
   end
 end
-```
+{% endhighlight %}
 
 Trong ví dụ trên, để tiện cho việc xử lý mình immplement một hàm đơn giản để parse params từ dạng chuỗi sang dạng hash.
 
 Tiếp theo mình sẽ gắn chức năng routing cho nó. Để đơn giản mình dùng một hàm switch để xét các route. Thông tin về path được lưu trong key `PATH_INFO` của biến env.
 
-```ruby
+{% highlight ruby %}
 # config.ru
 class SimpleRack
   def self.call(env)
@@ -140,7 +140,7 @@ class SimpleRack
     end
   end
 end
-```
+{% endhighlight %}
 
 __2. Rack middleware__
 
@@ -148,19 +148,19 @@ Sức mạnh của Rack middle nằm ở chỗ chúng ta có thể nối nhiều
 
 Ví dụ điển hình nhất chính là Rails. Rails là một Rack application được tạo thành bởi nhiều Rack middleware. Chẳng hạn:
 
-```ruby
+{% highlight ruby %}
 Rails::Rack::Logger
 ActiveRecord::QueryCache
 ActionDispatch::Cookies
 ActionDispatch::Session::CookieStore
 ActionDispatch::ParamsParser
 Rails.application.routes
-```
+{% endhighlight %}
 
 Ta viết lại ứng dụng SimpleRack với 2 middleware như sau:
 Code:
 
-```ruby
+{% highlight ruby %}
 # config.ru
 
 class Logger
@@ -187,7 +187,7 @@ end
 
 use Logger
 run SimpleRack
-```
+{% endhighlight %}
 
 Thứ tự thực hiện của ứng dụng Rack trên như sau:
 
@@ -199,7 +199,7 @@ Logger sẽ pass request cho `SimpleRack` xử lý, `SimpleRack` xử lý xong t
 
 Trở lại một chút với Rack Middleware của Rails, ta có thể dùng lệnh `rack middleware` để liệt kê tất cả các Rack Middleware  của một ứng dụng Rails. Mặc định sẽ các có middleware sau:
 
-```ruby
+{% highlight ruby %}
 use Rack::Sendfile
 use ActionDispatch::Static
 use Rack::Lock
@@ -224,7 +224,7 @@ use Rack::Head
 use Rack::ConditionalGet
 use Rack::ETag
 run Rails.application.routes
-```
+{% endhighlight %}
 
 Ta thấy để một request đến được tầng xử lý của Controller đã qua rất nhiều middleware khác nhau.
 
