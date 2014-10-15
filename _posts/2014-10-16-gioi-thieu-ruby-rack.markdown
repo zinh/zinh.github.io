@@ -65,10 +65,9 @@ như unicorn, puma, thin...
 
 WEBrick sẽ lắng nghe ở cổng 9292. Khi dùng browser access vào địa chỉ: [http://localhost:9292](http://localhost:9292) ta sẽ thấy nội dung trả về là dòng text: "Hello from Rack!"
 
-Khi WEBrick nhận request từ browser, nó sẽ gọi hàm call của SimpleRack mà ta viết ở trên, truyền vào biến env, lấy nội dung trả về của hàm này để trả về cho browser.
+Khi WEBrick nhận request từ browser, nó sẽ gọi hàm `call` của class `SimpleRack` mà ta viết ở trên, truyền vào biến `env`, lấy nội dung trả về của hàm này để trả về cho browser.
 
-Ta thử xem biến env này có nội dung như thế nào bằng cách trả về nội dung của env trong response như sau:
-
+Ta thử xem biến env này có nội dung như thế nào bằng cách trả về nội dung của `env` trong response như sau:
 
 {% highlight ruby %}
 # config.ru
@@ -120,7 +119,7 @@ end
 
 Trong ví dụ trên, để tiện cho việc xử lý mình implement một hàm đơn giản để parse params từ dạng chuỗi sang dạng hash.
 
-Tiếp theo mình sẽ gắn chức năng routing cho nó. Để đơn giản mình dùng một hàm switch để xét các route. Thông tin về path được lưu trong key `PATH_INFO` của biến env.
+Dùng tham số `PATH_INFO` ta có thể implement một hàm routing đơn giản như sau:
 
 {% highlight ruby %}
 # config.ru
@@ -204,11 +203,13 @@ run SimpleRack
 Thứ tự thực hiện của ứng dụng Rack trên như sau:
 
 ```
-Request --> Logger --> SimpleRack --> Logger --> Browser
+Request --> WEBrick --> Logger --> SimpleRack --> Logger --> Browser
 ```
 
 `Logger` sẽ pass request cho `SimpleRack` xử lý, `SimpleRack` xử lý xong trả response lại cho `Logger`, `Logger` append một dòng log vào response và trả response này về lại cho browser
 
-Vì thế khi access địa chỉ [http://localhost:9292](http://localhost:9292) ta thấy ngoài nội dung "Hello from Rack!" còn thêm 1 dòng "Info: This is log of Logger middleware", dòng này chính là kết quả việc thực hiện middleware Logger.
+Vì thế khi access địa chỉ [http://localhost:9292](http://localhost:9292) ta thấy ngoài nội dung "Hello from Rack!" còn thêm 1 dòng "Info: This is log of Logger middleware", dòng này chính là kết quả việc thực hiện middleware `Logger`.
 
 Bên cạnh các chức năng cơ bản trên, Rack còn implement sẵn một số hàm helper như parse params, build response,... Chi tiết hơn có thể tham khảo ở document của Rack tại: [http://www.rubydoc.info/github/rack/rack](http://www.rubydoc.info/github/rack/rack)
+
+Trên đây là những kiến thức căn bản về Ruby Rack. Hy vọng đã giúp mọi người hiểu rõ về nó.
