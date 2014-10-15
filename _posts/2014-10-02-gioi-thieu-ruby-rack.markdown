@@ -169,7 +169,7 @@ class Logger
   
   def call(env)
     status, header, body = @app.call(env)
-    body.unshift("#{Time.now} Info: This is log of Logger middleware")
+    body.unshift("#{Time.now} Info: This is log of Logger middleware\n")
     
     [status, header, body]
   end
@@ -184,7 +184,7 @@ class SimpleRack
   end
 end
 
-user Logger
+use Logger
 run SimpleRack
 ```
 
@@ -195,3 +195,37 @@ Request --> Logger --> SimpleRack --> Logger --> Browser
 ```
 
 Logger sẽ pass request cho `SimpleRack` xử lý, `SimpleRack` xử lý xong trả response lại cho `Logger`, `Logger` append một dòng log vào response và trả response này về lại cho browser.
+
+Trở lại một chút với Rack Middleware của Rails, ta có thể dùng lệnh `rack middleware` để liệt kê tất cả các Rack Middleware  của một ứng dụng Rails. Mặc định sẽ các có middleware sau:
+
+```ruby
+use Rack::Sendfile
+use ActionDispatch::Static
+use Rack::Lock
+use #<ActiveSupport::Cache::Strategy::LocalCache::Middleware:0x000000029a0838>
+use Rack::Runtime
+use Rack::MethodOverride
+use ActionDispatch::RequestId
+use Rails::Rack::Logger
+use ActionDispatch::ShowExceptions
+use ActionDispatch::DebugExceptions
+use ActionDispatch::RemoteIp
+use ActionDispatch::Reloader
+use ActionDispatch::Callbacks
+use ActiveRecord::Migration::CheckPending
+use ActiveRecord::ConnectionAdapters::ConnectionManagement
+use ActiveRecord::QueryCache
+use ActionDispatch::Cookies
+use ActionDispatch::Session::CookieStore
+use ActionDispatch::Flash
+use ActionDispatch::ParamsParser
+use Rack::Head
+use Rack::ConditionalGet
+use Rack::ETag
+run Rails.application.routes
+```
+
+Ta thấy để một request đến được tầng xử lý của Controller đã qua rất nhiều middleware khác nhau.
+
+Mình sẽ dành việc đi sâu vào các middleware này trong một bài blog khác. Các bạn cũng có thể tham khảo
+về các middleware này tại địa chỉ: ["http://guides.rubyonrails.org/rails_on_rack.html"](http://guides.rubyonrails.org/rails_on_rack.html)
