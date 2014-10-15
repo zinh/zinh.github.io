@@ -147,7 +147,8 @@ __2. Rack middleware__
 Sức mạnh của Rack middle nằm ở chỗ chúng ta có thể nối nhiều Rack application lại với nhau, ouput của Rack application sẽ là input của application khác.
 
 Ví dụ điển hình nhất chính là Rails. Rails là một Rack application được tạo thành bởi nhiều Rack middleware. Chẳng hạn:
-```
+
+```ruby
 Rails::Rack::Logger
 ActiveRecord::QueryCache
 ActionDispatch::Cookies
@@ -158,7 +159,7 @@ Rails.application.routes
 
 Code:
 
-```
+```ruby
 # config.ru
 
 class Logger
@@ -193,4 +194,4 @@ Thứ tự thực hiện của ứng dụng Rack trên như sau:
 Request --> Logger --> SimpleRack --> Logger --> Browser
 ```
 
-Logger sẽ pass request cho SimpleRack xử lý, SimpleRack xử lý xong trả response lại cho Logger, Logger append một dòng log vào response và trả response này về lại cho Browser.
+Logger sẽ pass request cho `SimpleRack` xử lý, `SimpleRack` xử lý xong trả response lại cho `Logger`, `Logger` append một dòng log vào response và trả response này về lại cho browser.
