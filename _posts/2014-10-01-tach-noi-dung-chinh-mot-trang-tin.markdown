@@ -60,7 +60,7 @@ __B 1.1:__ Với mỗi node thứ N ta gọi:
   
 __B 1.2:__ Ta tính tỉ lệ giữa link và text bằng công thức:
 
-    radio(N) = [text(N) - link(N)] / text(N)
+$$\frac{text(N) - link(N)}{text(N)}$$
   
 __B 1.3:__ Node có radio lớn nhất chính là node cần tìm.
 
@@ -74,7 +74,8 @@ Vì thế, ta có một cải tiến nho nhỏ như sau:
 *Cải tiến 1*: thay vì chỉ đánh giá radio(N) theo text và link, ta đánh giá thêm một tham số nữa: tỉ lệ text chứa
 trong node N trên toàn bộ text của trang web. Khi đó công thức tính radio của ta sẽ trở thành:
 
-    radio(N) = p * [text(N) - link(N)] / text(N) + q * text(N) / total_text
+$$radio(N) = p\frac{(text(N) - link(N))}{text(N)} + q\frac{text(N)}{total\_text}$$
+
     Trong đó để đảm bảo radio thuộc khoang [0,1] ta ràng buộc p + q = 1
     
 Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất. Có thể đánh giá dựa trên các tỉ lệ precision, recall, ... Hiện tại mình đang dùng p = 0.99, q = 0.01
