@@ -35,32 +35,42 @@ y_m
 \ where\ y_i \in \left\{ {0, 1}\right\}
 $$
 
-We have log [likelihood](http://en.wikipedia.org/wiki/Likelihood_function){:target="_blank"} of [logistic regression](http://en.wikipedia.org/wiki/Logistic_regression){:target="_blank"}:
+We have log [likelihood](http://en.wikipedia.org/wiki/Likelihood_function){:target="_blank"}{:rel="nofollow"} of [logistic regression](http://en.wikipedia.org/wiki/Logistic_regression){:target="_blank"}{:rel="nofollow"}:
 
 $$
 l(\theta) = \sum\limits_{i=1}^{m}[y^{(i)}ln\ h(x^{(i)}) + (1 - y^{(i)})ln(1 - h(x^{(i)})]
 $$
 
-Where \\(h(x)\\) is sigmoid function of \\(x\\)
+Where \\(h(x^{(i)})\\) is sigmoid function of \\(x^{(i)}\\)
 
 $$
-h(x) = \frac{1}{1 + e^{-\theta^Tx}}
+h(x^{(i)}) = \frac{1}{1 + e^{-\theta^Tx^{(i)}}}
 $$
 
-In order to maximize \\(l(\theta)\\), I use [Newton method](http://en.wikipedia.org/wiki/Newton's_method){:target="_blank"} to find \\(\theta\\). We have:
+In order to maximize \\(l(\theta)\\), I use [Newton method](http://en.wikipedia.org/wiki/Newton's_method){:target="_blank"}{:rel="nofollow"} to find \\(\theta\\). We have:
 
 $$
 \theta := \theta - H^{-1} \nabla_{\theta} l(\theta)
 $$
 
-Where H is [Hessian matrix](http://en.wikipedia.org/wiki/Hessian_matrix){:target="_blank"}:
+Where H is [Hessian matrix](http://en.wikipedia.org/wiki/Hessian_matrix){:target="_blank"}{:rel="nofollow"}:
 
 $$
 H_{i,j} = \frac{\partial^2l(\theta)}{\partial \theta_i \partial \theta_j} 
 $$
 
-and \\( \nabla_{\theta}l(\theta)\\) is the [vector of partial derivatives](http://en.wikipedia.org/wiki/Del){:target="_blank"} of \\(l(\theta)\\)
+and \\( \nabla_{\theta}l(\theta)\\) is the [vector of partial derivatives](http://en.wikipedia.org/wiki/Del){:target="_blank"}{:rel="nofollow"} of \\(l(\theta)\\)
 with respect to the \\(\theta\\)
+
+$$
+\nabla_{\theta}l(\theta) = 
+\begin{bmatrix}
+\frac{\partial l(\theta)}{\partial \theta_1}\\
+\frac{\partial l(\theta)}{\partial \theta_2}\\
+\cdots\\
+\frac{\partial l(\theta)}{\partial \theta_m}\\
+\end{bmatrix}
+$$
 
 The matrix form of \\(H_{i,j}\\) is:
 

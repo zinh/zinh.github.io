@@ -210,6 +210,6 @@ Request --> WEBrick --> Logger --> SimpleRack --> Logger --> Browser
 
 Vì thế khi access địa chỉ [http://localhost:9292](http://localhost:9292) ta thấy ngoài nội dung "Hello from Rack!" còn thêm 1 dòng "Info: This is log of Logger middleware", dòng này chính là kết quả việc thực hiện middleware `Logger`.
 
-Bên cạnh các chức năng cơ bản trên, Rack còn implement sẵn một số hàm helper như parse params, build response,... Chi tiết hơn có thể tham khảo ở document của Rack tại: [http://www.rubydoc.info/github/rack/rack](http://www.rubydoc.info/github/rack/rack)
+Bên cạnh các chức năng cơ bản trên, Rack còn implement sẵn một số hàm helper như parse params, build response,... Chi tiết hơn có thể tham khảo ở document của Rack tại: [http://www.rubydoc.info/github/rack/rack](http://www.rubydoc.info/github/rack/rack){:target="_blank"}{:rel="nofollow"}
 
 Trên đây là những kiến thức căn bản về Ruby Rack. Hy vọng đã giúp mọi người hiểu rõ về nó.

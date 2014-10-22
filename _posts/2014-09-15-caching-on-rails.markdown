@@ -16,7 +16,7 @@ Trong phạm vi bài này mình sẽ giới thiệu về các loại hình cachi
 
 __1. Các loại hình caching trong Rails__
 
-Theo tài liệu của [Rails](http://guides.rubyonrails.org/caching_with_rails.html), hiện tại, Rails hỗ trợ các kiểu cache như sau:
+Theo tài liệu của [Rails](http://guides.rubyonrails.org/caching_with_rails.html){:target="_blank"}{:rel="nofollow"}, hiện tại, Rails hỗ trợ các kiểu cache như sau:
 
   - Page caching
 
@@ -36,7 +36,7 @@ Do đó có thể nói page caching cho tốc độ nhanh nhất, nhưng cũng �
 
 2.2. Action caching caching: để khắc phục nhược điểm của page caching, ta có thể sử dụng Action Caching. Kết quả xử lý của một action sẽ được cache lại. Khi có request gọi đến một action đã được cache, request đó vẫn qua các middleware của Rails, vẫn được xử lý bởi các hàm hook như before_filter.
 
-Action caching rất thuận tiện những trường hợp như bạn muốn cache một trang cần phải được login mới xem được, hoặc dùng song song với các gem authenticate như [Devise](https://github.com/plataformatec/devise). Xét về tốc độ thì đương nhiên Action caching sẽ chậm hơn Page caching.
+Action caching rất thuận tiện những trường hợp như bạn muốn cache một trang cần phải được login mới xem được, hoặc dùng song song với các gem authenticate như [Devise](https://github.com/plataformatec/devise){:target="_blank"}{:rel="nofollow"}. Xét về tốc độ thì đương nhiên Action caching sẽ chậm hơn Page caching.
 
 2.3. Fragment: giúp cache một phần của views. Ở đây request gọi đến vẫn được thông qua action xử lý bình thường, chỉ đến lúc sinh HTML ta mới cache lại một phần nào đó. Một ví dụ điển hình nhất là ta thường cache lại các static content của một trang như banner, menu, sidebar… và nội dung chính của trang vẫn được generate động. Fragment caching linh động hơn, do đó cũng sẽ chậm hơn Action caching(do vẫn phải qua controller xử lý).
 
