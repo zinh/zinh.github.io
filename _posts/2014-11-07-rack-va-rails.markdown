@@ -45,7 +45,7 @@ run Rails.application.routes
 
 Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại [Github]( https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb)
 
-Code của class `Sendfile` khá ngắn nên không quá khó hiểu. Như trong bài viết trước, một ứng dụng rack middleware sẽ implement một hàm `call`. Hàm này nhận vào biến env và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` của `Sendfile` sẽ gọi:
+Code của class `Sendfile` khá ngắn nên không quá khó hiểu. Như trong bài viết trước, một ứng dụng rack middleware sẽ implement một hàm `call`. Hàm này nhận vào biến `env` và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` của `Sendfile` sẽ gọi:
 
 ```ruby
 def call(env)
@@ -102,7 +102,7 @@ def call(env)
 end
 ```
 
-Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngẫu nhiên(sử dụng class `SecureRandom`)
+Middleware này có giữ nhiệm vụ set header `X-Request-Id`, header này được sinh ngẫu nhiên(sử dụng class `SecureRandom`)
 
 Như vậy ta thấy để đến được bước xử lý của code controller, model, view. Một request đã đi ra rất nhiều bước tiền xử lý. Ở danh sách các middleware mặc định ở trên, ta để ý thấy dòng cuối cùng:
 
@@ -110,7 +110,7 @@ Như vậy ta thấy để đến được bước xử lý của code controlle
 run Rails.application.routes
 ```
 
-Đây chính là lúc request đi vào xử lý routing của ứng dụng Rails. Lúc này request sẽ được đưa đến xử lý bởi các controller, model, view tương ứng.
+Đây chính là lúc request đi vào xử lý routing của ứng dụng Rails. Lúc này request sẽ được đưa đến các controller, model, view tương ứng.
 
 #### Thêm, xóa một middleware
 
