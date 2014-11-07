@@ -68,11 +68,11 @@ def call(env)
 end
 ```
 
-Tóm lại chức năng của middleware Sendfile là lấy chuỗi `to_path` từ `body` và append vào response header. Các web server bên dưới như nginx, apache khi nhận được response header này sẽ đọc file được chỉ ra ở đường dẫn `to_path` và trả về cho client. Điều này giúp cho ứng dụng Rails app đỡ phải xử lý trong trường hợp kết quả trả về là nội dung của một file static.
+Tóm lại chức năng của middleware Sendfile là lấy chuỗi `to_path` từ `body` và append vào response header. Các web server bên dưới như nginx, apache khi nhận được response header này sẽ đọc file được chỉ ra ở đường dẫn `to_path` và trả về cho client. Điều này giúp cho ứng dụng Rails app đỡ phải xử lý các tác vụ đọc file trong trường hợp kết quả trả về là nội dung của một file static.
 
 #### ActionDispatch::Static
 
-Code của class static tham khảo tại(https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97)
+Code của class static tham khảo tại [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97)
 
 ```ruby
 def call(env)
@@ -88,12 +88,12 @@ def call(env)
 end
 ```
 
-Ta thấy chức năng của middleware này rất đơn giản, nếu biến request header có biến `PATH_INFO`, middleware này sẽ đọc file được chỉ ra ở biến `PATH_INFO` và trả về cho client. Nếu không tìm thấy file hoặc không có header `PATH_INFO` request sẽ được forward đến các middleware phía sau xử lý tiếp.
+Ta thấy chức năng của middleware này rất đơn giản, nếu biến request header có biến `PATH_INFO`, middleware này sẽ đọc file được chỉ ra ở biến `PATH_INFO` trong thư mục root(thông thường là thư mục `public`) và trả về cho client. Nếu không tìm thấy file hoặc không có header `PATH_INFO` request sẽ được forward đến các middleware phía sau để xử lý tiếp.
 
 
 #### ActionDispatch::RequestId
 
-https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb
+Sau khi đi qua 2 middleware khác(`Rack::Lock` và `Cache`), đến lược class `RequestId` được gọi. [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb)
 
 ```ruby
 def call(env)
@@ -102,7 +102,7 @@ def call(env)
 end
 ```
 
-Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngẫu nhiên sử dụng class `SecureRandom`
+Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngẫu nhiên(sử dụng class `SecureRandom`)
 
 Như vậy ta thấy để đến được bước xử lý của code controller, model, view. Một request đã đi ra rất nhiều bước tiền xử lý. Ở danh sách các middleware mặc định ở trên, ta để ý thấy dòng cuối cùng:
 
@@ -111,6 +111,8 @@ run Rails.application.routes
 ```
 
 Đây chính là lúc request đi vào xử lý routing của ứng dụng Rails. Lúc này request sẽ được đưa đến xử lý bởi các controller, model, view tương ứng.
+
+#### Thêm, xóa một middleware
 
 Chính cấu trúc module của Rack middleware giúp ta dễ dàng thêm hoặc bớt một middleware bất kỳ. Chẳng hạn, muốn thêm một middleware ta config trong file `application.rb`:
 
@@ -131,3 +133,9 @@ Hoặc để xóa một middleware có sẵn ta config như sau(cũng trong file
 # config/application.rb
 config.middleware.delete "Rack::Lock"
 ```
+
+Để hiểu chi tiết hơn về các middleware khác, ta có thể tham khảo ở các địa chỉ sau:
+
+[Rails guide](http://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack)
+
+[Rails source code](https://github.com/rails/rails)
