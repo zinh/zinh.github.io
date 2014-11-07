@@ -137,6 +137,6 @@ config.middleware.delete "Rack::Lock"
 
 Để hiểu chi tiết hơn về các middleware khác, ta có thể tham khảo ở các địa chỉ sau:
 
-[Rails guide](http://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack){:target="_blank"}{:rel="nofollow"}
+[Rails guide](http://guides.rubyonrails.org/rails_on_rack.html){:target="_blank"}{:rel="nofollow"}
 
 [Rails source code](https://github.com/rails/rails){:target="_blank"}{:rel="nofollow"}
