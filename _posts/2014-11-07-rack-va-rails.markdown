@@ -8,7 +8,7 @@ categories: ruby, rails
 
 Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller và model đã qua xử lý của rất nhiều Rack Middleware. Theo document của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý các request:
 
-```bash
+```ruby
 use Rack::Sendfile
 use ActionDispatch::Static
 use Rack::Lock
@@ -88,4 +88,32 @@ def call(env)
 end
 ```
 
-Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngầu nhiên từ một hàm SecureRandom
+Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngẫu nhiên sử dụng class `SecureRandom`
+
+Như vậy ta thấy để đến được bước xử lý của code controller, model, view. Một request đã đi ra rất nhiều bước tiền xử lý. Ở danh sách các middleware mặc định ở trên, ta để ý thấy dòng cuối cùng:
+
+```ruby
+run Rails.application.routes
+```
+
+Đây chính là lúc request đi vào xử lý routing của ứng dụng Rails. Lúc này request sẽ được đưa đến xử lý bởi các controller, model, view tương ứng.
+
+Chính cấu trúc module của Rack middleware giúp ta dễ dàng thêm hoặc bớt một middleware bất kỳ. Chẳng hạn, muốn thêm một middleware ta config trong file `application.rb`:
+
+```ruby
+# config/application.rb
+# chèn middleware vào cuối middleware stack
+config.middleware.use(new_middleware, args)
+
+# chèn middleware vào trước một middleware có sẵn
+config.middleware.insert_before(existing_middleware, new_middleware, args) 
+
+# chèn middleware vào sau một middleware có sẵn
+config.middleware.insert_after(existing_middleware, new_middleware, args) 
+```
+
+Hoặc để xóa một middleware có sẵn ta config như sau(cũng trong file `application.rb`)
+```ruby
+# config/application.rb
+config.middleware.delete "Rack::Lock"
+```
