@@ -2,13 +2,15 @@
 layout: post
 title:  "Rack và Rails"
 date:   2014-11-07 23:55:00
-summary: Tiếp theo bài giới thiệu về Ruby Rack trước, bài viết này sẽ đi sâu vào phân tích ứng dụng của Rack với Rails.
+summary: Tiếp theo bài giới thiệu về Ruby Rack trước, bài viết này sẽ đi sâu vào phân tích ứng dụng của Rack trong Rails.
 categories: ruby, rails
 ---
 
-Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller và model đã qua xử lý của rất nhiều Rack Middleware. Theo document của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý các request:
+Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller và model đã qua xử lý của rất nhiều Rack Middleware. Theo [document](http://guides.rubyonrails.org/rails_on_rack.html#inspecting-middleware-stack) của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý request:
 
-```ruby
+```bash
+$ bin/rake middleware
+
 use Rack::Sendfile
 use ActionDispatch::Static
 use Rack::Lock
@@ -35,7 +37,9 @@ use Rack::ETag
 run Rails.application.routes
 ```
 
-Ta thử phân tích một số Rack Middleware. Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb.
+Để hiểu rõ hơn, ta thử phân tích một số Rack Middleware đơn giản.
+
+Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb.
 
 Code của class Sendfile khá ngắn nên không quá khó hiểu. Như trong bài trước, một ứng dụng rack middleware sẽ immplement một hàm `call`. Hàm này nhận vào biến env và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` sẽ gọi
 
