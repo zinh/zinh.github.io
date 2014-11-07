@@ -106,9 +106,9 @@ Middleware này có giữ nhiệm vụ set header `X-Request-Id`, header này đ
 
 Như vậy ta thấy để đến được bước xử lý của code controller, model, view. Một request đã đi ra rất nhiều bước tiền xử lý. Ở danh sách các middleware mặc định ở trên, ta để ý thấy dòng cuối cùng:
 
-```ruby
+{% highlight ruby %}
 run Rails.application.routes
-```
+{% endhighlight %}
 
 Đây chính là lúc request đi vào xử lý routing của ứng dụng Rails. Lúc này request sẽ được đưa đến các controller, model, view tương ứng.
 
