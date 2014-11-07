@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Rack và Rails"
+title:  "Rails on Rack"
 date:   2014-11-07 23:55:00
 summary: Tiếp theo bài giới thiệu về Ruby Rack trước, bài viết này sẽ đi sâu vào phân tích ứng dụng của Rack trong Rails.
 categories: ruby rails
