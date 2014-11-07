@@ -58,3 +58,34 @@ Tóm lại chức năng của middleware Sendfile là lấy chuỗi `to_path` t�
 
 ### ActionDispatch::Static
 
+Code của class static tham khảo tại(https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97)
+
+```ruby
+def call(env)
+  case env['REQUEST_METHOD']
+  when 'GET', 'HEAD'
+    path = env['PATH_INFO'].chomp('/')
+    if match = @file_handler.match?(path)
+      env["PATH_INFO"] = match
+      return @file_handler.call(env)
+    end
+  end
+  @app.call(env)
+end
+```
+
+Ta thấy chức năng của middleware này rất đơn giản, nếu biến request header có biến `PATH_INFO`, middleware này sẽ đọc file được chỉ ra ở biến `PATH_INFO` và trả về cho client. Nếu không tìm thấy file hoặc không có header `PATH_INFO` request sẽ được forward đến các middleware phía sau xử lý tiếp.
+
+
+### ActionDispatch::RequestId
+
+https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb
+
+```ruby
+def call(env)
+  env["action_dispatch.request_id"] = external_request_id(env) || internal_request_id
+  @app.call(env).tap { |_status, headers, _body| headers["X-Request-Id"] = env["action_dispatch.request_id"] }
+end
+```
+
+Middleware này có chức năng set header `X-Request-Id`, header này được sinh ngầu nhiên từ một hàm SecureRandom
