@@ -6,7 +6,9 @@ summary: Tiếp theo bài giới thiệu về Ruby Rack trước, bài viết n�
 categories: ruby, rails
 ---
 
-Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller và model đã qua xử lý của rất nhiều Rack Middleware. Theo [document](http://guides.rubyonrails.org/rails_on_rack.html#inspecting-middleware-stack) của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý request:
+Tiếp theo [bài viết trước](http://zinh.github.io/ruby/2014/10/16/gioi-thieu-ruby-rack.html), trong bài này mình sẽ đi sâu vào phân tích ứng dụng của Rack với framework Rails.
+
+Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller, model, view đã qua xử lý của rất nhiều Rack Middleware. Theo [document](http://guides.rubyonrails.org/rails_on_rack.html#inspecting-middleware-stack) của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý request:
 
 ```bash
 $ bin/rake middleware
@@ -39,28 +41,36 @@ run Rails.application.routes
 
 Để hiểu rõ hơn, ta thử phân tích một số Rack Middleware đơn giản.
 
-Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb.
+#### Rack::Sendfile
 
-Code của class Sendfile khá ngắn nên không quá khó hiểu. Như trong bài trước, một ứng dụng rack middleware sẽ immplement một hàm `call`. Hàm này nhận vào biến env và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` sẽ gọi
+Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại [Github]( https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb)
+
+Code của class `Sendfile` khá ngắn nên không quá khó hiểu. Như trong bài viết trước, một ứng dụng rack middleware sẽ implement một hàm `call`. Hàm này nhận vào biến env và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` của `Sendfile` sẽ gọi:
 
 ```ruby
-status, headers, body = @app.call(env)
+def call(env)
+  status, headers, body = @app.call(env)
+  ...
+end
 ```
 
-Đây là lệnh gọi xử lý của các middleware phía sau. Sau khi các middleware khác đã xử lý xong, SendFile sẽ giữ nhiệm vụ lấy chuỗi to_path từ biến body và trả về file tương ứng. Điều này được thể hiện trong đoạn code:
+Đây là lệnh gọi xử lý của các middleware phía sau. Sau khi các middleware khác đã được xử lý xong, `SendFile` sẽ giữ nhiệm vụ lấy chuỗi `to_path` từ biến body và trả về file tương ứng. Điều này được thể hiện trong đoạn code:
 
 ```ruby
-if body.respond_to?(:to_path)
-  path = F.expand_path(body.to_path)
-  headers[type] = path
-end
+def call(env)
+   ...
+   if body.respond_to?(:to_path)
+     path = F.expand_path(body.to_path)
+     headers[type] = path
+   end
 
-return [status, headers, body]
+   [status, headers, body]
+end
 ```
 
 Tóm lại chức năng của middleware Sendfile là lấy chuỗi `to_path` từ `body` và append vào response header. Các web server bên dưới như nginx, apache khi nhận được response header này sẽ đọc file được chỉ ra ở đường dẫn `to_path` và trả về cho client. Điều này giúp cho ứng dụng Rails app đỡ phải xử lý trong trường hợp kết quả trả về là nội dung của một file static.
 
-### ActionDispatch::Static
+#### ActionDispatch::Static
 
 Code của class static tham khảo tại(https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97)
 
@@ -81,7 +91,7 @@ end
 Ta thấy chức năng của middleware này rất đơn giản, nếu biến request header có biến `PATH_INFO`, middleware này sẽ đọc file được chỉ ra ở biến `PATH_INFO` và trả về cho client. Nếu không tìm thấy file hoặc không có header `PATH_INFO` request sẽ được forward đến các middleware phía sau xử lý tiếp.
 
 
-### ActionDispatch::RequestId
+#### ActionDispatch::RequestId
 
 https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb
 
