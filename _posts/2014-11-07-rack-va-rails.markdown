@@ -8,9 +8,9 @@ categories: ruby, rails
 
 Tiếp theo [bài viết trước](http://zinh.github.io/ruby/2014/10/16/gioi-thieu-ruby-rack.html), trong bài này mình sẽ đi sâu vào phân tích ứng dụng của Rack với framework Rails.
 
-Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller, model, view đã qua xử lý của rất nhiều Rack Middleware. Theo [document](http://guides.rubyonrails.org/rails_on_rack.html#inspecting-middleware-stack) của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý request:
+Như chúng ta đã biết, Rails là một framework sử dụng Rack middleware. Một request để đến được controller, model, view đã qua xử lý của rất nhiều Rack Middleware. Theo [document](http://guides.rubyonrails.org/rails_on_rack.html#inspecting-middleware-stack){:target="_blank"}{:rel="nofollow"} của Rails, mặc định, các Rack Middleware sau được sử dụng để xử lý request:
 
-```bash
+{% highlight bash %}
 $ bin/rake middleware
 
 use Rack::Sendfile
@@ -37,26 +37,26 @@ use Rack::Head
 use Rack::ConditionalGet
 use Rack::ETag
 run Rails.application.routes
-```
+{% endhighlight %}
 
 Để hiểu rõ hơn, ta thử phân tích một số Rack Middleware đơn giản.
 
 #### Rack::Sendfile
 
-Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại [Github]( https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb)
+Trước tiên một request sẽ qua middleware `Rack::Sendfile`. Thực chất đây là một middleware được cung cấp sẵn trong thư viện Rack. Để biết được middleware này giữ nhiệm vụ gì, ta tham khảo source của Rack tại [Github]( https://github.com/rack/rack/blob/master/lib/rack/sendfile.rb){:target="_blank"}{:rel="nofollow"}
 
-Code của class `Sendfile` khá ngắn nên không quá khó hiểu. Như trong bài viết trước, một ứng dụng rack middleware sẽ implement một hàm `call`. Hàm này nhận vào biến `env` và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` của `Sendfile` sẽ gọi:
+Code của class `Sendfile` khá ngắn nên không quá khó hiểu. Như trong [bài viết trước](http://zinh.github.io/ruby/2014/10/16/gioi-thieu-ruby-rack.html), một ứng dụng rack middleware sẽ implement một hàm `call`. Hàm này nhận vào biến `env` và trả về mảng `[status, headers, body]`. Trước tiên hàm `call` của `Sendfile` sẽ gọi:
 
-```ruby
+{% highlight ruby %}
 def call(env)
   status, headers, body = @app.call(env)
   ...
 end
-```
+{% endhighlight %}
 
 Đây là lệnh gọi xử lý của các middleware phía sau. Sau khi các middleware khác đã được xử lý xong, `SendFile` sẽ giữ nhiệm vụ lấy chuỗi `to_path` từ biến body và trả về file tương ứng. Điều này được thể hiện trong đoạn code:
 
-```ruby
+{% highlight ruby %}
 def call(env)
    ...
    if body.respond_to?(:to_path)
@@ -66,15 +66,15 @@ def call(env)
 
    [status, headers, body]
 end
-```
+{% endhighlight %}
 
 Tóm lại chức năng của middleware Sendfile là lấy chuỗi `to_path` từ `body` và append vào response header. Các web server bên dưới như nginx, apache khi nhận được response header này sẽ đọc file được chỉ ra ở đường dẫn `to_path` và trả về cho client. Điều này giúp cho ứng dụng Rails app đỡ phải xử lý các tác vụ đọc file trong trường hợp kết quả trả về là nội dung của một file static.
 
 #### ActionDispatch::Static
 
-Code của class static tham khảo tại [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97)
+Code của class static tham khảo tại [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/static.rb#L97){:target="_blank"}{:rel="nofollow"}
 
-```ruby
+{% highlight ruby %}
 def call(env)
   case env['REQUEST_METHOD']
   when 'GET', 'HEAD'
@@ -86,21 +86,21 @@ def call(env)
   end
   @app.call(env)
 end
-```
+{% endhighlight %}
 
 Ta thấy chức năng của middleware này rất đơn giản, nếu biến request header có biến `PATH_INFO`, middleware này sẽ đọc file được chỉ ra ở biến `PATH_INFO` trong thư mục root(thông thường là thư mục `public`) và trả về cho client. Nếu không tìm thấy file hoặc không có header `PATH_INFO` request sẽ được forward đến các middleware phía sau để xử lý tiếp.
 
 
 #### ActionDispatch::RequestId
 
-Sau khi đi qua 2 middleware khác(`Rack::Lock` và `Cache`), đến lược class `RequestId` được gọi. [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb)
+Sau khi đi qua 2 middleware khác(`Rack::Lock` và `Cache`), đến lược class `RequestId` được gọi. [Github](https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/middleware/request_id.rb){:target="_blank"}{:rel="nofollow"}
 
-```ruby
+{% highlight ruby %}
 def call(env)
   env["action_dispatch.request_id"] = external_request_id(env) || internal_request_id
   @app.call(env).tap { |_status, headers, _body| headers["X-Request-Id"] = env["action_dispatch.request_id"] }
 end
-```
+{% endhighlight %}
 
 Middleware này có giữ nhiệm vụ set header `X-Request-Id`, header này được sinh ngẫu nhiên(sử dụng class `SecureRandom`)
 
@@ -116,7 +116,7 @@ run Rails.application.routes
 
 Chính cấu trúc module của Rack middleware giúp ta dễ dàng thêm hoặc bớt một middleware bất kỳ. Chẳng hạn, muốn thêm một middleware ta config trong file `application.rb`:
 
-```ruby
+{% highlight ruby %}
 # config/application.rb
 # chèn middleware vào cuối middleware stack
 config.middleware.use(new_middleware, args)
@@ -126,16 +126,17 @@ config.middleware.insert_before(existing_middleware, new_middleware, args)
 
 # chèn middleware vào sau một middleware có sẵn
 config.middleware.insert_after(existing_middleware, new_middleware, args) 
-```
+{% endhighlight %}
 
 Hoặc để xóa một middleware có sẵn ta config như sau(cũng trong file `application.rb`)
-```ruby
+
+{% highlight ruby %}
 # config/application.rb
 config.middleware.delete "Rack::Lock"
-```
+{% endhighlight %}
 
 Để hiểu chi tiết hơn về các middleware khác, ta có thể tham khảo ở các địa chỉ sau:
 
-[Rails guide](http://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack)
+[Rails guide](http://guides.rubyonrails.org/rails_on_rack.html#internal-middleware-stack){:target="_blank"}{:rel="nofollow"}
 
-[Rails source code](https://github.com/rails/rails)
+[Rails source code](https://github.com/rails/rails){:target="_blank"}{:rel="nofollow"}
