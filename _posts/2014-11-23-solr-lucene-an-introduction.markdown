@@ -88,7 +88,14 @@ Có rất nhiều thuật toán ranking, chẳng hạn như thuật toán [PageR
 
 ### Vector Space Model
 
-Mô hình đại số biểu diễn các document và query dưới dạng vector.
+Mô hình đại số biểu diễn các document và query dưới dạng vector. Ví dụ:
+
+$$
+\vec{d_{j}} = (w_{1, j}, w_{2, j}, ..., w_{t, j})\\
+\vec{q} = (w_{1, q}, w_{2, q}, w_{3, q}, ..., w_{n, q})
+$$
+
+Trong đó \\(w_{i, j}\\) là tần số xuất hiện của term i trong document \\(d_{j}\\), \\(w_{i, j} = 0\\) nếu document \\(d_{j}\\) không chứa term i
 
 ![Vector space model](http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg)
 
