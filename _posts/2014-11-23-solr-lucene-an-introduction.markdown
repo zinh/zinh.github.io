@@ -78,7 +78,7 @@ Lấy phép giao inverted index của các term: `what`, `the` và `fox` ta sẽ
 
 Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model)
 
-Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
+Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của *Standard Boolean model*. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
 
 ### Vector Space Model
 
