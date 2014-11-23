@@ -20,9 +20,9 @@ Rất đơn giản, để có được kết quả search chính xác nhất!
 Trước đây khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LIKE trong SQL. Chẳng hạn muốn tìm kiếm các
 sản phẩm trong một table về `products` chẳng hạn mình thường viết một câu query như sau:
 
-```sql
+{% highlight sql %}
 SELECT * FROM products WHERE products.description LIKE "%Adidas%";
-```
+{% endhighlight %}
 
 Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
 
@@ -50,15 +50,15 @@ Ví dụ 1:
 
 Ta cần lập *inverted index* cho 3 document sau:
 
-```
+{% highlight sql %}
 D[1] = "The quick brown fox"
 D[2] = "What does the fox say"
 D[3] = "What if"
-```
+{% endhighlight %}
 
 *Inverted Index* được tạo thành bằng các term, cùng với id của các document chứa term đó.
 
-```
+{% highlight sql %}
 the: {1, 2}
 quick: {1}
 brown: {1}
@@ -67,7 +67,7 @@ what: {2, 3}
 does: {2}
 say: {2}
 if: {3}
-```
+{% endhighlight %}
 
 Bằng việc sử dụng *inverted index* ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các term trong từ khóa tìm kiếm.
 
@@ -111,7 +111,7 @@ trong đó
 
 \\(\\|\vec{d}\\|\\): độ dài của vector \\(\\|\vec{d}\\|\\) 
 
-Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(d\_{j}\\. Thông dụng nhất là thuật toán TF-IDF.
+Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(d\_{j}\\). Thông dụng nhất là thuật toán TF-IDF.
 
 ### TF-IDF
 
