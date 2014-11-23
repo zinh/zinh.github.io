@@ -86,5 +86,7 @@ trong đó
 
 ### TF-IDF
 
-TF(term frenquency)
+TF(term frenquency): tần số xuất hiện của một từ khóa trong các document. Chẳng hạn trong ví dụ inverted index ở trên ta thấy:
+TF(t = the) = 2 -> có 2 document chứa từ khóa `the`
+
 IDF(inverse term frenquency)
