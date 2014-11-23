@@ -45,7 +45,7 @@ T[2] = "What does the fox say"
 T[3] = "What if"
 ```
 
-Index sẽ có cấu trúc như sau:
+Inverted Index được tạo thành bằng các keyword, cùng với các đoạn text chứa keyword đó.
 
 ```
 the: {1, 2}
@@ -58,12 +58,12 @@ say: {2}
 if: {3}
 ```
 
-Nhìn vào inverted index ta thấy từ khóa "the" xuất hiện 2 lần trong T[1] và T[2].
-
-Bằng việc sử dụng inverted index ta có thể immplement một thuật toán tìm kiếm bằng cách lấy phép giao giữa các keyword.
+Bằng việc sử dụng inverted index ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các keyword.
 
 Ví dụ:
 Cần tìm kiếm keyword: `what the fox`
 Lấy phép giao của keyword `what`, `the` và `fox` ta sẽ được:
 
 {2, 3} \\(\cap\\) {1, 2} \\(\cap\\) {1, 2} = {2}
+
+Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó thõa mãn từ khóa tìm kiếm nhất.
