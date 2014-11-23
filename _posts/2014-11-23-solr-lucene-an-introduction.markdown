@@ -6,19 +6,19 @@ summary: Giới thiệu những kiến thức cơ bản về full-text search, i
 categories: lucene
 ---
 
-Trong loạt bài này, mình sẽ lần lượt giới thiệu về full-text search, ứng dụng full-text search dùng thư viện Lucene cùng với các chủ đề liên quan khác.
+Trong loạt bài này, mình sẽ lần lượt giới thiệu về full-text search, ứng dụng full-text search dùng thư viện Lucene, Solr cùng với các chủ đề liên quan khác.
 
 ### What is full-text search?
 
-Theo wikipedia full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
+Theo [Wikipedia](http://en.wikipedia.org/wiki/Full_text_search) full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
 các dữ liệu dạng text, ví dụ như dữ liệu về nội dung của tất các các trang web(database của Google chẳng hạn), hoặc dữ liệu về các sản phẩm của một trang web e-commerce(database các sản phẩm của Amazon chẳng hạn).
 
 ### Tại sao chúng ta lại cần Full-text search?
 
 Rất đơn giản, để có được kết quả search chính xác nhất!
 
-Trước đây khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LIKE trong SQL. Chẳng hạn muốn tìm kiếm một
-sản phẩm trong một table về `products` chẳng hạn mình thường viết một câu query tựa tựa như sau:
+Trước đây khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LIKE trong SQL. Chẳng hạn muốn tìm kiếm các
+sản phẩm trong một table về `products` chẳng hạn mình thường viết một câu query như sau:
 
 ```sql
 SELECT * FROM products WHERE products.description LIKE "%Adidas%";
@@ -34,11 +34,12 @@ Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết b
 
 Thông thường để implement một hệ thống full-text search, ta thường thực hiện qua 2 bước:
 
-Bước 1: index.
+Bước 1: index. Đưa các dữ liệu(document) vào index.
 
-Bước 2: tìm kiếm
+Bước 2: tìm kiếm. Query sử dụng index được sinh ra ở bước 1.
 
-Để thực hiện bước index ta cần một cấu trúc dữ liệu đặc biệt giúp cho việc tìm kiếm sau này được dễ dàng hơn. Cấu trúc dữ liệu đó được gọi là __inverted index__
+Để thực hiện bước index ta cần một cấu trúc dữ liệu đặc biệt giúp cho việc tìm kiếm được dễ dàng hơn. Cấu trúc dữ liệu đó được gọi là __inverted index__
+
 ### Interted Index
 
 *Inverted index* là một cấu trúc dữ liệu thường được sử dụng trong full-text search. *Inverted index* lưu trữ tần suất xuất hiện của các từ(term) trong các document.
@@ -68,17 +69,20 @@ say: {2}
 if: {3}
 ```
 
-Bằng việc sử dụng inverted index ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các term.
+Bằng việc sử dụng *inverted index* ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các term trong từ khóa tìm kiếm.
 
 Ví dụ 2:
+
 Cần tìm kiếm keyword: `what the fox`
-Lấy phép giao inverted index của các term: `what`, `the` và `fox` ta sẽ được:
+Lấy phép giao *inverted index* của các term: `what`, `the` và `fox` ta sẽ được:
 
 {2, 3} \\(\cap\\) {1, 2} \\(\cap\\) {1, 2} = {2}
 
+Như vậy D[2] chính là document cần tìm.
+
 Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model)
 
-Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của *Standard Boolean model*. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
+*Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của *Standard Boolean model*. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
 
 ### Vector Space Model
 
@@ -102,3 +106,5 @@ TF(term frenquency): tần số xuất hiện của một từ khóa trong các 
 TF(t = the) = 2 -> có 2 document chứa từ khóa `the`
 
 IDF(inverse term frenquency)
+
+Trên đây là một số kiến thức cơ bản về full-text search. Trong bài tiếp theo, mình sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
