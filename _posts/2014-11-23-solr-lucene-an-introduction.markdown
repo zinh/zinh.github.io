@@ -90,6 +90,8 @@ Có rất nhiều thuật toán ranking, chẳng hạn như thuật toán [PageR
 
 Mô hình đại số biểu diễn các document và query dưới dạng vector.
 
+http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg
+
 Ta thấy nếu query q và document d càng gần nhau, góc giữa q, và d càng nhỏ, dẫn đến:
 
 $$
