@@ -2,23 +2,22 @@
 layout: post
 title:  "Fulltext search voi Lucene va Solr"
 date:   2014-11-23 00:03:04
-summary: 
-categories: solr
+summary: Giới thiệu những kiến thức cơ bản về full-text search, inverted index, mô hình vector space và thuật toán scoring.
+categories: lucene
 ---
 
-Trong loạt bài này, mình sẽ lần lượt giới thiệu về Full-text search cùng với các thư viện hỗ trợ Full-text search
-tiêu biểu và được sử dụng nhiều nhất là Solr/Lucene.
+Trong loạt bài này, mình sẽ lần lượt giới thiệu về full-text search, ứng dụng full-text search dùng thư viện Lucene cùng với các chủ đề liên quan khác.
 
 ### What is full-text search?
 
 Theo wikipedia full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
-các dữ liệu dạng text, ví dụ như dữ liệu về nội dung của tất các các trang web(database của Google chẳng hạng), hoặc dữ liệu về các sản phẩm của một trang web e-commerce(database các sản phẩm của Amazon chẳng hạn).
+các dữ liệu dạng text, ví dụ như dữ liệu về nội dung của tất các các trang web(database của Google chẳng hạn), hoặc dữ liệu về các sản phẩm của một trang web e-commerce(database các sản phẩm của Amazon chẳng hạn).
 
 ### Tại sao chúng ta lại cần Full-text search?
 
 Rất đơn giản, để có được kết quả search chính xác nhất!
 
-Trước đây(từ hồi xa xưa) khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LIKE trong SQL. Chẳng hạn muốn tìm kiếm một
+Trước đây khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LIKE trong SQL. Chẳng hạn muốn tìm kiếm một
 sản phẩm trong một table về `products` chẳng hạn mình thường viết một câu query tựa tựa như sau:
 
 ```sql
@@ -31,8 +30,15 @@ Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không 
   - Không đáp ứng được các yêu cầu tìm kiếm phức tạp
   - ...
 
-Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên. Nổi tiếng nhất có lẽ là __Inverted Index__ và thuật toán __TF-IDF__
+Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên.
 
+Thông thường để implement một hệ thống full-text search, ta thường thực hiện qua 2 bước:
+
+Bước 1: index.
+
+Bước 2: tìm kiếm
+
+Để thực hiện bước index ta cần một cấu trúc dữ liệu đặc biệt giúp cho việc tìm kiếm sau này được dễ dàng hơn. Cấu trúc dữ liệu đó được gọi là __inverted index__
 ### Interted Index
 
 Inverted index là một cấu trúc dữ liệu thường được sử dụng trong full-text search. Inverted index lưu trữ tần suất xuất hiện của các từ trong các document. Để dễ hình dung ta có ví dụ sau:
