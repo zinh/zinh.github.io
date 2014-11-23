@@ -66,4 +66,21 @@ Lấy phép giao của keyword `what`, `the` và `fox` ta sẽ được:
 
 {2, 3} \\(\cap\\) {1, 2} \\(\cap\\) {1, 2} = {2}
 
-Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó thõa mãn từ khóa tìm kiếm nhất.
+Tuy nhiên, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
+
+### Vector Space Model
+
+Mô hình đại số biểu diễn các document và query dưới dạng vector.
+
+Ta thấy nếu query q và document d càng gần nhau, góc giữa q, và d càng nhỏ, dẫn đến:
+
+$$
+cos(d, q) = \frac{d . q}{||d|| x ||q||}
+trong đó d . q: tích vô hướng giữa d và q
+||d||: độ dài của vector d
+$$
+
+### TF-IDF
+
+TF(term frenquency)
+IDF(inverse term frenquency)
