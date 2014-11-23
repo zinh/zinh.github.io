@@ -66,4 +66,4 @@ Ví dụ:
 Cần tìm kiếm keyword: `what the fox`
 Lấy phép giao của keyword `what`, `the` và `fox` ta sẽ được:
 
-{2, 3} {1, 2} {1, 2} = {2}
+{2, 3} \cap {1, 2} \cap {1, 2} = {2}
