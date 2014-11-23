@@ -60,7 +60,7 @@ if: {3}
 
 Nhìn vào inverted index ta thấy từ khóa "the" xuất hiện 2 lần trong T[1] và T[2].
 
-Bằng việc sử dụng inverted index, việc tìm kiếm một từ khóa rất dễ dàng. Ta chỉ cần lấy phép giao giữa các keyword là sẽ được kết quả.
+Bằng việc sử dụng inverted index ta có thể immplement một thuật toán tìm kiếm bằng cách lấy phép giao giữa các keyword.
 
 Ví dụ:
 Cần tìm kiếm keyword: `what the fox`
