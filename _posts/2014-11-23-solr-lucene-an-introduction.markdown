@@ -41,17 +41,21 @@ Bước 2: tìm kiếm
 Để thực hiện bước index ta cần một cấu trúc dữ liệu đặc biệt giúp cho việc tìm kiếm sau này được dễ dàng hơn. Cấu trúc dữ liệu đó được gọi là __inverted index__
 ### Interted Index
 
-Inverted index là một cấu trúc dữ liệu thường được sử dụng trong full-text search. Inverted index lưu trữ tần suất xuất hiện của các từ trong các document. Để dễ hình dung ta có ví dụ sau:
+*Inverted index* là một cấu trúc dữ liệu thường được sử dụng trong full-text search. *Inverted index* lưu trữ tần suất xuất hiện của các từ(term) trong các document.
 
-Ta cần lập index của 3 đoạn text sau:
+Để dễ hình dung ta có ví dụ sau:
+
+Ví dụ 1: 
+
+Ta cần lập *inverted index* cho 3 document sau:
 
 ```
-T[1] = "The quick brown fox"
-T[2] = "What does the fox say"
-T[3] = "What if"
+D[1] = "The quick brown fox"
+D[2] = "What does the fox say"
+D[3] = "What if"
 ```
 
-Inverted Index được tạo thành bằng các keyword, cùng với các đoạn text chứa keyword đó.
+*Inverted Index* được tạo thành bằng các term, cùng với id của các document chứa term đó.
 
 ```
 the: {1, 2}
