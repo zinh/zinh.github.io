@@ -95,21 +95,21 @@ $$
 \vec{q} = (w_{1, q}, w_{2, q}, w_{3, q}, ..., w_{n, q})
 $$
 
-Trong đó \\(w_{i, j}\\) tỉ lệ với tần số xuất hiện của term i trong document \\(d_{j}\\), \\(w_{i, j} = 0\\) nếu document \\(d_{j}\\) không chứa term i.
+Trong đó \\(w\_{i, j}\\) tỉ lệ với tần số xuất hiện của term i trong document \\(d\_{j}\\), \\(w\_{i, j} = 0\\) nếu document \\(d_{j}\\) không chứa term i.
 
 ![Vector space model](http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg)
 
-Như vậy mức độ relevance của một document d bất kì với một query q có thể được tính bằng độ lớn của góc giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
+Như vậy mức độ relevance của một document d bất kì với một query q có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
 
 $$
-cos(\phi) = \frac{d \cdot q}{\|d\| . \|q\|}
+cos(\theta) = \frac{\vec{d} \cdot \vec{q}}{\|\vec{d}\| . \|\vec{q}\|}
 $$
 
 trong đó
 
-\\(d \cdot q\\): tích vô hướng giữa d và q
+\\(\vec{d} \cdot \vec{q}\\): tích vô hướng giữa \\(\vec{d}\\) và \\(\vec{q}\\)
 
-\\(\\|d\\|\\): độ dài của vector d
+\\(\\|\vec{d}\\|\\): độ dài của vector \\(\\|\vec{d}\\|\\) 
 
 ### TF-IDF
 
