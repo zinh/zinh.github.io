@@ -75,10 +75,14 @@ Mô hình đại số biểu diễn các document và query dưới dạng vecto
 Ta thấy nếu query q và document d càng gần nhau, góc giữa q, và d càng nhỏ, dẫn đến:
 
 $$
-cos(d, q) = \frac{d . q}{||d|| x ||q||}
-trong đó d . q: tích vô hướng giữa d và q
-||d||: độ dài của vector d
+cos(d, q) = \frac{d \cdot q}{\|d\| . \|q\|}
 $$
+
+trong đó
+
+\\(d \cdot q\\): tích vô hướng giữa d và q
+
+\\(\\|d\\|\\): độ dài của vector d
 
 ### TF-IDF
 
