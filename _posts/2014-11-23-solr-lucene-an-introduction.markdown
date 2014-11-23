@@ -32,3 +32,38 @@ Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không 
   - ...
 
 Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên. Nổi tiếng nhất có lẽ là __Inverted Index__ và thuật toán __TF-IDF__
+
+### Interted Index
+
+Inverted index là một cấu trúc dữ liệu thường được sử dụng trong full-text search. Inverted index lưu trữ tần suất xuất hiện của các từ trong các document. Để dễ hình dung ta có ví dụ sau:
+
+Ta cần lập index của 3 đoạn text sau:
+
+```
+T[1] = "The quick brown fox"
+T[2] = "What does the fox say"
+T[3] = "What if"
+```
+
+Index sẽ có cấu trúc như sau:
+
+```
+the: {1, 2}
+quick: {1}
+brown: {1}
+fox: {1, 2}
+what: {2, 3}
+does: {2}
+say: {2}
+if: {3}
+```
+
+Nhìn vào inverted index ta thấy từ khóa "the" xuất hiện 2 lần trong T[1] và T[2].
+
+Bằng việc sử dụng inverted index, việc tìm kiếm một từ khóa rất dễ dàng. Ta chỉ cần lấy phép giao giữa các keyword là sẽ được kết quả.
+
+Ví dụ:
+Cần tìm kiếm keyword: `what the fox`
+Lấy phép giao của keyword `what`, `the` và `fox` ta sẽ được:
+
+{2, 3} {1, 2} {1, 2} = {2}
