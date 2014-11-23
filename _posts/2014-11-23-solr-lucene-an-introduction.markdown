@@ -26,7 +26,7 @@ SELECT * FROM products WHERE products.description LIKE "%Adidas%";
 
 Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
 
-  - Chậm(do không sử dụng được index, đẫn đến phải đọc lên tất cả dữ liệu để so sánh)
+  - Chậm(không sử dụng được index, dẫn đến phải đọc lên tất cả dữ liệu để so sánh)
   - Không đáp ứng được các yêu cầu tìm kiếm phức tạp
   - ...
 
@@ -111,10 +111,13 @@ trong đó
 
 \\(\\|\vec{d}\\|\\): độ dài của vector \\(\\|\vec{d}\\|\\) 
 
+Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(d\_{j}\\. Thông dụng nhất là thuật toán TF-IDF.
+
 ### TF-IDF
 
-TF(term frenquency): tần số xuất hiện của một từ khóa trong các document. Chẳng hạn trong ví dụ inverted index ở trên ta thấy:
-TF(t = the) = 2 -> có 2 document chứa từ khóa `the`
+TF(term frenquency): tần số xuất hiện của một từ khóa trong các document. Chẳng hạn trong ví dụ 1 ở trên ta thấy:
+
+`TF(t = the) = 2` -> có 2 document chứa từ khóa `the`
 
 IDF(inverse term frenquency)
 
