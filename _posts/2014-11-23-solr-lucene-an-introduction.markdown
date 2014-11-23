@@ -24,3 +24,11 @@ sản phẩm trong một table về `products` chẳng hạn mình thường vi�
 ```sql
 SELECT * FROM products WHERE products.description LIKE "%Adidas%";
 ```
+
+Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
+
+  - Chậm(do không sử dụng được index, đẫn đến phải đọc lên tất cả dữ liệu để so sánh)
+  - Không đáp ứng được các yêu cầu tìm kiếm phức tạp
+  - ...
+
+Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên. Nổi tiếng nhất có lẽ là__ Inverted Index__ và thuật toán __TF-IDF__
