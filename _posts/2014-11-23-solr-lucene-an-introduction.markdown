@@ -31,4 +31,4 @@ Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không 
   - Không đáp ứng được các yêu cầu tìm kiếm phức tạp
   - ...
 
-Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên. Nổi tiếng nhất có lẽ là __ Inverted Index__ và thuật toán __TF-IDF__
+Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên. Nổi tiếng nhất có lẽ là __Inverted Index__ và thuật toán __TF-IDF__
