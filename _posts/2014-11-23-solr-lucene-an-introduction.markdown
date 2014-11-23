@@ -91,18 +91,18 @@ Có rất nhiều thuật toán ranking, chẳng hạn như thuật toán [PageR
 Mô hình đại số biểu diễn các document và query dưới dạng vector. Ví dụ:
 
 $$
-\vec{d_{j}} = (w_{1, j}, w_{2, j}, ..., w_{t, j})\\
+\vec{d_{j}} = (w_{1, j}, w_{2, j}, ..., w_{m, j})\\
 \vec{q} = (w_{1, q}, w_{2, q}, w_{3, q}, ..., w_{n, q})
 $$
 
-Trong đó \\(w_{i, j}\\) là tần số xuất hiện của term i trong document \\(d_{j}\\), \\(w_{i, j} = 0\\) nếu document \\(d_{j}\\) không chứa term i
+Trong đó \\(w_{i, j}\\) tỉ lệ với tần số xuất hiện của term i trong document \\(d_{j}\\), \\(w_{i, j} = 0\\) nếu document \\(d_{j}\\) không chứa term i.
 
 ![Vector space model](http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg)
 
-Ta thấy nếu query q và document d càng gần nhau, góc giữa q, và d càng nhỏ, dẫn đến:
+Như vậy mức độ relevance của một document d bất kì với một query q có thể được tính bằng độ lớn của góc giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
 
 $$
-cos(d, q) = \frac{d \cdot q}{\|d\| . \|q\|}
+cos(\phi) = \frac{d \cdot q}{\|d\| . \|q\|}
 $$
 
 trong đó
