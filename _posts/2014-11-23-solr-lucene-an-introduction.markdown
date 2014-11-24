@@ -136,7 +136,7 @@ $$
 tf(``the", d) = 1 + log(2) \approx 0.3
 $$
 
-__IDF(inverse document frenquency)__: là hệ số thể hiện mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
+__IDF(inverse document frenquency)__: là hệ số thể hiện mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính đơn giản như sau:
 
 $$
 idf(t, D) = \log{\frac{N}{|d \in D : t \in d|}}
@@ -146,7 +146,7 @@ Trong đó:
 
 N: tổng số document trong index
 
-\\(|d \in D : t \in d|\\): số lượng document chứa term __t__
+\\(\|d \in D : t \in d\|\\): số lượng document chứa term __t__
 
 Cuối cùng hệ số TF-IDF của 1 term là tích của hệ số TF và IDF
 
