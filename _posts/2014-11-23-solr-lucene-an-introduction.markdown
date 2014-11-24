@@ -116,25 +116,27 @@ Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(
 
 Trong tf-idf hệ số `w` được tạo thành bởi 2 thành phần:
 
-TF(term frenquency): tần số xuất hiện của một term trong một document.
+__TF(term frenquency)__: tần số xuất hiện của một term trong một document.
 
 Ví dụ:
 
 Ta có document d = "The quick brown fox jumps over the lazy dog"
 
-tf(t = "the", d) = 2 -> trong document d, từ khóa `the` xuất hiện 2 lần.
+tf(t = "the", d) = 2 -> trong document __d__, từ khóa `the` xuất hiện 2 lần.
 
 Thông thường tần số được đưa vào hàm log
 
+$$
 tf(t, d) = 1 + log(f(t, d))
+$$
 
 Theo ví dụ trên:
 
 $$
-tf(``the``, d) = 1 + log(2) \approx 0.3
+tf(``the", d) = 1 + log(2) \approx 0.3
 $$
 
-IDF(inverse document frenquency): là hệ số đánh giá mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
+__IDF(inverse document frenquency)__: là hệ số thể hiện mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
 
 $$
 idf(t, D) = \log{\frac{N}{|d \in D : t \in d|}}
