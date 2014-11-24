@@ -154,4 +154,4 @@ $$
 w(t, d) = tfidf(t, D, d) = tf(t, d) \times idf(t, D)
 $$
 
-Trên đây là một số kiến thức cơ bản về full-text search. Trong bài tiếp theo, mình sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
+Trên đây là một số kiến thức cơ bản về full-text search. Bài tiếp theo sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
