@@ -12,7 +12,7 @@ Trước tiên, ta làm quen với một số thuật toán cơ bản trong Full
 
 ### What is full-text search?
 
-Theo [Wikipedia](http://en.wikipedia.org/wiki/Full_text_search) full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
+Theo [Wikipedia](http://en.wikipedia.org/wiki/Full_text_search){:target="_blank"}{:rel="nofollow"} full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
 các dữ liệu dạng text, ví dụ như dữ liệu về nội dung của tất các các trang web(database của Google chẳng hạn), hoặc dữ liệu về các sản phẩm của một trang web e-commerce(database các sản phẩm của Amazon chẳng hạn).
 
 ### Tại sao chúng ta lại cần Full-text search?
@@ -79,11 +79,11 @@ Lấy phép giao *inverted index* của các term: `what`, `the` và `fox` ta s�
 
 Như vậy D[2] chính là document cần tìm.
 
-Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model)
+Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model){:target="_blank"}{:rel="nofollow"}
 
 *Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
 
-Có rất nhiều thuật toán ranking, chẳng hạn như [PageRank](http://en.wikipedia.org/wiki/PageRank), Vector Space Model... Phần tiếp theo xin nói về Vector Space Model.
+Có rất nhiều thuật toán ranking, chẳng hạn như [PageRank](http://en.wikipedia.org/wiki/PageRank){:target="_blank"}{:rel="nofollow"}, Vector Space Model... Phần tiếp theo xin nói về Vector Space Model.
 
 ### Vector Space Model
 
