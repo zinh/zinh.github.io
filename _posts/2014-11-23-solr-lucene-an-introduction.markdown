@@ -8,6 +8,8 @@ categories: lucene
 
 Trong loạt bài này, mình sẽ lần lượt giới thiệu về full-text search, ứng dụng full-text search dùng thư viện Lucene, Solr cùng với các chủ đề liên quan khác.
 
+Trước tiên, ta làm quen với một số thuật toán cơ bản trong Full-text search
+
 ### What is full-text search?
 
 Theo [Wikipedia](http://en.wikipedia.org/wiki/Full_text_search) full-text search là kỹ thuật tìm kiếm trên một full-text database. Full-text database là nơi lưu trữ
@@ -24,19 +26,19 @@ sản phẩm trong một table về `products` chẳng hạn mình thường vi�
 SELECT * FROM products WHERE products.description LIKE "%Adidas%";
 {% endhighlight %}
 
-Việc sử dụng LIKE trong SQL rất đơn giản, nhưng lại rất không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
+Việc sử dụng LIKE trong SQL rất đơn giản, nhưng không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
 
   - Chậm(không sử dụng được index, dẫn đến phải đọc lên tất cả dữ liệu để so sánh)
   - Không đáp ứng được các yêu cầu tìm kiếm phức tạp
   - ...
 
-Do đó các kỹ thuật full-text search đã ra đời giúp giải quyết bài toán tìm kiếm trên.
+Do đó các kỹ thuật full-text search ra đời giúp giải quyết bài toán tìm kiếm trên.
 
 Thông thường để implement một hệ thống full-text search, ta thường thực hiện qua 2 bước:
 
-Bước 1: index. Đưa các dữ liệu(document) vào index.
+__Bước 1__: index. Đưa các dữ liệu(document) vào index.
 
-Bước 2: tìm kiếm. Query sử dụng index được sinh ra ở bước 1.
+__Bước 2__: tìm kiếm sử dụng index được sinh ra ở bước 1.
 
 Để thực hiện bước index ta cần một cấu trúc dữ liệu đặc biệt giúp cho việc tìm kiếm được dễ dàng hơn. Cấu trúc dữ liệu đó được gọi là __inverted index__
 
@@ -65,11 +67,12 @@ Ta cần lập *inverted index* cho 3 document sau:
     say: {2}
     if: {3}
 
-Bằng việc sử dụng *inverted index* ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các term trong từ khóa tìm kiếm.
+Bằng việc sử dụng *inverted index* ta có một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao(intersection) giữa các term trong từ khóa tìm kiếm.
 
 Ví dụ 2:
 
-Cần tìm kiếm keyword: `what the fox`
+Với index được tạo ra trong ví dụ 1, cần tìm kiếm keyword: `what the fox`
+
 Lấy phép giao *inverted index* của các term: `what`, `the` và `fox` ta sẽ được:
 
 {2, 3} \\(\cap\\) {1, 2} \\(\cap\\) {1, 2} = {2}
@@ -78,9 +81,9 @@ Như vậy D[2] chính là document cần tìm.
 
 Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model)
 
-*Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của *Standard Boolean model*. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
+*Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
 
-Có rất nhiều thuật toán ranking, chẳng hạn như thuật toán [PageRank](http://en.wikipedia.org/wiki/PageRank), Vector Space Model...
+Có rất nhiều thuật toán ranking, chẳng hạn như [PageRank](http://en.wikipedia.org/wiki/PageRank), Vector Space Model... Phần tiếp theo xin nói về Vector Space Model.
 
 ### Vector Space Model
 
@@ -95,7 +98,7 @@ Trong đó \\(w\_{i, j}\\) tỉ lệ với tần số xuất hiện của term i
 
 ![Vector space model](http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg)
 
-Như vậy mức độ relevance của một document __d__ bất kì với một query __q__ có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
+Như vậy mức độ relevance của một document __d__ bất kì với một query __q__ có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại. Độ lớn đó được tính gián tiếp qua hàm *cosin* theo công thức:
 
 $$
 cos(\theta) = \frac{\vec{d} \cdot \vec{q}}{\|\vec{d}\| . \|\vec{q}\|}
