@@ -101,7 +101,7 @@ Trong đó \\(w\_{i, j}\\) tỉ lệ với tần số xuất hiện của term i
 Như vậy mức độ relevance của một document __d__ bất kì với một query __q__ có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại. Độ lớn đó được tính gián tiếp qua hàm *cosin* theo công thức:
 
 $$
-cos(\theta) = \frac{\vec{d} \cdot \vec{q}}{\|\vec{d}\| . \|\vec{q}\|}
+ranking(d) = cos(\theta) = \frac{\vec{d} \cdot \vec{q}}{\|\vec{d}\| . \|\vec{q}\|}
 $$
 
 trong đó
@@ -142,10 +142,16 @@ $$
 idf(t, D) = \log{\frac{N}{|d \in D : t \in d|}}
 $$
 
+Trong đó:
+
+N: tổng số document trong index
+
+\\(|d \in D : t \in d|\\): số lượng document chứa term __t__
+
 Cuối cùng hệ số TF-IDF của 1 term là tích của hệ số TF và IDF
 
 $$
-tfidf(t, D, d) = tf(t, d) \times idf(t, D)
+w(t, d) = tfidf(t, D, d) = tf(t, d) \times idf(t, D)
 $$
 
 Trên đây là một số kiến thức cơ bản về full-text search. Trong bài tiếp theo, mình sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
