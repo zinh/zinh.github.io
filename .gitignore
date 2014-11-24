@@ -2,3 +2,4 @@ _site/
 .rbenv-gemsets
 .sass-cache/
 .rvmrc
+*.swp

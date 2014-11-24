@@ -50,24 +50,20 @@ Ví dụ 1:
 
 Ta cần lập *inverted index* cho 3 document sau:
 
-{% highlight sql %}
-D[1] = "The quick brown fox"
-D[2] = "What does the fox say"
-D[3] = "What if"
-{% endhighlight %}
+    D[1] = "The quick brown fox"
+    D[2] = "What does the fox say"
+    D[3] = "What if"
 
 *Inverted Index* được tạo thành bằng các term, cùng với id của các document chứa term đó.
 
-{% highlight sql %}
-the: {1, 2}
-quick: {1}
-brown: {1}
-fox: {1, 2}
-what: {2, 3}
-does: {2}
-say: {2}
-if: {3}
-{% endhighlight %}
+    the: {1, 2}
+    quick: {1}
+    brown: {1}
+    fox: {1, 2}
+    what: {2, 3}
+    does: {2}
+    say: {2}
+    if: {3}
 
 Bằng việc sử dụng *inverted index* ta có thể implement một thuật toán tìm kiếm đơn giản bằng cách lấy phép giao giữa các term trong từ khóa tìm kiếm.
 
@@ -99,7 +95,7 @@ Trong đó \\(w\_{i, j}\\) tỉ lệ với tần số xuất hiện của term i
 
 ![Vector space model](http://upload.wikimedia.org/wikipedia/commons/f/ff/Vector_space_model.jpg)
 
-Như vậy mức độ relevance của một document d bất kì với một query q có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
+Như vậy mức độ relevance của một document __d__ bất kì với một query __q__ có thể được tính bằng độ lớn của góc \\(\theta\\) giữa vector \\(\vec{d}\\) và \\(\vec{q}\\). Góc càng lớn ranking càng thấp và ngược lại.
 
 $$
 cos(\theta) = \frac{\vec{d} \cdot \vec{q}}{\|\vec{d}\| . \|\vec{q}\|}
@@ -133,12 +129,16 @@ $$
 tf("the", d) = 1 + log(2) \approx 0.3
 $$
 
-IDF(inverse term frenquency): là hệ số đánh giá mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
+IDF(inverse document frenquency): là hệ số đánh giá mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
 
+$$
 idf(t, D) = \log{\frac{N}{|d \in D : t \in d|}}
+$$
 
 Cuối cùng hệ số TF-IDF của 1 term là tích của hệ số TF và IDF
 
-tfidf(t, D, d) = tf(t, d) x idf(t, D)
+$$
+tfidf(t, D, d) = tf(t, d) \times idf(t, D)
+$$
 
 Trên đây là một số kiến thức cơ bản về full-text search. Trong bài tiếp theo, mình sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
