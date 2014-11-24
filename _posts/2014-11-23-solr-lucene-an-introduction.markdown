@@ -23,7 +23,7 @@ Trước đây khi nghĩ đến tìm kiếm mình thường nghĩ ngay đến LI
 sản phẩm trong một table về `products` chẳng hạn mình thường viết một câu query như sau:
 
 {% highlight sql %}
-SELECT * FROM products WHERE products.description LIKE "%Adidas%";
+SELECT * FROM products WHERE products.description LIKE "%Adidas shoes%";
 {% endhighlight %}
 
 Việc sử dụng LIKE trong SQL rất đơn giản, nhưng không hiệu quả. Có thể kể đến một số điểm bất lợi sau:
@@ -50,7 +50,7 @@ __Bước 2__: tìm kiếm sử dụng index được sinh ra ở bước 1.
 
 Ví dụ 1: 
 
-Ta cần lập *inverted index* cho 3 document sau:
+Cần lập *inverted index* cho 3 document sau:
 
     D[1] = "The quick brown fox"
     D[2] = "What does the fox say"
@@ -81,13 +81,13 @@ Như vậy D[2] chính là document cần tìm.
 
 Mô hình tìm kiếm như trên có tên là [Standard Boolean model](http://en.wikipedia.org/wiki/Standard_Boolean_model)
 
-*Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về của. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
+*Tuy nhiên*, với một database có số lượng document lớn, việc matching dùng phép giao như trên sẽ trả về rất nhiều kết quả và người dùng cũng không thể duyệt qua tất cả các kết quả đó để tìm được document mong muốn. Vì thế, ta cần có một thuật toán để ranking các kết quả trả về. Document có ranking càng cao chứng đó document đó càng thõa mãn từ khóa tìm kiếm.
 
 Có rất nhiều thuật toán ranking, chẳng hạn như [PageRank](http://en.wikipedia.org/wiki/PageRank), Vector Space Model... Phần tiếp theo xin nói về Vector Space Model.
 
 ### Vector Space Model
 
-Vector space model là mô hình đại số biểu diễn các document và query dưới dạng vector. Ví dụ:
+Vector space model là mô hình đại số biểu diễn các document và query dưới dạng vector như sau:
 
 $$
 \vec{d_{j}} = (w_{1, j}, w_{2, j}, ..., w_{m, j})\\
@@ -116,20 +116,22 @@ Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(
 
 Trong tf-idf hệ số `w` được tạo thành bởi 2 thành phần:
 
-TF(term frenquency): tần số xuất hiện của một từ khóa trong một document.
+TF(term frenquency): tần số xuất hiện của một term trong một document.
 
 Ví dụ:
 
 Ta có document d = "The quick brown fox jumps over the lazy dog"
+
 tf(t = "the", d) = 2 -> trong document d, từ khóa `the` xuất hiện 2 lần.
 
 Thông thường tần số được đưa vào hàm log
+
 tf(t, d) = 1 + log(f(t, d))
 
 Theo ví dụ trên:
 
 $$
-tf("the", d) = 1 + log(2) \approx 0.3
+tf(``the``, d) = 1 + log(2) \approx 0.3
 $$
 
 IDF(inverse document frenquency): là hệ số đánh giá mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
