@@ -88,7 +88,7 @@ Có rất nhiều thuật toán ranking, chẳng hạn như thuật toán [PageR
 
 ### Vector Space Model
 
-Mô hình đại số biểu diễn các document và query dưới dạng vector. Ví dụ:
+Vector space model là mô hình đại số biểu diễn các document và query dưới dạng vector. Ví dụ:
 
 $$
 \vec{d_{j}} = (w_{1, j}, w_{2, j}, ..., w_{m, j})\\
@@ -113,12 +113,32 @@ trong đó
 
 Có nhiều cách để tính hệ số \\(w\_{i, j}\\) của một document \\(d\_{j}\\). Thông dụng nhất là thuật toán TF-IDF.
 
-### TF-IDF
+### TF-IDF(Term Frequency – Inverse Document Frequency)
 
-TF(term frenquency): tần số xuất hiện của một từ khóa trong các document. Chẳng hạn trong ví dụ 1 ở trên ta thấy:
+Trong tf-idf hệ số `w` được tạo thành bởi 2 thành phần:
 
-`TF(t = the) = 2` -> có 2 document chứa từ khóa `the`
+TF(term frenquency): tần số xuất hiện của một từ khóa trong một document.
 
-IDF(inverse term frenquency)
+Ví dụ:
+
+Ta có document d = "The quick brown fox jumps over the lazy dog"
+tf(t = "the", d) = 2 -> trong document d, từ khóa `the` xuất hiện 2 lần.
+
+Thông thường tần số được đưa vào hàm log
+tf(t, d) = 1 + log(f(t, d))
+
+Theo ví dụ trên:
+
+$$
+tf("the", d) = 1 + log(2) \approx 0.3
+$$
+
+IDF(inverse term frenquency): là hệ số đánh giá mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính như sau:
+
+idf(t, D) = \log{\frac{N}{|d \in D : t \in d|}}
+
+Cuối cùng hệ số TF-IDF của 1 term là tích của hệ số TF và IDF
+
+tfidf(t, D, d) = tf(t, d) x idf(t, D)
 
 Trên đây là một số kiến thức cơ bản về full-text search. Trong bài tiếp theo, mình sẽ giới thiệu về Lucene, một thư viện full-text search rất thông dụng hiện nay.
