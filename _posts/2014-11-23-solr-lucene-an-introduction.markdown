@@ -133,7 +133,7 @@ $$
 Theo ví dụ trên:
 
 $$
-tf(``the", d) = 1 + log(2) \approx 0.3
+tf(``the", d) = 1 + log(2) \approx 1.3
 $$
 
 __IDF(inverse document frenquency)__: là hệ số thể hiện mức độ quan trọng của một term. Hệ số càng cao nếu term càng hiếm, và ngược lại. Ví dụ với những term thường xuất hiện như "a", "an", "the" sẽ có chỉ số idf thấp. Cụ thể, idf của 1 term được tính đơn giản như sau:
