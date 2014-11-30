@@ -76,7 +76,7 @@ end
 
 ### Class methods
 
-Khi một module được include vào một class, mặc định class đó sẽ access được các instance method được định nghĩa trong module đó. Tuy nhiên sẽ không gọi được các instance method. Chẳng hạn như hàm `find_by_user_id` trong ví dụ sau:
+Khi một module được include vào một class, mặc định class đó sẽ access được các instance method được định nghĩa trong module đó nhưng lại không gọi được các instance method. Chẳng hạn như hàm `find_by_user_id` trong ví dụ sau:
 
 ```ruby
 module Postable
@@ -98,10 +98,10 @@ class Comment
 end
 
 # Entry.new.posted_at -> OK
-# Entry.find_by_user_id(1) -> Error
+# Entry.find_by_user_id(1) -> NoMethodError
 ```
 
-Một cách để workaround chính là sử dụng callback included
+Một cách để workaround chính là sử dụng callback `included`
 
 ```ruby
 module Postable
@@ -119,7 +119,7 @@ end
 
 ### Module Concern
 
-Immplement sẵn các hàm extend class method, instance method như trên.
+Các ví dụ ở trên chính là cách hoạt động của module `Concern`. Với việc sử dụng `Concern` ta viết lại module `Postable` đơn giản như sau:
 
 ```ruby
 require 'active_support/concern'
@@ -136,5 +136,67 @@ module Postable
       # ...
     end
   end
+end
+
+class Entry
+  include Postable
+end
+
+class Comment
+  include Postable
+end
+```
+
+Ngoài ra, module concern còn giúp giải quyết vấn đề dependency. Như trong ví dụ sau, module B phụ thuộc vào module A
+
+```ruby
+module A
+  def self.included(base)
+    base.class_eval do
+	  def self.method_of_module_a
+	    # ...
+	  end
+	end
+  end
+end
+
+module B
+  def self.included(base)
+    base.method_of_module_a
+  end
+end
+
+class C
+  include A
+  include B
+end
+```
+
+Ta thấy class C chỉ muốn sử dụng module B, nhưng lại phải include thêm module A(do B phụ thuộc vào hàm `method_of_module_a` của A).
+Nhưng với việc sử dụng Concern vấn đề dependency đã được giải quyết. Ta viết lại đoạn code trên như sau:
+
+```ruby
+require 'active_support/concern'
+
+module A
+  extend ActiveSupport::Concern
+  included do
+    def self.method_of_module_a
+	  # ...
+	end
+  end
+end
+
+module B
+  extend ActiveSupport::Concern
+  include A
+  
+  included do
+  self.method_of_module_a
+  end
+end
+
+module C
+  include B
 end
 ```
