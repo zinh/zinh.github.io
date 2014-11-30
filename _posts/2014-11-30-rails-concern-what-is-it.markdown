@@ -78,7 +78,7 @@ end
 
 Khi một module được include vào một class, mặc định class đó sẽ access được các instance method được định nghĩa trong module đó. Tuy nhiên sẽ không gọi được các instance method. Chẳng hạn như hàm `find_by_user_id` trong ví dụ sau:
 
-```
+```ruby
 module Postable
   def posted_at
     created_at.strftime("%Y/%m/%d")
@@ -103,7 +103,7 @@ end
 
 Một cách để workaround chính là sử dụng callback included
 
-```
+```ruby
 module Postable
   def self.included(base)
     base.extend(ClassMethods)
