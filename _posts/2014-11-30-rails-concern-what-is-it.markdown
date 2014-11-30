@@ -54,13 +54,16 @@ class Comment
 end
 ```
 
-Logic validate user_id được move thành một module riêng:
+Logic chung của Entry và Comment được move thành một module riêng:
 
 ```ruby
 module Postable
   def self.included(base)
-    base.validates_presence_of :user_id
+    base.class_eval do
+	  validates_presence_of :user_id
+	end
   end
+  
   def posted_at
     created_at.strftime("%Y/%m/%d")
   end
@@ -72,5 +75,67 @@ end
 
 class Comment
   include Postable
+end
+```
+
+### Class methods
+
+Khi một module được include vào một class, class đó sẽ access được các instance method được định nghĩa trong module đó. Tuy nhiên, instance lại không được include. Do đó đoạn code sau sẽ sinh lỗi:
+
+```
+module Postable
+  def posted_at
+    created_at.strftime("%Y/%m/%d")
+  end
+  
+  def self.find_by_user_id
+    # ...
+  end
+end
+
+class Entry
+  include Postable
+end
+
+class Comment
+  include Postable
+end
+```
+
+Một cách để workaround chính là sử dụng included
+
+```
+module Postable
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+  
+  module ClassMethods
+    def find_by_user_id
+	  # ...
+	end
+  end
+end
+```
+
+### Module Concern
+
+Immplement sẵn các hàm extend class method, instance method như trên.
+
+```ruby
+require 'active_support/concern'
+
+module Postable
+  extend ActiveSupport::Concern
+
+  included do
+    validates_presence_of :user_id
+  end
+  
+  module ClassMethods
+    def find_by_user_id
+	  # ...
+	end
+  end
 end
 ```
