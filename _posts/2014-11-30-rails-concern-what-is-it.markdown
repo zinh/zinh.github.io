@@ -3,7 +3,7 @@ layout: post
 title:  "Giới thiệu module Rails Concern"
 date:   2014-11-30 00:03:04
 summary: Module Concern của Rails.
-categories: lucene
+categories: rails
 ---
 
 Kể từ bản Rails 4, một thư mục mặc định được tạo ra mỗi khi tạo project mới, đó là thư mục concerns. Ta sẽ tìm hiểu về module concern trong bài viết này.
@@ -13,10 +13,6 @@ But first, let's return to Ruby's realm
 ### Module và included callback
 
 Ruby cung cấp một hàm callback có tên `included`. Hàm callback này sẽ được gọi mỗi khi module được included vào một module hoặc class khác. Signature của `included` như sau:
-
-```
-included(othermod)
-```
 
 Ví dụ sau được trích từ document của [Ruby](http://ruby-doc.org/core-1.9.3/Module.html#method-i-included)
 
@@ -32,7 +28,7 @@ module Enumerable
 end
 ```
 
-Ứng dụng của included
+`included` có thể được dùng để tách các phần logic giống nhau vào một module dùng chung. Chằng hạn trong ví dụ sau ta có 2 class Entry và Comment, cả 2 class đều định nghĩa các hàm như `posted_at` và gọi các helper như `validates_presence_of`
 
 ```ruby
 class Entry
@@ -54,14 +50,14 @@ class Comment
 end
 ```
 
-Logic chung của Entry và Comment được move thành một module riêng:
+Dùng included ta dễ dàng move các logic này thành một module riêng, cụ thể như sau:
 
 ```ruby
 module Postable
   def self.included(base)
     base.class_eval do
-	  validates_presence_of :user_id
-	end
+      validates_presence_of :user_id
+    end
   end
   
   def posted_at
@@ -80,7 +76,7 @@ end
 
 ### Class methods
 
-Khi một module được include vào một class, class đó sẽ access được các instance method được định nghĩa trong module đó. Tuy nhiên, instance lại không được include. Do đó đoạn code sau sẽ sinh lỗi:
+Khi một module được include vào một class, mặc định class đó sẽ access được các instance method được định nghĩa trong module đó. Tuy nhiên sẽ không gọi được các instance method. Chẳng hạn như hàm `find_by_user_id` trong ví dụ sau:
 
 ```
 module Postable
@@ -100,9 +96,12 @@ end
 class Comment
   include Postable
 end
+
+# Entry.new.posted_at -> OK
+# Entry.find_by_user_id(1) -> Error
 ```
 
-Một cách để workaround chính là sử dụng included
+Một cách để workaround chính là sử dụng callback included
 
 ```
 module Postable
@@ -112,8 +111,8 @@ module Postable
   
   module ClassMethods
     def find_by_user_id
-	  # ...
-	end
+      # ...
+    end
   end
 end
 ```
@@ -134,8 +133,8 @@ module Postable
   
   module ClassMethods
     def find_by_user_id
-	  # ...
-	end
+      # ...
+    end
   end
 end
 ```
