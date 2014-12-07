@@ -34,13 +34,13 @@ Hàm map của một array object nhận vào một block vả trả về một 
 Ví dụ dưới đây dùng hàm map để trả về chiều dài của các chuỗi trong một mảng.
 
 ```ruby
-  names = ['harry', 'weasley', 'granger']
+  names = ['potter', 'weasley', 'granger']
   names.map{|name| name.length}
-  # [5, 7, 7]
+  # [6, 7, 7]
 ```
 
 Hàm reduce
-Hàm reduce của class enumerable nhận input là một block, execute block đó với một phần tử và gán kết quả vào một biến memo.
+Hàm reduce của class [enumerable](ruby-doc.org/core/Enumerable.html) nhận input là một block, execute block đó với một phần tử và gán kết quả vào một biến memo.
 Ví dụ dưới đây tính tổng các phẩn tử của một mảng dùng reduce.
 
 ```
