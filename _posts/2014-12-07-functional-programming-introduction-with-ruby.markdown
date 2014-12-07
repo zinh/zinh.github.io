@@ -13,18 +13,18 @@ Nói đến lập trình hàm, ta thường nghe nói đến những khái niệ
 Một trong những đặc điểm của lập trình hàm chính là việc giải quyết vấn đề side-effect. Chẳng hạn như trong ví dụ sau, hàm increment thay đổi biến @a.
 
 ```ruby
-  @a = 10
-  def increament
-    @a += 1
-  end
+@a = 10
+def increament
+  @a += 1
+end
 ```
 
 Một chương trình trong lập trình hàm không thay đổi giá trị các biến nằm ngoài hàm đó. Do đó đoạn code trên có thể được viết lại như sau:
 
 ```ruby
-  def increament(a)
-    return a + 1
-  end
+def increament(a)
+  return a + 1
+end
 ```
 
 ### Map - Reduce
@@ -44,7 +44,7 @@ Hàm reduce của class [enumerable](ruby-doc.org/core/Enumerable.html) nhận i
 
 Ví dụ dưới đây tính tổng các phẩn tử của một mảng dùng hàm reduce.
 
-```
+```ruby
 a = [1, 2, 3, 4, 5, 6, 7]
 a.reduce{|memo, element| memo += element}
 ```
@@ -71,7 +71,7 @@ end
 
 Chia thành function:
 
-```
+```ruby
 def move_cars
   @car_positions.each_with_index do |_, index|
     @car_positions[i] += 1 if rand > 0.3 
