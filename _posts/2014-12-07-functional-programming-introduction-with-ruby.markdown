@@ -6,7 +6,11 @@ summary: functional programming
 categories: ruby
 ---
 
-lập trình hàm giải quyết vấn đề về side effect. Ví dụ:
+Trong bài viết nay, ta sẽ làm quen với lập trình hàm bằng cách áp dụng các khái niệm trong lập trình hàm vào các đoạn code viết bằng ruby.
+
+Nói đến lập trình hàm, ta thường nghe nói đến những khái niệm "lạ" như: immutable data, first class functions, tail call optimisation... Những kỹ thuật lập trình như parallelization, lazy evaluation, determinism.
+
+Một trong những đặc điểm của lập trình hàm chính là việc giải quyết vấn đề side-effect. Chẳng hạn như trong ví dụ sau, hàm increment thay đổi biến @a.
 
 ```ruby
   @a = 10
@@ -15,13 +19,15 @@ lập trình hàm giải quyết vấn đề về side effect. Ví dụ:
   end
 ```
 
+Một chương trình trong lập trình hàm không thay đổi giá trị các biến nằm ngoài hàm đó. Do đó đoạn code trên có thể được viết lại như sau:
+
 ```ruby
   def increament(a)
-    a + 1
+    return a + 1
   end
 ```
 
-Sử dụng map - reduce
+### Map - Reduce
 
 Hàm map của một array object nhận vào một block vả trả về một mảng với các phần tử được xử lý bởi block đó.
 
