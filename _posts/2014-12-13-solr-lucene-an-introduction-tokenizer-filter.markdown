@@ -6,9 +6,7 @@ summary: Tiếp theo series giới thiệu về Solr/Lucene, bài viết này gi
 categories: lucene
 ---
 
-Trong [bài viết trước](http://zinh.github.io/lucene/2014/11/23/solr-lucene-an-introduction.html) ta đã tìm hiểu về cấu trúc của Inverted Index được sử dụng để index các document.
-
-Để nhắc lại, ta có 1 ví dụ về inverted index đơn giản như sau:
+Trong [bài viết trước](http://zinh.github.io/lucene/2014/11/23/solr-lucene-an-introduction.html) ta đã tìm hiểu về cấu trúc của Inverted Index được sử dụng để index các document. Để nhắc lại, ta có 1 ví dụ về inverted index đơn giản như sau:
 
 Yêu cầu: cần lập inverted index cho 3 document sau:
 
@@ -35,16 +33,17 @@ Trước tiên các document sẽ được tách thành các từ đơn(term) nh
 	
 Ta thấy một bước khá quan trọng trong inverted index chính là tách một document thành các term(hay còn gọi là token). Trong Lucene/Solr quá trình phân tích này thường được thực hiện qua 3 bước:
 
+Sau đây, ta sẽ đi vào tìm hiểu các bước trên
 
 ### Char Filter
 
-Dữ liệu trước khi được tách thành các token sẽ được tiền xử lý chẳng hạn như tách bỏ các thẻ html của một webpage, chỉ để lại nội dung của các tag. Bộ char filter thường được sử dụng nhất chính là HTMLStripCharFilter.
+Đây là bước đầu tiên của quá trình phân tích. Dữ liệu trước khi được tách thành các token sẽ được tiền xử lý chẳng hạn như tách bỏ các thẻ html của một webpage, chỉ để lại nội dung của các tag. Bộ char filter thường được sử dụng nhất chính là HTMLStripCharFilter.
 
 Ví dụ:
 
-	"my <a href="www.foo.bar">link</a>"  	-> 	"my link"
-	<br>hello<!--comment--> 				-> 	"hello"
-	
+    "my <a href="www.foo.bar">link</a>"     -> my link
+    <br>hello<!--comment-->                 -> hello
+
 Ngoài ra còn có các bộ char filter khác như: _PatternReplaceCharFilter_(thay thế một pattern bằng một pattern khác), _MappingCharFilter_(map một kí tự này thành kí tự khác, thường được sử dụng để chuyển từ có dấu sang không dấu)
 
 ### Tokenizer
