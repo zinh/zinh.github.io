@@ -27,3 +27,32 @@ Trước hết là phần HTTP request.
 
 Process worker sẽ lấy link từ Process Link Queue(dùng chung cho tất cả worker). Mỗi khi lấy được link mới, worker sẽ gửi link này đến Link Queue để lên schedule crawl link đó. Để đơn giản, link queue thực hiện theo cơ chế FIFO(first in first out). Do đó Link Queue process sẽ nhận các message như sau:
 
+Worker -(push, Link)-> Link Queue
+Worker -(pop)-> Link Queue
+
+[TODO] Paste code here(handle call, handle cast only)
+
+Thrift
+
+Cung cấp encode/decode data, protocol để trao đổi giữa các process khác nhau. 2 process liên lạc với nhau thông qua tcp socket.
+
+File data structure của ứng dụng crawler như sau:
+
+```thrift
+# crawler thrift
+```
+
+File trên định nghĩa 1 structure và 1 hàm.
+
+Hàm parse nhận vào tham số là structure WebData, thực hiện việc parse data và trả về cho client.
+
+Để sinh ra file thư viện tương ứng với Erlang và Ruby ta thực hiện lệnh
+
+```
+thrift --gen rb crawler.thrift
+thrift --gen erl crawler.thrift
+```
+
+Kết quả của lệnh trên là 2 thư mục `gen-rb` và `gen-erl`
+
+### Implement parse process
