@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ruby và Erlang thông qua Thrift"
+title:  "Tìm hiểu về Apache Thrift"
 date:   2015-05-10 00:03:04
 summary: Giới thiệu cách kết hợp Ruby và Erlang thông qua Thrift
 description: Giới thiệu cách kết hợp Ruby và Erlang thông qua Thrift
@@ -18,9 +18,11 @@ Thrift là thư viện RPC được phát triển bởi Facebook, hiện tại d
 
 Trong bài viết này, ta sẽ viết một ứng dụng đơn giản bằng Ruby và Erlang được kết hợp thông qua Thrift.
 
-### Compile thrift
+### Cài đặt thrift
 
-Cài đặt Thrift khá đơn giản, ta có thể tải source code tại địa chỉ: http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.2/thrift-0.9.2.tar.gz
+Cài đặt Thrift khá đơn giản, ta có thể tải source code tại địa chỉ:
+
+http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.2/thrift-0.9.2.tar.gz
 
 Trong quá trình compile, Thrift sẽ tìm các compiler đang được cài đặt trong máy và compile các module tương ứng cho tất cả các ngôn ngữ này.
 
@@ -35,30 +37,39 @@ Ví dụ:
 
 ### .thrift file
 
-Thrift file định nghĩa các interface giao tiếp giữa các ứng dụng với nhau.
+Thrift file định nghĩa interface giao tiếp giữa client và server với nhau.
 
-Ví dụ sau định nghĩa hàm add thực hiện phép cộng
+Ví dụ sau định nghĩa một service cung cấp hàm add thực hiện phép cộng 2 số:
 
     # calculator.thrift
     service Calculator{
       i32 add(1:i32 num1, 2:i32 num2)
     }
 
-### Thrift with Ruby
+Tương ứng với từng ngôn ngữ, Thrift sẽ compile file .thrift thành các thư viện của ngôn ngữ đó.
 
-Ta compile file `calculator.thirft` trên cho Ruby bằng command
+Chẳng hạn, để compile thành thư viện dùng cho Ruby ta dùng command:
 
 {% highlight bash %}
-thrift --gen rb calculator.thrift
+ thrift --gen rb calculator.thrift
 {% endhighlight %}
 
-Thrift sẽ sinh ra thư mục gen-rb chứa các thư viện cần thiết để sử dụng.
+### Thrift với Ruby
 
-### Server thrift in Ruby
+Để sử dụng thrift với Ruby ta cần cài gem thrift.
 
-Ta dựng một server thrift bằng Ruby. Server sẽ lắng nghe tại cổng 9000 khi có request đến server sẽ thực hiện phép cộng và trả về kết quả cho client.
+{% highlight bash %}
+ thrift --gen rb calculator.thrift
+{% endhighlight %}
+
+Thrift sẽ sinh ra thư mục `gen-rb` chứa các thư viện cần thiết để sử dụng.
+
+#### Server thrift bằng Ruby
+
+Ta dựng một server thrift bằng Ruby. Server sẽ lắng nghe tại cổng 9090 khi có request đến server sẽ thực hiện phép cộng và trả về kết quả cho client.
 
 {% highlight ruby %}
+# server.rb
 $:.push('gen-rb')
 require 'thrift'
 require 'calculator'
@@ -84,9 +95,10 @@ server.serve()
 puts "done."
 {% endhighlight %}
 
-### Client bằng Ruby
+#### Client bằng Ruby
 
 {% highlight ruby %}
+# client.rb
 $:.push('gen-rb')
 require 'thrift'
 require 'calculator'
@@ -97,30 +109,31 @@ protocol = Thrift::BinaryProtocol.new(transport)
 client = Calculator::Client.new(protocol)
 transport.open()
 sum = client.add(12, 13)
-puts sum
+puts "12 + 13 = #{sum}"
 transport.close()
 {% endhighlight %}
 
 {% highlight bash %}
-ruby client.rb
-=> 25
+ ruby client.rb
+12 + 13 = 25
 {% endhighlight %}
 
 Tiếp theo, ta viết client bằng Erlang
+
 ### Client bằng Erlang
 
 Không đơn giản như Ruby, để sử dụng được Thrift trong Erlang, ta cần thư viện thirft dành cho Erlang. Thư viện này được cung cấp trong thư mục source của thrift
 
-    lib/erl
+    thrift_source/lib/erl
 
 Hoặc có thể tải về tại địa chỉ:
 
 https://github.com/apache/thrift/tree/master/lib/erl
 
-Tiếp theo ta compile interface của class Calculator cho Erlang
+Tiếp theo ta compile interface của service `Calculator` cho Erlang
 
 {% highlight bash %}
-thrift --gen erl calculator.thrift
+ thrift --gen erl calculator.thrift
 {% endhighlight %}
 
 Các file được sinh ra trong thư mục gen-erl.
@@ -131,23 +144,23 @@ Các file được sinh ra trong thư mục gen-erl.
 % client.erl
 -module(client).
 -include("calculator_thrift.hrl").
--export([plus/0]).
+-export([plus/2]).
 
-plus() ->
+plus(A, B) ->
   Port = 9090,
   {ok, Client0} = thrift_client_util:new("127.0.0.1",
     Port,
     calculator_thrift,
     []),
-  {_, {ok, Sum}} = thrift_client:call(Client0, add, [12, 13]),
-  io:format("12 + 13 = ~p~n", [Sum]).
+  {_, {ok, Sum}} = thrift_client:call(Client0, add, [A, B]),
+  io:format("~p + ~p = ~p~n", [A, B, Sum]).
 {% endhighlight %}
 
 Ta copy các file trong thư mục gen-erl và file clien.erl vào thư mục erl được download ở trên.
 
 Trong thư mục erl, ta compile tất cả các thư viện(bao gồm cả file client.erl) bằng rebar:
 
-    ./rebar compile
+     ./rebar compile
 
 File compile được đặt trong thư mục ebin. Trong erl console, ta thực hiện thử hàm plus:
 
