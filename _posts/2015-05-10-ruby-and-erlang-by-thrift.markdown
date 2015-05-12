@@ -1,28 +1,26 @@
 ---
 layout: post
 title:  "Tìm hiểu về Apache Thrift"
-date:   2015-05-10 00:03:04
-summary: Giới thiệu cách kết hợp Ruby và Erlang thông qua Thrift
+date:   2015-05-12 00:03:04
+summary: Mỗi một ngôn ngữ đều có điểm mạnh và điểm yếu khác nhau. Trong các hệ thống lớn như Facebook, Twitter nhiều ngôn ngữ khác nhau được sử dụng để đạt được performance cao nhất. Tuy nhiên việc kết hợp nhiều ngôn ngữ, framework trong một ứng dụng không hề đơn giản. Thrift cung cấp một giải pháp giúp các process được implement bằng các ngôn ngữ khác nhau giao tiếp với nhau một cách dễ dàng. Bài viết này giới thiệu về Thrift thông qua ví dụ client/server bằng Ruby và Erlang
 description: Giới thiệu cách kết hợp Ruby và Erlang thông qua Thrift
 categories: ruby erlang
 ---
 
-Mỗi một ngôn ngữ đều có điểm mạnh và điểm yếu khác nhau. Trong các hệ thống lớn như Facebook, Twitter sử dụng nhiều ngôn ngữ khác nhau
-tuỳ theo mục đích. Tuy nhiên việc kết hợp nhiều ngôn ngữ, framework trong một ứng dụng không hề đơn giản.
-Ta có thể xây dựng theo mô hình microservice, các service connect với nhau thông qua API. Tuy nhiên cách này lại đem lại hiệu
-quả không cao.
+Mỗi một ngôn ngữ đều có điểm mạnh và điểm yếu khác nhau. Trong các hệ thống lớn như Facebook, Twitter nhiều ngôn ngữ khác nhau được sử dụng để đạt được performance cao nhất. Tuy nhiên việc kết hợp nhiều ngôn ngữ, framework trong một ứng dụng không hề đơn giản. Thrift cung cấp một giải pháp giúp các process được implement bằng các ngôn ngữ khác nhau giao tiếp với nhau một cách dễ dàng. Bài viết này giới thiệu về Thrift thông qua ví dụ client/server bằng Ruby và Erlang
 
 ### Thrift là gì
 
 Thrift là thư viện RPC được phát triển bởi Facebook, hiện tại dự án được host trên Apache tại http://thrift.apache.org
 
-Trong bài viết này, ta sẽ viết một ứng dụng đơn giản bằng Ruby và Erlang được kết hợp thông qua Thrift.
+Trong bài viết này, ta sẽ viết một ứng dụng đơn giản bằng Ruby và Erlang kết nối với nhau thông qua Thrift.
 
 ### Cài đặt thrift
 
-Cài đặt Thrift khá đơn giản, ta có thể tải source code tại địa chỉ:
+Cài đặt Thrift khá đơn giản, ta có thể tải source code mới nhất tại địa chỉ:
 
-http://www.apache.org/dyn/closer.cgi?path=/thrift/0.9.2/thrift-0.9.2.tar.gz
+[http://thrift.apache.org/download](http://thrift.apache.org/download){:target="_blank"}{:rel="nofollow"}
+
 
 Trong quá trình compile, Thrift sẽ tìm các compiler đang được cài đặt trong máy và compile các module tương ứng cho tất cả các ngôn ngữ này.
 
@@ -37,7 +35,10 @@ Ví dụ:
 
 ### .thrift file
 
-Thrift file định nghĩa interface giao tiếp giữa client và server với nhau.
+Thrift file định nghĩa interface giao tiếp giữa client và server với nhau. Có thể hiểu file .thrift giống như file header `.h` của C.
+File .thrift có cú pháp rất đơn giản, được mô tả chi tiết tại địa chỉ:
+
+[http://thrift.apache.org/docs/idl](http://thrift.apache.org/docs/idl){:target="_blank"}{:rel="nofollow"}
 
 Ví dụ sau định nghĩa một service cung cấp hàm add thực hiện phép cộng 2 số:
 
@@ -54,9 +55,9 @@ Chẳng hạn, để compile thành thư viện dùng cho Ruby ta dùng command:
  thrift --gen rb calculator.thrift
 {% endhighlight %}
 
-### Thrift với Ruby
+### Thrift with Ruby
 
-Để sử dụng thrift với Ruby ta cần cài gem thrift.
+Để sử dụng thrift với Ruby trước tiên ta cần cài gem [thrift](https://rubygems.org/gems/thrift){:target="_blank"}{:rel="nofollow"}. Sau đó ta import file được compile từ file `.thrift`. Để compile interface cho Ruby ta dùng command:
 
 {% highlight bash %}
  thrift --gen rb calculator.thrift
@@ -64,7 +65,7 @@ Chẳng hạn, để compile thành thư viện dùng cho Ruby ta dùng command:
 
 Thrift sẽ sinh ra thư mục `gen-rb` chứa các thư viện cần thiết để sử dụng.
 
-#### Server thrift bằng Ruby
+#### Server in Ruby
 
 Ta dựng một server thrift bằng Ruby. Server sẽ lắng nghe tại cổng 9090 khi có request đến server sẽ thực hiện phép cộng và trả về kết quả cho client.
 
@@ -74,6 +75,7 @@ $:.push('gen-rb')
 require 'thrift'
 require 'calculator'
 
+# Handle Calculator service
 class CalculatorHandler
   def initialize
     @log = {}
@@ -95,7 +97,9 @@ server.serve()
 puts "done."
 {% endhighlight %}
 
-#### Client bằng Ruby
+#### Client in Ruby
+
+Tương tự như server, một client viết bằng Ruby cần có các file `gen-rb` được Thirft compile.
 
 {% highlight ruby %}
 # client.rb
@@ -114,21 +118,25 @@ transport.close()
 {% endhighlight %}
 
 {% highlight bash %}
- ruby client.rb
-12 + 13 = 25
+ruby client.rb
+=> 12 + 13 = 25
 {% endhighlight %}
 
-Tiếp theo, ta viết client bằng Erlang
+Ở code trên ta thấy, nhờ có thrift việc gọi hàm add của service Calculator được thực hiện giống như việc gọi hàm của cùng một ứng dụng. Thrift đã đảm nhiệm phần
+trao đổi encode decode dữ liệu.
 
-### Client bằng Erlang
+Tuy nhiên, sức mạnh của Thrift không dừng lại ở đó. Ta còn có thể gọi một service được viết bằng ngôn ngữ khác y như gọi một hàm local. Phần tiếp theo, ta sẽ viết
+một client bằng Erlang request đến service Calculator đã được implement bằng Ruby ở trên.
 
-Không đơn giản như Ruby, để sử dụng được Thrift trong Erlang, ta cần thư viện thirft dành cho Erlang. Thư viện này được cung cấp trong thư mục source của thrift
+### Thrift with Erlang
+
+Không đơn giản như Ruby, để sử dụng được Thrift trong Erlang, ta cần thư viện thirft dành cho Erlang. Thư viện này được cung cấp trong thư mục source code của thrift
 
     thrift_source/lib/erl
 
 Hoặc có thể tải về tại địa chỉ:
 
-https://github.com/apache/thrift/tree/master/lib/erl
+[https://github.com/apache/thrift/tree/master/lib/erl](https://github.com/apache/thrift/tree/master/lib/erl){:target="_blank"}{:rel="nofollow"}
 
 Tiếp theo ta compile interface của service `Calculator` cho Erlang
 
@@ -136,7 +144,7 @@ Tiếp theo ta compile interface của service `Calculator` cho Erlang
  thrift --gen erl calculator.thrift
 {% endhighlight %}
 
-Các file được sinh ra trong thư mục gen-erl.
+Các file được sinh ra trong thư mục `gen-erl`.
 
 Ứng dụng client như sau:
 
@@ -156,9 +164,9 @@ plus(A, B) ->
   io:format("~p + ~p = ~p~n", [A, B, Sum]).
 {% endhighlight %}
 
-Ta copy các file trong thư mục gen-erl và file clien.erl vào thư mục erl được download ở trên.
+Ta copy các file trong thư mục `gen-erl` và file `client.erl` vào thư mục lib erl được download ở trên.
 
-Trong thư mục erl, ta compile tất cả các thư viện(bao gồm cả file client.erl) bằng rebar:
+Trong thư mục lib erl, ta compile tất cả các thư viện(bao gồm cả file client.erl) bằng rebar:
 
      ./rebar compile
 
@@ -167,3 +175,6 @@ File compile được đặt trong thư mục ebin. Trong erl console, ta thực
     1> client:plus(12, 13).
     12 + 13 = 25
     ok
+
+Như vậy ta thấy Thrift cung cấp đầy đủ công cụ để các process giao tiếp hiệu quả với nhau. Ta không cần phải lo lắng đến việc
+encode/decode data, transport chúng như thế nào. Nhờ đó việc trao đổi giữa client/server trở nên cực kì đơn giản.
