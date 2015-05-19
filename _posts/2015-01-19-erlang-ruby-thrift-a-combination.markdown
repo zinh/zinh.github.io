@@ -25,13 +25,13 @@ Trong Ruby ta có thể áp dụng Actor model thông qua gem Celluloid. Tuy nhi
 
 Trong bài viết này, ta sử dụng Erlang để minh họa cho Actor model.
 
-Nhằm làm cho chương trình thêm phức tạp, mình chia ứng dụng thành 2 phần: phần HTTP request được implement bằng Erlang, phần parsing được implement bằng Ruby. 2 phần này được gắn kết với nhau thông qua Thrift, đọc thêm về bài giới thiệu Thrift tại đây.
+Ta chia ứng dụng thành 2 phần: phần HTTP request được implement bằng Erlang, phần parsing được implement bằng Ruby. 2 phần này được gắn kết với nhau thông qua Thrift, đọc thêm về bài giới thiệu Thrift tại đây.
 
 Tóm lại mô hình của ứng dụng crawler như sau:
 
 [Ruby parser] <==Thrift==> [Erlang http process]
 
-Trước tiên ta định nghĩa interface giao tiếp giữa parser và http request
+Trước tiên ta định nghĩa interface giao tiếp giữa parser và http request bằng Thrift.
 
 ## Thrift interface
 
@@ -68,8 +68,9 @@ require './gen-rb/crawler'
 class CrawlerHandler
   def handler(html)
     doc = Nokogiri::HTML(html)
+    title_node = doc.at_xpath("//title/text()")
     title = title_node.text if title_node
-    links_node = doc.xpath("//a/@href")
+    links = doc.xpath("//a/@href").map{|link| link.value}
     web_data = WebData.new
     web_data.title = title.strip
     web_data.links = links.uniq
@@ -101,7 +102,7 @@ puts "Stopping server..."
 
 Phần HTTP request được hiện thực bằng Erlang. Ta chia thành nhiều worker, mỗi worker sẽ có nhiệm vụ gửi http request đến một url fetch nội dung html của url đó về. Sau đó gửi html đó đến server Parser, lấy danh sách link và title về.
 
-Ta duy trì một danh sách các link cần crawler(có thể hiểu nó như một task list). Worker sẽ lấy url từ task list này.
+Ta duy trì một danh sách các link cần crawl(có thể hiểu nó như một task list). Worker sẽ lấy url từ task list này.
 
 Process worker sẽ lấy link từ Process Link Queue(dùng chung cho tất cả worker). Mỗi khi lấy được link mới, worker sẽ gửi link này đến Link Queue để lên schedule crawl link đó. Để đơn giản, link queue thực hiện theo cơ chế FIFO(first in first out). Do đó Link Queue process sẽ nhận các message như sau:
 
