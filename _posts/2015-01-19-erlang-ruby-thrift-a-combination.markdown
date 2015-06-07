@@ -60,7 +60,6 @@ Tóm lại mô hình của ứng dụng crawler như sau:
     +---------------+                             +----------------+
 
 Trước tiên ta định nghĩa interface giao tiếp giữa Parser và Worker
-
 ## Thrift interface
 
     struct WebData {
@@ -98,7 +97,7 @@ class CrawlerHandler
     doc = Nokogiri::HTML(html)
     title_node = doc.at_xpath("//title/text()")
     title = title_node.text if title_node
-    links = doc.xpath("//a/@href")
+    links = doc.xpath("//a/@href").map{|link| link.value}
     web_data = WebData.new
     web_data.title = title.strip
     web_data.links = links.map{|link| link.value}
@@ -129,7 +128,6 @@ puts "Stopping server..."
 ## HTTP Worker
 
 Phần HTTP request được hiện thực bằng Erlang. Ta chia thành nhiều worker, mỗi worker sẽ có nhiệm vụ gửi http request đến một url fetch nội dung html của url đó về. Sau đó gửi nội dung html của url đó đến server Parser, lấy danh sách link và title về.
-
 Ta duy trì một danh sách các link cần crawl(có thể hiểu nó như một task queue). Worker sẽ lấy url từ task queue này.
 
 Process worker sẽ lấy link từ Process Link Queue(dùng chung cho tất cả worker). Mỗi khi lấy được link mới, worker sẽ gửi link này đến Task Queue để lên schedule crawl link đó. Để đơn giản, Task Queue thực hiện theo cơ chế FIFO(first in first out). Do đó Task Queue process sẽ nhận các message như sau:
