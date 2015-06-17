@@ -8,18 +8,18 @@ categories: erlang
 ---
 
 ## Giới thiệu về giao thức Websocket
-Giao thức Websocket dùng chung cổng 80. Tuy vậy đây là một giao thức hoàn toàn khác với HTTP. Chỉ có bước handshake thông qua HTTP để upgrade lên Websocket.
+Tuy cũng dùng chung cổng 80 với HTTP nhưng Websocket là một giao thức hoàn toàn khác.
 
-Websocket được tạo ra nhằm giải quyết một vấn đề của Http: stateful connection. 
-Do đó websocket thường được dùng trong các ứng dụng có tính realtime cao như chat, streaming...
+WebSocket cho phép tạo kênh giao tiếp 2 chiều giữa client và server. Do đó WebSocket thường được dùng trong các ứng dụng cần tính realtime cao như chat, streaming...
 
-Hiện websocket được hỗ trợ trong hầu hết các trình duyệt thông dụng.
+Hiện websocket được hỗ trợ trong hầu hết các trình duyệt thông dụng(Firefox, Chrome, Safari, IE).
 
 Thông thường giao thức websocket được thực hiện thông qua 2 bước:
 
 ### 1. Handshake
 
-Packet được gửi trong bước handshake có format tương tự như Http. Ví dụ:
+Khi một client muốn tạo kết nối WebSocket đến server, trước tiên client này phải gửi một package handshake thông báo muốn tạo kết nối. 
+Packet này có các header tương tự như HTTP(nhưng có thêm một số header dùng riêng cho WebSocket). Ví dụ một package handshake thông thường sẽ có format như sau:
 
     GET / HTTP/1.1
     Host: localhost:8080
@@ -29,25 +29,26 @@ Packet được gửi trong bước handshake có format tương tự như Http.
     Connection: keep-alive, Upgrade
     Upgrade: websocket
 
-Ta thấy ngoài các header của Http, websocket thêm một số header khác như: Sec-WebSocket-Version, Sec-WebSocket-Key, Upgrade.
+Đặc điểm nhận biết của packet này chính là các header: Upgrade, Sec-WebSocket-Version, Sec-WebSocket-Extensions, Sec-WebSocket-Key. Trong đó ta chú ý đến header `Sec-WebSocket-Key` vì sẽ phải sử dụng key này để reply lại cho client.
 
-Khi server nhận được packet này sẽ tạo một packet để reply, đồng ý upgrade connection lên websocket. Packet này sẽ có các header sau:
+Khi server nhận được packet handshake, sẽ tạo một packet để reply, thông báo đồng ý tạo kết nối. Packet này có các header sau:
 
     HTTP/1.1 101 Switching Protocols
     Upgrade: websocket
     Connection: Upgrade
     Sec-WebSocket-Accept: [accept key]
+	
+Ta chú ý header Sec-WebSocket-Accept chứa accept key được tạo thành dựa trên `Sec-WebSocket-Key` ở trên.
 
 ### 2. Send/receive
 
-Sau khi handshake thành công, data được gửi qua lại giữa client/server thông qua các Frame. Format các frame này sẽ được mô tả kỹ hơn trong phần
-hiện thực.
+Sau khi handshake thành công, data trao đổi qua lại giữa client và server sẽ thông qua các frame. Format các frame này sẽ được mô tả kỹ hơn trong phần hiện thực.
 
-## Hiện thực handshake
+## Hiện thực quá trình handshake
 
 #### Khởi tạo TCP Socket trong Erlang
 
-Để start một tcp socket trong Erlang, ta dùng thư viện gen_tcp:
+Để start một tcp socket trong Erlang, ta dùng thư viện `gen_tcp`:
 
 {% highlight erlang %}
 {ok, LSocket} = gen_tcp:listen(8080, [{active, true}])
@@ -72,10 +73,9 @@ acceptor(LSocket) ->
   handle(Socket).
 {% endhighlight %}
 
-Mỗi khi có connection đến, server sẽ tạo một process mới để handle connection này. Bằng cách này, server có thể handle được nhiều
-connection cùng lúc
+Mỗi khi có connection đến, server sẽ tạo một process mới để handle connection này(thông qua hàm `spawn`). Bằng cách này, server có thể handle được nhiều connection cùng lúc.
 
-Hàm `handle` ở trên sẽ là hàm xử lý chính cho mỗi connection. Trước tiên ta xử lý bước handshake.
+Hàm `handle` ở trên sẽ là hàm đảm nhiệm gửi nhận message với từng client. Đầu tiên ta xử lý bước handshake.
 
 #### Function handshake
 
@@ -90,7 +90,7 @@ handshake(Socket) ->
   end.
 {% endhighlight %}
 
-Trước hết, ta cần parse path/header của packet handshake. Sử dụng hàm `erlang:decode_packet`
+Ta viết một helper đơn giản để parse http headers.
 
 {% highlight erlang %}
 parse_packet(Packet) ->
@@ -168,17 +168,17 @@ __FIN bit__: bằng 1 nếu đây là frame cuối cùng(hoặc frame này khôn
 
 3 bit tiếp theo được dùng cho các extension version. Mặc định sẽ bằng 0.
 
-__Opcode(4 bits)__: format của payload. Bằng 1 nếu payload là text.
+__Opcode(4 bits)__: format của payload. Bằng 1 nếu payload có định dạng text.
 
-__Mask(1 bit)__: bằng 1 nếu payload được mask, bằng 0 trong trường hợp ngược lại.
+__Mask(1 bit)__: bằng 1 nếu payload được mask, bằng 0 trong trường hợp ngược lại. Chú ý message gửi từ client lúc nào cũng sẽ được mask. Còn message gửi từ server có thể mask hoặc không mask tùy ý.
 
 __Payload len(7 bit)__: chiều dài của payload. Ta chú ý field Payload len có 7 bit, ứng với các giá trị từ 0 đến 127.
 
-  - Trong trường hợp giá trị payload len nhỏ hơn 126, chiều chiều của payload chính là giá trị của Payload len.
-  - Nếu Payload len = 126, chiều dài của payload sẽ là 32 bit(4 bytes) tiếp theo.
-  - Nếu Payload len = 127, chiều dài của payload sẽ là 64 bit(8 bytes) tiếp theo.
+  - Trong trường hợp giá trị payload len nhỏ hơn 126, giá trị này chính là chiều dài của payload.
+  - Nếu Payload len = 126, chiều dài của payload sẽ là giá trị integer của 32 bit(4 bytes) tiếp theo.
+  - Nếu Payload len = 127, chiều dài của payload sẽ là giá trị integer của 64 bit(8 bytes) tiếp theo.
 
-__Masking-key(32 bit, 4 bytes)__: Key dùng để decode Payload. Field này chỉ xuất hiện nếu Mask = 1.
+__Masking-key(32 bit, 4 bytes)__: Key dùng để decode Payload. Field này chỉ xuất hiện nếu Mask bit = 1.
 
 Sau cùng là phần __Payload__, chính là nội dung message gửi từ Client.
 
