@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Kết hợp Ruby và Erlang sử dụng Thrift"
+title:  "Thu thập dữ liệu từ website cùng với Ruby, phần 2"
 date:   2015-02-01 00:03:04
 summary: Tiếp theo loạt series về các cấu trúc xử lý concurrent, trong bài viết này sẽ giới thiệu pattern Actor cùng việc kết hợp giữa Ruby và Erlang thông qua Thrift.
 description: Tiếp theo loạt series về các cấu trúc xử lý concurrent, trong bài viết này sẽ giới thiệu pattern Actor cùng việc kết hợp giữa Ruby và Erlang thông qua Thrift.
 categories: ruby crawl
 ---
 
-Trong bài viết trước, ta đã tìm hiểu cách xử lý concurrency đầu tiên thông qua multi-threading. Với một ứng dụng được viết cẩn thận, việc dùng multi-threading sẽ đem lại hiệu quả xử lý rất tốt. Tuy nhiên, không dễ dàng để maintain một ứng dụng concurrency(đặc biệt khi độ phức tạp tăng lên).
+Trong bài viết [trước](http://zinh.github.io/ruby/crawl/2015/01/06/crawl-data-using-ruby.html), ta đã tìm hiểu cách xử lý concurrency đầu tiên thông qua multi-threading. Với một ứng dụng được viết cẩn thận, việc dùng multi-threading sẽ đem lại hiệu quả xử lý rất tốt. Tuy nhiên, không dễ dàng để maintain một ứng dụng concurrency(đặc biệt khi độ phức tạp tăng lên).
 
 Ta lưu ý một đặc điểm của thread: share resource, hậu quả của nó chính là tình trạng nhiều thread cùng truy xuất đồng thời tài nguyên(race condition), dẫn đến những trạng thái không lường trước được của chương trình.
 
@@ -38,7 +38,7 @@ Tuy nhiên bản thân Erlang cũng có những nhược điểm. Việc có cú
 
 Đây lại là điểm mạnh của Ruby. Do đó trong ứng dụng crawler ta sẽ kết hợp cả hai lại bằng Thrift.
 
-Ứng dụng được chia thành 2 phần: phần HTTP request được implement bằng Erlang, phần parser được implement bằng Ruby. 2 phần này được gắn kết với nhau thông qua Thrift, đọc thêm về bài giới thiệu Thrift tại đây.
+Ứng dụng được chia thành 2 phần: phần HTTP request được implement bằng Erlang, phần parser được implement bằng Ruby. 2 phần này được gắn kết với nhau thông qua Thrift, đọc thêm về bài giới thiệu Thrift tại [đây](http://zinh.github.io/ruby/erlang/2015/05/12/ruby-and-erlang-by-thrift.html).
 
 Tóm lại mô hình của ứng dụng crawler như sau:
 
@@ -60,6 +60,7 @@ Tóm lại mô hình của ứng dụng crawler như sau:
     +---------------+                             +----------------+
 
 Trước tiên ta định nghĩa interface giao tiếp giữa Parser và Worker
+
 ## Thrift interface
 
     struct WebData {
@@ -75,7 +76,7 @@ File trên định nghĩa structure `WebData` và hàm `parse`.
 
 Structure `WebData` dùng để lưu dữ liệu sau khi được parse của một trang html. Bao gồm title và các internal link của trang html đó.
 
-Hàm `parse` nhận vào tham số là chuỗi html, thực hiện việc parse data và trả về WebData cho client.
+Hàm `parse` nhận vào tham số là chuỗi html, thực hiện việc parse data và trả về structure WebData cho client.
 
 Để sinh ra file thư viện tương ứng với Erlang và Ruby ta thực hiện lệnh
 
@@ -153,9 +154,11 @@ Task Queue là một process có behaviour là `gen_server`. Task Queue duy trì
 start_link() ->
   gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
+%% Synchronous call
 pop_link() ->
   gen_server:call(?SERVER, pop).
 
+%% Async call
 push_link(Link) ->
   gen_server:cast(?SERVER, {push, Link}).
 
@@ -225,9 +228,8 @@ insert_links(Links) ->
 {% endhighlight %}
 
 Với việc dùng Erlang, ứng dụng trên có thể dễ dàng scale các worker sang nhiều máy khác nhau.
-Tuy nhiên lúc đó Task Queue trở thành Single Point of Death.
-Để hạn chế việc này ta có thể replica Task Queue sang nhiều máy(đơn giản nhất có thể dùng mnesia).
+Tuy nhiên lúc đó Task Queue trở thành Single Point of Failure.
+Để hạn chế việc này ta có thể replica Task Queue sang nhiều máy(đơn giản nhất có thể dùng [mnesia](http://www.erlang.org/doc/man/mnesia.html]).
 
 Ngoài ra ta còn có thể áp dụng cơ chế Supervisor của Erlang để quản lý các worker hiệu quả hơn.
-
-Dùng mochi xpath để parse xpath, tránh việc phụ thuộc vào Ruby.
+Trên thực tế, có thể dùng các thư viện parse HTML sẵn có của Erlang như mochi xpath tránh phụ thuộc vào Ruby.
