@@ -36,7 +36,7 @@ class Crawler
 end
 {% endhighlight %}
 
-Ngoài danh sách các link cần crawl(biến `@queue` ở class `Crawler`), để tránh việc crawl trùng các link, chương trình duy trì thêm một danh sách các link đã crawl(biến `@crawled`).
+Ở chương trình trên, ngoài danh sách các link cần crawl(biến `@queue` ở class `Crawler`), để tránh việc crawl trùng các link, ta duy trì thêm một danh sách các link đã crawl(biến `@crawled`).
 
 Hàm `run` sẽ chạy một vòng lặp để lấy lần lượt các link trong queue ra(hàm `next_link`), request HTML và dùng Nokogiri để parse nội dụng file HTML đó nhằm lấy ra các thông tin cần thiết(hàm `page_analyze`).
 
