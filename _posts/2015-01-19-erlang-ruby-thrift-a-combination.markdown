@@ -19,7 +19,7 @@ Trong bài viết này, ta làm quen với một hô hình xử lý concurrency 
 
 Mô hình actor model rất đơn giản, mỗi actor là một process, các actor hoạt động trong address space của riêng mình, không share memory với actor khác. Giữa các actor sẽ communicate với nhau thông qua cơ chế message(hay còn gọi là mailbox).
 
-http://www.scottlogic.com/blog/rdoyle/assets/ActorModel.png
+![Actor model](http://www.scottlogic.com/blog/rdoyle/assets/ActorModel.png)
 
 Trong Ruby ta có thể áp dụng Actor model thông qua gem Celluloid. Tuy nhiên, do bị giới hạn bởi GIL nên trên thực tế, các actor không được chạy song song với nhau.
 
