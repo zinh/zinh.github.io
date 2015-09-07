@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Thu thập dữ liệu từ website cùng với Ruby, phần 2"
-date:   2015-02-01 00:03:04
+date:   2015-09-07 00:03:04
 summary: Tiếp theo loạt series về các cấu trúc xử lý concurrent, trong bài viết này sẽ giới thiệu pattern Actor cùng việc kết hợp giữa Ruby và Erlang thông qua Thrift.
 description: Tiếp theo loạt series về các cấu trúc xử lý concurrent, trong bài viết này sẽ giới thiệu pattern Actor cùng việc kết hợp giữa Ruby và Erlang thông qua Thrift.
 categories: ruby crawl
