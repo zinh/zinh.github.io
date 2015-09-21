@@ -9,17 +9,17 @@ categories: haskell
 
 Bài viết này được lược dịch lại từ bản tiếng Anh: [Functors, Applicatives, And Monads In Pictures](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html){:target="_blank"}{:rel="nofollow"}, giải thích khá dễ hiểu các khái niệm căn bản trong lập trình hàm(với ví dụ minh hoạ của ngôn ngữ Haskell)
 
-Trước tiên ta làm quen với khái niệm value và context
+Để bắt đầu trước tiên ta làm quen với khái niệm value và context
 
 ## Value and Context
 
 Trước hết, ta có một giá trị kiểu số, chẳng hạn như:
 
-![a value of 2](http://adit.io/imgs/functors/value.png)
+![a value of 2](/images/functors/value.png)
 
 Khi áp dụng một function, chẳng hạn function cộng vào số trên ta được kết quả là một giá trị số khác.
 
-![(+3) 2](http://adit.io/imgs/functors/value_apply.png)
+![(+3) 2](/images/functors/value_apply.png)
 
 > Kí hiệu `(+3)` là kí hiệu cho hàm `f(x) = x + 3`.
 >
@@ -27,7 +27,7 @@ Khi áp dụng một function, chẳng hạn function cộng vào số trên ta 
 
 Ta mở rộng khái niệm giá trị trên, cho nó vào một ngữ cảnh(context), có thể tưởng tượng như lấy giá trị đó bỏ vào một cái hộp
 
-![value and context](http://adit.io/imgs/functors/value_and_context.png)
+![value and context](/images/functors/value_and_context.png)
 
 Khi áp dụng một function vào trong chiếc hộp này, ta nhận được kết quả khác nhau, tùy theo chiếc hộp và giá trị chứa bên trong nó.
 
@@ -43,11 +43,13 @@ data Maybe a = Nothing | Just a
 
 `Maybe Int` sẽ có các giá trị: `Nothing`, `Just -1`, `Just 0`,`Just 1`, `Just 100`...
 
-![Maybe](http://adit.io/imgs/functors/context.png)
+`Maybe Float` sẽ có các giá trị: `Nothing`, `Just 1.1`, `Just 100.25`, ...
 
-`Nothing` gần giống như khái niệm `null` trong các ngôn ngữ lập trình khác.
+![Maybe](/images/functors/context.png)
 
-Sau đây ta sẽ làm quen với khái nhiệm __Functor__
+> `Nothing` gần giống như khái niệm `null` trong các ngôn ngữ lập trình khác.
+
+Sau đây ta sẽ làm quen với khái niệm __Functor__
 
 ## Functor
 
@@ -58,12 +60,12 @@ Khi một giá trị được đặt trong một context(chẳng hạng `Just 2`
 ERROR!!!
 {% endhighlight %}
 
-![(+3) Just 2](http://adit.io/imgs/functors/no_fmap_ouch.png)
+![(+3) Just 2](/images/functors/no_fmap_ouch.png)
 
 Vì thế, xuất hiện hàm `fmap` giúp ta làm được việc không thể trên.
 `fmap` sẽ lấy giá trị trong chiếc hộp đó ra và áp dụng function `(+3)`, lấy kết quả bỏ vào hộp trở lại.
 
-![fmap (+3) (Just 2)](http://adit.io/imgs/functors/fmap_apply.png)
+![fmap (+3) (Just 2)](/images/functors/fmap_apply.png)
 
 Thế nhưng, làm cách nào `fmap` biết cách áp hàm `(+3)` vào giá trị `Just 2`?
 
@@ -73,12 +75,13 @@ __Functor__ là một *typeclass*. Đây là định nghĩa của __Functor__
 > ta định nghĩa một hàm `fmap` trên kiểu dữ liệu đó, thõa mãn:
 >
 >     fmap :: (a -> b) -> f a -> f b
+>
 > Có thể hiểu khái niệm typeclass giống như khái niệm abstract class/interface trong Java.
 > Một kiểu dữ liệu có thể implement nhiều typeclass khác nhau.
 
 Vì thế, một kiểu dữ liệu được gọi là __Functor__ nếu kiểu dữ liệu đó định nghĩa một hàm `fmap`
 
-![fmap explanation](http://adit.io/imgs/functors/fmap_def.png)
+![fmap explanation](/images/functors/fmap_def.png)
 
 `Maybe` là một functor, do đó ta có thể gọi `fmap` cho `Maybe` như sau:
 
@@ -95,7 +98,7 @@ instance Functor Maybe where
   fmap f (Just value) = Just (f value)
 {% endhighlight %}
 
-![fmap Maybe](http://adit.io/imgs/functors/fmap_just.png)
+![fmap Maybe](/images/functors/fmap_just.png)
 
 Trước khi tiếp tục, thử trả lời câu hỏi sau:
 
@@ -104,7 +107,7 @@ Trước khi tiếp tục, thử trả lời câu hỏi sau:
 ???
 {% endhighlight %}
 
-![fmap Nothing](http://adit.io/imgs/functors/fmap_nothing.png)
+![fmap Nothing](/images/functors/fmap_nothing.png)
 
 {% highlight haskell %}
 > fmap (+3) Nothing
@@ -113,7 +116,7 @@ Nothing
 
 Áp một hàm vào `Nothing` sẽ nhận được `Nothing`, không còn gì hợp lí hơn!
 
-![Nothing goes in, nothing goes out](http://adit.io/imgs/functors/bill.png)
+![Nothing goes in, nothing goes out](/images/functors/bill.png)
 
 Việc này giúp ta đỡ phải xét giá trị `null`, chẳng hạn như câu `if` sau trong Ruby:
 
@@ -138,6 +141,11 @@ fmap getPostTitle (findPost 1)
 getPostTitle <$> (findPost 1)
 {% endhighlight %}
 
+> Trong Haskell, tên một function có thể được tạo thành từ các kí tự bất kì. Ví dụ ở trên ta đã biết `+` là một function nhận 2 tham số
+>
+>       (+) 2 3 == 5
+
+
 Hỏi thêm 1 câu hỏi nhỏ trước khi tiếp tục: khi áp dụng một function vào trong một __List__ thông qua `fmap`, ta sẽ được gì?
 
 {% highlight haskell %}
@@ -145,7 +153,7 @@ Hỏi thêm 1 câu hỏi nhỏ trước khi tiếp tục: khi áp dụng một f
 ???
 {% endhighlight %}
 
-![fmap over a list](http://adit.io/imgs/functors/fmap_list.png)
+![fmap over a list](/images/functors/fmap_list.png)
 
 List cũng là một Functor:
 
@@ -176,7 +184,7 @@ Trả lời: kết quả là một function khác.
 15
 {% endhighlight %}
 
-![fmap over two functions](http://adit.io/imgs/functors/fmap_function.png)
+![fmap over two functions](/images/functors/fmap_function.png)
 
 Đây là định nghĩa `fmap` trên một function:
 
@@ -193,11 +201,11 @@ Như vậy, `fmap` của 2 function chẳng qua là phép hợp của 2 function
 
 Trở lại với value và context:
 
-![value and context](http://adit.io/imgs/functors/value_and_context.png)
+![value and context](/images/functors/value_and_context.png)
 
 Function của ta cũng được wrap trong một context:
 
-![function in context](http://adit.io/imgs/functors/function_and_context.png)
+![function in context](/images/functors/function_and_context.png)
 
 Như thế làm sao có thể áp dụng function vào value?(rõ ràng `fmap` không phát huy được tác dụng trong trường hợp này).
 
@@ -205,7 +213,7 @@ Tương tự như __Functor__, ta có typeclass __Applicative__ để giải quy
 
 Ví dụ cho `Just 2` và `Just (+3)`:
 
-![applicative maybe](http://adit.io/imgs/functors/applicative_just.png)
+![applicative maybe](/images/functors/applicative_just.png)
 
 Hay:
 
@@ -221,7 +229,7 @@ Câu hỏi: kết quả của biểu thức sau là gì?
 ???
 {% endhighlight %}
 
-![Applicative and list](http://adit.io/imgs/functors/applicative_list.png)
+![Applicative and list](/images/functors/applicative_list.png)
 
 Do đó:
 {% highlight haskell %}
@@ -256,11 +264,11 @@ Hiện giờ, ta có 2 typeclass:
 
 __Functor__: áp dụng cho function và context value
 
-![](http://adit.io/imgs/functors/fmap.png)
+![](/images/functors/fmap.png)
 
 __Applicative__: áp dụng cho context function và context value
 
-![](http://adit.io/imgs/functors/applicative.png)
+![](/images/functors/applicative.png)
 
 __Monad__ áp dụng cho một function có kết quả trả về là một context value và một context value khác.
 
@@ -272,7 +280,7 @@ half x = if even x
          else Nothing
 {% endhighlight %}
 
-![half explanation](http://adit.io/imgs/functors/half.png)
+![half explanation](/images/functors/half.png)
 
 Thế nếu áp dụng một context value cho hàm `half` thì sao?
 
@@ -281,7 +289,7 @@ Thế nếu áp dụng một context value cho hàm `half` thì sao?
 ERROR!!!!
 {% endhighlight %}
 
-![half \(Just 10\)](http://adit.io/imgs/functors/half_ouch.png)
+![half \(Just 10\)](/images/functors/half_ouch.png)
 
 typeclass __Monad__ định nghĩa hàm `>>=` thực hiện yêu cầu trên
 
@@ -301,7 +309,7 @@ class Monad m where
   (>>=) :: m a -> (a -> m b) -> m b
 {% endhighlight %}
 
-![>>= signature](http://adit.io/imgs/functors/bind_def.png)
+![>>= signature](/images/functors/bind_def.png)
 
 Maybe định nghĩa `>>=` như sau:
 
@@ -318,7 +326,7 @@ Ta có thể kết hợp liên tiếp `>>=` như sau:
 Nothing
 {% endhighlight %}
 
-![Just 20 >>= half >>= half >>= half](http://adit.io/imgs/functors/monad_chain.png)
+![Just 20 >>= half >>= half >>= half](/images/functors/monad_chain.png)
 
 ### Monad áp dụng cho datatype IO
 
@@ -328,7 +336,7 @@ Trong Haskell ta có hàm `getLine`: nhận input từ console trả về một 
 getLine :: IO String
 {% endhighlight %}
 
-![getLine :: IO String](http://adit.io/imgs/functors/getLine.png)
+![getLine :: IO String](/images/functors/getLine.png)
 
 Hàm `readFile`: input một chuỗi(tên file) và trả về một String được gói trong context `IO`
 
@@ -338,7 +346,7 @@ readFile :: FilePath -> IO String
 
 > Trong Haskell datatype FilePath chính là alias của String
 
-![readFile :: FilePath -> IO String](http://adit.io/imgs/functors/readFile.png)
+![readFile :: FilePath -> IO String](/images/functors/readFile.png)
 
 Hàm `putStrLn`: input một `String`, in chuỗi đó ra console, trả về `IO ()`
 
@@ -346,7 +354,7 @@ Hàm `putStrLn`: input một `String`, in chuỗi đó ra console, trả về `I
 putStrLn :: IO ()
 {% endhighlight %}
 
-![putStrLn :: IO](http://adit.io/imgs/functors/putStrLn.png)
+![putStrLn :: IO](/images/functors/putStrLn.png)
 
 Do `IO` cũng là một Monad nên ta có thể áp dụng `>>=` vào các function trên như sau:
 
@@ -360,7 +368,7 @@ Kết quả là chuỗi hành động sau:
 - Đọc file đó
 - In nội dung file đó ra console
 
-![monad IO](http://adit.io/imgs/functors/monad_io.png)
+![monad IO](/images/functors/monad_io.png)
 
 Haskell cung cấp cú pháp `do` để làm công việc nối nhiều function __IO__ lại với nhau như trên.
 
@@ -380,7 +388,7 @@ foo = do
 
 Điểm khác biệt của các typeclass trên là gì?
 
-![recap](http://adit.io/imgs/functors/recap.png)
+![recap](/images/functors/recap.png)
 
 - __functor__: áp dụng một function vào một context value thông qua hàm `fmap` hoặc `<$>`
 - __applicative__: áp dụng một context function vào một context value thông qua hàm `<*>`
