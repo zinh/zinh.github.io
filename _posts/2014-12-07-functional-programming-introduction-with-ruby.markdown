@@ -25,6 +25,7 @@ Một chương trình trong lập trình hàm không thay đổi giá trị các
 def increament(a)
   return a + 1
 end
+@b = increament(10)
 ```
 
 ### Map - Reduce
