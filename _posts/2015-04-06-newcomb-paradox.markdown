@@ -26,7 +26,7 @@ __Hộp B__ bị che lại, số tiền bên trong hộp B được quyết đ�
 Trước khi bắt đầu, *Player* được phổ biến tất cả các luật, cũng như số tiền bên trong hộp A, chỉ có lời tiên đoán của *Predictor* là không được biết trước.
 Như vậy số tiền *Player* nhận được sẽ có các trường hợp sau:
 
-| __Tiên đoán__ | __Hộp B chứa__ | __*Player* chọn__ | __Số tiền *Player* nhận được__ |
+| __Tiên đoán__ | __Hộp B chứa__ | __Player chọn__ | __Số tiền *Player* nhận được__ |
 | A và B | $0| A và B| $1,000|
 | A và B | $0 | B  | $0|
 | B  | $1,000,000   | A và B  | $1,001,000|
@@ -44,7 +44,7 @@ Tuy nhiên, vẫn còn một cách suy luận khác
 
 __Cách thứ 2__: do điền kiện ban đầu cho thấy *Predictor* tiên đoán tương lại rất chính xác, nên ta phải bỏ qua trường hợp *Player* chọn ngược lại với lời tiên đoán, payoff matrix của ta khi đó chỉ còn 2 lựa chọn:
 
-| __Tiên đoán__ | __*Player* chọn__ | __Số tiền *Player* nhận được__ |
+| __Tiên đoán__ | __Player chọn__ | __Số tiền *Player* nhận được__ |
 | A và B | A và B | 1,000|
 | B | B |1,000,000|
 
