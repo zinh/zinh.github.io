@@ -76,7 +76,7 @@ trong node N trên toàn bộ text của trang web. Khi đó công thức tính 
 
 $$radio(N) = p\frac{(text(N) - link(N))}{text(N)} + q\frac{text(N)}{total\_text}$$
 
-    Trong đó để đảm bảo radio thuộc khoang [0,1] ta ràng buộc p + q = 1
+> Trong đó để đảm bảo radio thuộc khoảng [0,1] ta ràng buộc p + q = 1
     
 Ta cần điều chỉnh p, q sao cho ra kết quả chính xác nhất. Có thể đánh giá dựa trên các tỉ lệ precision, recall, ... Hiện tại mình đang dùng p = 0.99, q = 0.01
 
