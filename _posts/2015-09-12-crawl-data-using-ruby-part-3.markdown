@@ -32,35 +32,43 @@ Trong Ruby, thư viện Reactor pattern được biết đến nhiều nhất ch
 
 Cài đặt EventMachine tương tự như các gem khác của Ruby:
 
-    gem install eventmachine
+{% highlight ruby %}
+gem install eventmachine
+{% endhighlight %}
 
 Synchronous Event Demultiplexer:
 
-    EventMachine.run do
-      EventMachine.start_server ...
-    end
+{% highlight ruby %}
+EventMachine.run do
+  EventMachine.start_server ...
+end
+{% endhighlight %}
 
 Request Handler:
 
-    module Echo
-      def receive_data(data)
-        p data
-      end
-    end
+{% highlight ruby %}
+module Echo
+  def receive_data(data)
+    p data
+  end
+end
+{% endhighlight %}
 
 Hoặc định nghĩa trong một class:
 
-    class Echo < EventMachine::Connection
-      def initialize(*args)
-        super
-      end
+{% highlight ruby %}
+class Echo < EventMachine::Connection
+  def initialize(*args)
+    super
+  end
 
-      def receive_data(data)
-        p data
-      end
-    end
+  def receive_data(data)
+    p data
+  end
+end
 
-    EventMachine.connect '127.0.0.1', 22, Echo
+EventMachine.connect '127.0.0.1', 22, Echo
+{% endhighlight %}
 
 Một điểm quan trọng cần lưu ý, do chỉ chạy trên single-thread, nên khi Request Handler được thực thi, cả chương trình sẽ bị block cho đến khi Request Handler kết thúc. Vì thế cần giảm thiểu thời gian chạy của Request Handler đến mức tối đa, đặc biệt là các tác vụ IO(như đọc, ghi File, HTTP request, ...) không nên để trực tiếp trong Request Handler. Thay vào đó ta nên sử dụng library non-blocking IO tương ứng với các tác vụ trên.
 
@@ -76,32 +84,36 @@ Trong phần này ta thử áp dụng EventMachine trong ứng dụng crawler, v
 
 Tương tự như phần 1, cấu trúc cơ bản của chương trình như sau:
 
-    class Crawler
-      def initialize
-        @links = []
-        @crawled = []
-        @crawling = []
-      end
-    
-      def crawl
-        # main code
-      end
-    
-      private
-      def push_link(doc)
-      end
-    end
+{% highlight ruby %}
+class Crawler
+  def initialize
+    @links = []
+    @crawled = []
+    @crawling = []
+  end
+
+  def crawl
+    # main code
+  end
+
+  private
+  def push_link(doc)
+  end
+end
+{% endhighlight %}
 
 Trước hết là phần xử lý của EventMachine
 
-    def crawl
-      EventMachine.run{
-        while true
-          link = next_link
-          next if link.nil?
-          http = EventMachine::HttpRequest.new(link).get
-          http.errback{}
-          http.callback{}
-        end
-      }
+{% highlight ruby %}
+def crawl
+  EventMachine.run{
+    while true
+      link = next_link
+      next if link.nil?
+      http = EventMachine::HttpRequest.new(link).get
+      http.errback{}
+      http.callback{}
     end
+  }
+end
+{% endhighlight %}
