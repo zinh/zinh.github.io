@@ -31,7 +31,7 @@ end
 
 Tuy nhiên chương trình trên có một điểm yếu ở chỗ chỉ có thể handle 1 connection, nếu đang có một client connect vào server và một client thứ hai cũng muốn connect, client thứ hai này sẽ phải đợi cho đến khi client 1 close connection mới có thể connect vào server.
 
-Để có thể handle nhiều connection, ta có thể spawn một thread mới cho từng connection, cụ thể ta sẽ viết lại phiên bản 2 của echo server như sau:
+Để có thể handle nhiều connection, ta có thể spawn một thread mới cho từng connection, cụ thể echo server được cải tiến như sau:
 
 ### Multi-thread echo server
 
@@ -47,11 +47,11 @@ loop do
 end
 {% endhighlight %}
 
-với phiên bản multi-thread, ta đã có thể handle được nhiều client cùng lúc. Tuy nhiên với Eventmachine ta có một cách khác để handle nhiều connection cùng lúc thông qua non-blocking IO event API.
+với phiên bản multi-thread, ta đã có thể handle được nhiều client cùng lúc. Tuy nhiên việc phải tạo một thread mới cho mỗi connection sẽ không hiệu quả khi số connection tăng lên. Eventmachine cung cấp một giải pháp hiệu quả hơn để handle trường hợp này thông qua non-blocking IO event API.
 
 ### Non-blocking IO Event với Linux
 
-Trên Linux, non-blocking IO có thể được sử dụng thông qua system call [select(2)](http://man7.org/linux/man-pages/man2/select.2.html){:target="_blank"}{:rel="nofollow"} hoặc mới hơn(Linux 2.6) là cơ chế [epoll(7)](http://man7.org/linux/man-pages/man7/epoll.7.html){:target="_blank"}{:rel="nofollow"}. Nếu làm việc trên MacOS hoặc BSD-base ta có thể dùng [kqueue(2)](https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2){:target="_blank"}{:rel="nofollow"} và Eventmachine đều hỗ trợ tất cả các cơ chế này. Mặc định nếu hệ thống không hỗ trợ epoll(7) hoặc kqueue(2), Eventmachine sẽ sử dụng mặc định system call select(2), tuy nhiên select(2) có một số hạn chế và performance không được tốt, do đó nếu hệ thống hỗ trợ, bạn nên sử dung epoll hoặc kqueue sẽ đem lại hiệu quả tốt hơn.
+Trên Linux, non-blocking IO có thể được sử dụng thông qua system call [select(2)](http://man7.org/linux/man-pages/man2/select.2.html){:target="_blank"}{:rel="nofollow"} hoặc mới hơn(Linux 2.6) là cơ chế [epoll(7)](http://man7.org/linux/man-pages/man7/epoll.7.html){:target="_blank"}{:rel="nofollow"}. Nếu làm việc trên MacOS hoặc BSD-base ta có thể dùng [kqueue(2)](https://www.freebsd.org/cgi/man.cgi?query=kqueue&sektion=2){:target="_blank"}{:rel="nofollow"} và Eventmachine đều hỗ trợ tất cả các cơ chế này. Mặc định nếu hệ thống không hỗ trợ epoll(7) hoặc kqueue(2), Eventmachine sẽ sử dụng system call select(2), tuy nhiên select(2) có một số hạn chế và performance không được tốt, do đó nếu hệ thống hỗ trợ, bạn nên sử dung epoll hoặc kqueue sẽ đem lại hiệu quả tốt hơn.
 
 Để sử dụng, ta chỉ đơn giản gọi function `EM.epoll` hoặc `EM.kqueue` trước khi chạy event-loop.
 
