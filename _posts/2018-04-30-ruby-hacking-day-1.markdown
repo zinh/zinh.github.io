@@ -24,13 +24,13 @@ cd ruby_source
 
 We will need `autoconf` to compile ruby from source.
 
-~~~
+~~~ bash
 brew install autoconf openssl readline
 ~~~
 
-then run autoconf inside `ruby_source` directory
+then run `autoconf` inside `ruby_source` directory
 
-~~~
+~~~ bash
 autoconf
 mkdir build
 cd build
@@ -45,11 +45,11 @@ make install
 
 On Ubuntu, we will need to install these libraries
 
-~~~
+~~~ bash
 apt-get install -y build-essentials libssl-dev libreadline-dev zlib1g-dev bison ruby
 ~~~
 
-Funny thing is we will need a working Ruby in order to compile Ruby from source, therefore, above command also installs a ruby from apt. After that, we compile and install same as on Mac.
+Funny thing is we will need a working Ruby in order to compile Ruby from source; therefore, the command above also installs ruby from apt. After that, we compile and install same as on Mac.
 
 If there is no problem, we will have ruby binary installed to `workspace/ruby/build/install` directory.
 
@@ -65,17 +65,38 @@ cd build
 make run
 ~~~
 
-Another useful command is `make runruby`, this one will invoke the full version of Ruby.
+Another useful command is `make runruby`, this one also run `test.rb` but with full version of ruby.
 
-So the workflow when making change Ruby is like
+So the workflow when making change Ruby would be like
 
 1. Making some changes
-2. Wring some code to test new feature in test.rb
+2. Wring some code to test new feature in `test.rb`
 3. Running it with `make run`
 
 ## Debugging using gdb(Linux only)
 
 One of the important thing when working with C code is debugging(or any other language for that matter), on Linux it would be __gdb__.
-To debug using gdb we use `make gdb`
+To debug using gdb we can use `make gdb`. This will invoke miniruby, run `test.rb` and exit(if there is no error). So for example
+
+~~~
+echo "put 'Hello world'" > test.rb
+cd build
+make gdb
+~~~
 
 ## Debugging using lldb(Mac)
+
+It is very troublesome to setup `gdb` on Mac, we can use `lldb` which is provided defaultly instead. We can use the command `make lldb` to invoke lldb debugger during execution of miniruby or full-ruby. It will stop right before execution of the script, we can inspect code, set breakpoint from there.
+
+~~~
+echo "put 'Hello world'" > test.rb
+cd build
+make lldb
+~~~
+
+Some useful command with `lldb`
+
+~~~
+b <method> # set breakpoint at a method
+b rb_f_puts # set breakpoint at method rb_f_puts(C implementation of `puts` method in Ruby)
+~~~
