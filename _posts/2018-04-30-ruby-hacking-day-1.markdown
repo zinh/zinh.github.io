@@ -7,9 +7,9 @@ description: From this week, I will try to hack into Ruby core, I will write blo
 categories: ruby
 ---
 
-I've been wanting to take a look at Ruby's core for sometime, although I've read Ruby Under a Microscope but haven't got my hand dirty with the code. I will try do do some coding with Ruby's source from this week and write some posts along.
+I've been wanting to take a look at Ruby's core for sometime. I will try do do some coding with Ruby's source from this week and write some blog posts along.
 
-This week, I want to setup development enviroment, I will test on both Mac and Linux(Ubuntu) to see if there is any difference.
+This week, I want to setup the development enviroment, I will test on both Mac and Linux(Ubuntu) to see if there is any difference.
 
 ## Compile ruby from source
 
@@ -22,13 +22,13 @@ git clone --depth 1 --branch v2_5_1 git@github.com:ruby/ruby.git ruby_source
 cd ruby_source
 ~~~~
 
-We will need `autoconf` to compile ruby from source.
+On Mac, we will need `autoconf`, `openssl`(as the default tls library of Mac is not compatible with Ruby), and `readline` to compile Ruby from source.
 
 ~~~ bash
 brew install autoconf openssl readline
 ~~~
 
-then run `autoconf` inside `ruby_source` directory
+Run `autoconf` inside `ruby_source` directory
 
 ~~~ bash
 autoconf
@@ -43,7 +43,7 @@ make
 make install
 ~~~
 
-On Ubuntu, we will need to install these libraries
+On Ubuntu, we will need to install the following libraries
 
 ~~~ bash
 apt-get install -y build-essentials libssl-dev libreadline-dev zlib1g-dev bison ruby
@@ -95,4 +95,4 @@ cd build
 make lldb
 ~~~
 
-So, that's all for this time. Next week, I will try to create some simple method with Ruby.
+So, that's all for this time. Next week, I will try to create some simple method with Ruby and do some simple debug with gdb/lldb.
