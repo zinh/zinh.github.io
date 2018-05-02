@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Ruby hacking day 1"
+title: "Ruby hacking week 1"
 date: 2018-04-29 15:16:00
 summary: From this week, I will try to hack into Ruby core, I will write blog posts along
 description: From this week, I will try to hack into Ruby core, I will write blog posts along
