@@ -58,7 +58,7 @@ During compilation process, there is a mini version of Ruby called `miniruby`, t
 
 In order to invoke make run we need to create a `test.rb` file in ruby source folder, for example
 
-~~~
+~~~ bash
 cd ruby_source
 echo "puts 'hello world'" > test.rb
 cd build
@@ -78,7 +78,7 @@ So the workflow when making change Ruby would be like
 One of the important thing when working with C code is debugging(or any other language for that matter), on Linux it would be __gdb__.
 To debug using gdb we can use `make gdb`. This will invoke miniruby, run `test.rb` and exit(if there is no error). So for example
 
-~~~
+~~~ bash
 echo "put 'Hello world'" > test.rb
 cd build
 make gdb
@@ -89,7 +89,7 @@ make gdb
 It is very troublesome to setup `gdb` on Mac, we can use `lldb` which is provided together with clang and llvm's friends on Mac.
 Ruby also provide the command `make lldb` with same function as `make gdb`. It will stop right before execution of the script, we can inspect code, set breakpoint from there. For example
 
-~~~
+~~~ bash
 echo "put 'Hello world'" > test.rb
 cd build
 make lldb
