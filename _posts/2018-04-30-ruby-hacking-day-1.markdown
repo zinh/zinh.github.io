@@ -86,7 +86,8 @@ make gdb
 
 ## Debugging using lldb(Mac)
 
-It is very troublesome to setup `gdb` on Mac, we can use `lldb` which is provided defaultly instead. We can use the command `make lldb` to invoke lldb debugger during execution of miniruby or full-ruby. It will stop right before execution of the script, we can inspect code, set breakpoint from there.
+It is very troublesome to setup `gdb` on Mac, we can use `lldb` which is provided together with clang and llvm's friends on Mac.
+Ruby also provide the command `make lldb` with same function as `make gdb`. It will stop right before execution of the script, we can inspect code, set breakpoint from there. For example
 
 ~~~
 echo "put 'Hello world'" > test.rb
@@ -94,9 +95,4 @@ cd build
 make lldb
 ~~~
 
-Some useful command with `lldb`
-
-~~~
-b <method> # set breakpoint at a method
-b rb_f_puts # set breakpoint at method rb_f_puts(C implementation of `puts` method in Ruby)
-~~~
+So, that's all for this time. Next week, I will try to create some simple method with Ruby.
