@@ -21,7 +21,7 @@ Receiver will use his SSH private key to decrypt
 echo "<encrypted text>" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_rsa
 ~~~ 
 
-## Explaination
+## Explanation
 
 The encryption script will download the public key of a github user, create PKCS8 key file from this public key, then use `openssl rsautl` to encrypt the text, and output base64 encoding of encrypted text.
 
