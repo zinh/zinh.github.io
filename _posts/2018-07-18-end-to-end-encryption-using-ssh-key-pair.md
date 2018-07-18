@@ -34,4 +34,4 @@ Refer to openssl rsautl [man page](https://www.openssl.org/docs/man1.1.0/apps/op
 
 __Limitation__
 - Should use to encrypt short message only as RSA is quite slow. In case we need to encrypt long text or file, you should create a symmetric key and use it to encrypt the text then use RSA to encrypt that key.
-- As https://github.com/$USER.keys will return all public keys of a user, the above online will use the last key in this list.
+- As `https://github.com/$USER.keys` will return all public keys of a user, the above online will use the last key in this list.
