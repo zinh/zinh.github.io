@@ -12,7 +12,10 @@ categories: ruby
 To send a message to someone using his github's public key
 
 ~~~ bash
-TO=<GITHUB USER NAME> TEXT='<SUPER SECRET TEXT>'; curl -s https://github.com/$TO.keys | ssh-keygen -f /dev/stdin  -e -m PKCS8 > $TO.pem.pub; echo $TEXT | openssl rsautl -inkey $TO.pem.pub -encrypt -pubin -ssl | base64 ; rm -f $TO.pem.pub
+TO=<GITHUB USER NAME> TEXT='<SUPER SECRET TEXT>'; 
+curl -s https://github.com/$TO.keys | ssh-keygen -f /dev/stdin  -e -m PKCS8 > $TO.pem.pub; 
+echo $TEXT | openssl rsautl -inkey $TO.pem.pub -encrypt -pubin -ssl | base64 ; 
+rm -f $TO.pem.pub
 ~~~ 
 
 Receiver will use his SSH private key to decrypt
