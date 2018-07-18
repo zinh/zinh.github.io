@@ -7,6 +7,8 @@ description: When you're too lazy to install gpg or keybase, this oneliner can b
 categories: ruby
 ---
 
+## TLDR
+
 To send a message to someone using his github's public key
 
 ~~~ bash
@@ -18,6 +20,14 @@ Receiver will use his SSH private key to decrypt
 ~~~ bash
 echo "<encrypted text>" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_rsa
 ~~~ 
+
+## Explaination
+
+The encryption script will download the public key of a github user, create PKCS8 key file from this public key, then use `openssl rsautl` to encrypt the text, and output base64 encoding of encrypted text.
+
+When a receiver received a encrypted text, he will need his private key to recover the original text(also using `openssl rsautl` utility.
+
+Refer to openssl rsautl [man page](https://www.openssl.org/docs/man1.1.0/apps/openssl-rsautl.html){:target="_blank"}{:rel="nofollow"} for a more detail of the parameters.
 
 __Limitation__
 - Should use to encrypt short message only as RSA is quite slow. In case we need to encrypt long text or file, you should create a symmetric key and use it to encrypt the text then use RSA to encrypt that key.
