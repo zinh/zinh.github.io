@@ -2,21 +2,23 @@
 layout: post
 title: "End to end encrypt using ssh key pairs"
 date: 2018-07-18 15:16:00
-summary: How to encrypt/decrypt using your ssh keypair with openssl
-description: The other day, I need to passwords to a colleague, using openssl we can a simple end-to-end encryption
+summary: When you're too lazy to install gpg, this oneliner can be used to encrypt/decrypt a message with ssh keypair
+description: When you're too lazy to install gpg or keybase, this oneliner can be used to encrypt/decrypt a message with ssh keypair
 categories: ruby
 ---
 
-TLDR
+To send a message to someone using his github's public key
 
-Encrypt onliner using ssh public key
+~~~ bash
+TO=<GITHUB USER NAME> TEXT='<SUPER SECRET TEXT>'; curl -s https://github.com/$TO.keys | ssh-keygen -f /dev/stdin  -e -m PKCS8 > $TO.pem.pub; echo $TEXT | openssl rsautl -inkey $TO.pem.pub -encrypt -pubin -ssl | base64 ; rm -f $TO.pem.pub
+~~~ 
 
-```
-echo <text> > plaintext; curl -s https://github.com/zinh.keys | ssh-keygen -f /dev/stdin  -e -m PKCS8 | openssl rsautl -inkey /dev/stdin -encrypt -pubin -in plaintext -ssl | base64 ; rm -f plaintext
-```
+Receiver will use his SSH private key to decrypt
 
-Decrypt onliner using ssh private key
+~~~ bash
+echo "<encrypted text>" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_rsa
+~~~ 
 
-```
-echo "<encrypted text" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_rsa
-```
+__Limitation__
+- Should use to encrypt short message only as RSA is quite slow. In case we need to encrypt long text or file, you should create a symmetric key and use it to encrypt the text then use RSA to encrypt that key.
+- As https://github.com/$USER.keys will return all public keys of a user, the above online will use the last key in this list.
