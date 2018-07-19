@@ -52,9 +52,7 @@ Finally, remove the download key.
 
 ### Dencryption steps
 
-Decryption is quite forward, a user will use his ssh key to decrypt the text(after using base64 to decode)
-
-The encryption script will download the public key of a github user, convert to PKCS8 format, then use `openssl rsautl` to encrypt the text, finally output base64 encoding of the encrypted text.
+Decryption is quite straight forward, a user will use his ssh key to decrypt the text(after using base64 to decode).
 
 Refer to openssl rsautl [man page](https://www.openssl.org/docs/man1.1.0/apps/openssl-rsautl.html){:target="_blank"}{:rel="nofollow"} for a more detail of the parameters.
 
