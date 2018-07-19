@@ -44,7 +44,7 @@ then convert this key to PKCS8 format(.pem) and save it to a temporary file.
 echo $TEXT | openssl rsautl -inkey $TO.pem.pub -encrypt -pubin -ssl
 ~~~ 
 
-after that, use `rsautl` of openssl to encrypt a text from stdin, using RSA algorithm and ssl padding.
+after that, use `rsautl` of openssl to encrypt a text from stdin, using RSA algorithm with ssl padding.
 
 As the output is in binary format, we will need to encode in base64 for easier sending by pipe the encrypted text to base64 program.
 
