@@ -26,9 +26,33 @@ echo "<encrypted text>" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_r
 
 ## Explanation
 
-The encryption script will download the public key of a github user, convert to PKCS8 format, then use `openssl rsautl` to encrypt the text, finally output base64 encoding of the encrypted text.
+### Encryption steps
 
-Receiver will need his private key to recover the original text(also using `openssl rsautl` utility).
+~~~ bash
+curl -s https://github.com/$TO.keys
+~~~ 
+
+First, we will download the public keys of a github user. For example, my public key will be at [https://github.com/zinh.keys](https://github.com/zinh.keys){:target="_blank"}{:rel="nofollow"}
+
+~~~ bash
+ssh-keygen -f /dev/stdin  -e -m PKCS8 > $TO.pem.pub
+~~~ 
+
+then convert this key to PKCS8 format(.pem) and save it to a temporary file.
+
+~~~ bash
+echo $TEXT | openssl rsautl -inkey $TO.pem.pub -encrypt -pubin -ssl
+~~~ 
+
+after that, use `rsautl` of openssl to encrypt a text from stdin, using RSA algorithm with ssl padding.
+
+As the output is in binary format, we will need to encode in base64 for easier sending by pipe the encrypted text to base64 program.
+
+Finally, remove the download key.
+
+### Dencryption steps
+
+Decryption is quite straight forward, a user will use his ssh key to decrypt the text(after using base64 to decode).
 
 Refer to openssl rsautl [man page](https://www.openssl.org/docs/man1.1.0/apps/openssl-rsautl.html){:target="_blank"}{:rel="nofollow"} for a more detail of the parameters.
 
