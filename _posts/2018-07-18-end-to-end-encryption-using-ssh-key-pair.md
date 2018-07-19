@@ -33,5 +33,5 @@ Receiver will need his private key to recover the original text(also using `open
 Refer to openssl rsautl [man page](https://www.openssl.org/docs/man1.1.0/apps/openssl-rsautl.html){:target="_blank"}{:rel="nofollow"} for a more detail of the parameters.
 
 __Limitation__
-- Should use to encrypt short message only as RSA is quite slow. In case we need to encrypt long text or file, you should create a symmetric key and use it to encrypt the text then use RSA to encrypt that key.
+- Should use to encrypt short message only as RSA is quite slow. In case we need to encrypt long text or file, we should create a symmetric key and use it to encrypt the text then use RSA to encrypt that key.
 - As `https://github.com/$USER.keys` will return all public keys of a user, the script will use the last key in this list.
