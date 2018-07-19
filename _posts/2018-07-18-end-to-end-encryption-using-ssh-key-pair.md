@@ -32,7 +32,7 @@ echo "<encrypted text>" | base64 -D | openssl rsautl -decrypt -inkey ~/.ssh/id_r
 curl -s https://github.com/$TO.keys
 ~~~ 
 
-First, we will download the public keys of a github user.
+First, we will download the public keys of a github user. For example, my public key will be at [https://github.com/zinh.keys](https://github.com/zinh.keys){:target="_blank"}{:rel="nofollow"}
 
 ~~~ bash
 ssh-keygen -f /dev/stdin  -e -m PKCS8 > $TO.pem.pub
