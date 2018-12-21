@@ -6,3 +6,15 @@ summary: Books that I have read this year
 description: Retrospective of books I have read this year
 categories: misc
 ---
+
+- Daemon
+- Ready player one
+- Do Androids Dream of Electric Sheep
+- The Three-Body Problem
+- Essays after eighty
+- The Subtle Art of Not Giving a F*ck
+- Oryx and Crake
+- Why We Sleep
+- Leonardo Da Vinci
+- To Kill a Mockingbird
+- The Sympathizer
