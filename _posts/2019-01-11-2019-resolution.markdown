@@ -59,5 +59,5 @@ __Back-end__
 
 - Review N2 kanji and learn N1 kanji
 - Learn to use Emacs
-- Read at least 2 books per month
+- Read at least 2 books and 1 paper per month
 - Travel to at least 2 new countries
