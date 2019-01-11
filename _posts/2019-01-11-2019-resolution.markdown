@@ -1,0 +1,63 @@
+---
+layout: post
+title: "2019's resolution"
+date: 2018-12-26 15:16:00
+summary: My New Year's resolution
+description: My New Year's resolution
+categories: misc
+---
+
+Considering this as my goal for 2019. There are so many things that I want to do yet there's always not enough time.
+
+### Theory/foundation-related goal
+
+I want focus more time to brush up my machine learning knowledge starting from reviewing maths(continuing from last year) so the online courses I choose for this year is
+
+__Mathematics__
+
+- Multivariable calculus
+- Linear algebra
+- Statistic and probability
+- Differential equation(not directly related to ML but out of curiosity I want to try it)
+- Complex and real analysis
+- Measurement theory
+
+__Machine learning theory__
+
+- fast.ai course
+- CS 294 course(http://rail.eecs.berkeley.edu/deeprlcourse-fa17/index.html)
+
+__CS basic__
+
+- CMU 15-213(Introduction to Computer Systems)
+- Algorithm course(MIT 6.006)
+- CMU 15-721(Database system)
+
+
+### Technical-related goal
+
+- Learn a Lisp dialect language(have to choose between CommonLisp and Scheme)
+- Finish "Programming in Haskell"(stucked at chapter 13 last year)
+- Learn C++(as I want to know about V8 internal)
+
+__Front-end__
+
+- I want to understand internal working of React by reading its source code
+  - also new features of React such as Hooks
+- WebAssembly
+
+__Back-end__
+
+- Linux's tracing(eBPF)
+- Virtualization technology
+  - KVM programming(starting from lwn's tutorial)
+  - Amazon's firecracker
+- Container related technology(namespace, cgroups)
+- Although not using it but will review Kubernetes
+
+### Other goal
+
+- Review N2 kanji and learn N1 kanji
+- Learn to use Emacs
+- Read at least 2 books per month
+- Travel to at least 2 new countries
