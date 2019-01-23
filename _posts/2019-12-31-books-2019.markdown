@@ -1,0 +1,14 @@
+---
+layout: post
+title: "2019's resolution"
+date: 2018-12-26 15:16:00
+summary: My New Year's resolution
+description: My New Year's resolution
+categories: misc
+---
+
+Books that I have read this year
+
+### Factfulness
+
+Contains lots of useful information, teach me how to recognize exageration on newspaper everyday.
