@@ -1,0 +1,41 @@
+---
+layout: post
+title: "CD Services"
+date: 2018-12-26 15:16:00
+summary: Some experiences with CD services from Azure and GCP
+description: My experiences with CD services from Azure and GCP
+categories: infrastructure
+---
+
+I've spent quite sometime to evaluate various CD services, this post summarise it.
+Service that I've used is Azure DevOps, Google Cloud's Cloudbuilder.
+
+## Azure DevOps
+
+They provide very generous free plan, including 1800 build-minute and an self-hosted build agent for free,
+also we are provided with a git repository(not as good as Github though), an issue tracker, test plan management.
+So it's kind of a full-blown devops solution.
+However, the price goes steep when we want to add more parallel builder(agent), both on their cloud or on our server($40 per additional hosted agent and $15 per self-hosted agent).
+
+__CI/CD service__
+
+There are two seperated services: Builds(CI) and Releases(CD).
+
+With Builds, we describe our build steps in an yaml file and it will be triggered whenever there is new commit, pull request or change in code.
+
+With the Releases, we, however, cannot describe the build step by config file, we have to use their web interface which sometimes is sluggy and incomprehensible. 
+I still don't know why they divide into two seperated categories although they are quite similar.
+
+__Functionality and extensibility__
+
+Azure provides a variety of built-in tasks ranging from web application, mobile app, connector to other services.
+There is also an marketplace for third-parties to provide their own build task, for example, I've found there AWS CLI build task.
+We can also write our own task(using javscript).
+
+However, documentation quality is depends on task.
+For example, I need to build a docker image and push it to AWS's ECR service but nowhere did I found the explanation of configuration parameters.
+Finally, I have to read the source code of ECR task.
+
+Another annoying thing is Azure provide no caching mechanism at all. Therefore, everytime the builder kick-in, it will start from the beginning.
+If your pipeline is pulling lots of data/libraries, this could take a very long time. In my case, I have to run Ruby's bundle install and it takes about 10 minutes only for this task.
+Lurking through support forums, there are lots of request for this function since about 2 years ago, but still, no update at the time of this post(2019 Feb).
