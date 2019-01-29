@@ -12,8 +12,9 @@ Service that I've used is Azure DevOps, Google Cloud's Cloudbuilder.
 
 ## Azure DevOps
 
-They provide very generous free plan, including 1800 build-minute and an self-hosted build agent for free,
-also we are provided with a git repository(not as good as Github though), an issue tracker, test plan management.
+This is a rebrand of Microsoft's VSTS(Visual Studio Team Services).
+They provide a very generous free plan, including 1800 build-minute(60 minutes per day) and a self-hosted build agent for free,
+also we are provided with a git repository(not as good as Github though), an issue tracker, kanban board, test plan management.
 So it's kind of a full-blown devops solution.
 However, the price goes steep when we want to add more parallel builder(agent), both on their cloud or on our server($40 per additional hosted agent and $15 per self-hosted agent).
 
