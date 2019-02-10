@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "2019's resolution"
-date: 2018-12-26 15:16:00
-summary: My New Year's resolution
-description: My New Year's resolution
+title: "Books 2019"
+date: 2019-12-26 15:16:00
+summary: Summary of books that I have read this year
+description: Summary of books that I have read this year
 categories: misc
 ---
 
