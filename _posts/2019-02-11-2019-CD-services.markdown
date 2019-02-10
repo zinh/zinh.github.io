@@ -24,7 +24,7 @@ There are two seperated services: Builds(CI) and Releases(CD).
 
 With Builds, we describe our build steps in an yaml file and it will be triggered whenever there is new commit, pull request or change in code.
 
-With the Releases, we, however, cannot describe the build step by config file, we have to use their web interface which sometimes is sluggy and incomprehensible. 
+With the Releases, we, however, cannot describe the build step by configuration file, we have to use their web interface which sometimes is sluggy and incomprehensible. 
 I still don't know why they divide into two seperated categories although they are quite similar.
 
 __Functionality and extensibility__
@@ -32,6 +32,9 @@ __Functionality and extensibility__
 Azure provides a variety of built-in tasks ranging from web application, mobile app, connector to other services.
 There is also an marketplace for third-parties to provide their own build task, for example, I've found there AWS CLI build task.
 We can also write our own task(using javscript).
+
+So in term of functionality and intergration with other cloud services, Azure DevOps is very good.
+
 
 However, documentation quality is depends on task.
 For example, I need to build a docker image and push it to AWS's ECR service but nowhere did I found the explanation of configuration parameters.
