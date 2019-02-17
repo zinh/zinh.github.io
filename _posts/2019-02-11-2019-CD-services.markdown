@@ -9,7 +9,7 @@ categories: infrastructure
 
 I've spent quite sometime to evaluate various CI/CD cloud services, I will try to document them in some posts. And the first one of this series is about Azure DevOps.
 
-## Azure DevOps
+## What is Azure DevOps
 
 This is a rebrand of Microsoft's VSTS(Visual Studio Team Services), sometimes I have to search for VSTS instead of Azure DevOps on Google to get relavant result.
 
@@ -18,7 +18,7 @@ So it's kind of a full-blown devops solution.
 
 However, the price goes steep when we want to add more parallel builder(agent), both on their cloud or on our server($40 per additional hosted agent and $15 per self-hosted agent).
 
-__CI/CD service__
+## CI/CD service
 
 There are two seperated services: Builds(CI) and Releases(CD).
 
@@ -28,7 +28,7 @@ With the _Releases_, we, however, cannot describe the build step by configuratio
 
 I still don't know why they divide into two seperated categories although they are quite similar.
 
-__Functionality and extensibility__
+## Functionality and extensibility
 
 Azure provides a variety of built-in tasks ranging from web application, mobile app and connector to other services.
 There is also an marketplace for third-parties to provide their own build task, for example, I've found there AWS relate task such as push docker images to ECR, deploy to lambda, etc.
