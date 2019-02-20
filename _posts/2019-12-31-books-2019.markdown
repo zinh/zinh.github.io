@@ -2,8 +2,8 @@
 layout: post
 title: "Books 2019"
 date: 2019-12-26 15:16:00
-summary: Summary of books that I have read this year
-description: Summary of books that I have read this year
+summary: Summary of books that I have been reading this year
+description: Summary of books that I have been reading this year
 categories: misc
 ---
 
@@ -27,5 +27,7 @@ Also there are lots of side characters and story arc which contribute nothing to
 
 Small book about about the history of teaism(aka 茶道) at Japan, its relation with Zen and Taoism.
 It is very well-written by a Japanese scholar over one-hundred years ago and suprisingly was in English.
+
+__Ongoing__
 
 ### The Emperor of All Maladies: A Biography of Cancer
