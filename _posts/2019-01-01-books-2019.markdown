@@ -10,6 +10,7 @@ categories: misc
 My goal of this year is 2 books per month.
 
 ### Factfulness
+*Hans Rosling*
 
 Contains lots of useful information, teach me how to recognize exageration on newspaper everyday. 
 Let's us have a more optimistic view of the world. 
@@ -18,15 +19,23 @@ After all, we are living in a social network era where user's engagement and int
 If there is nothing controversal, there is not much interest from user if there is no interest from users, there is no advertisment.
 
 ### Freedom™(Daemon #2)
+*Daniel Suarez*
 
 To be honest, very disappointed and not quite good as part 1. 
 The daemon became an omnipotent force so there is not much of a surprise because we know that whatever bad thing happen, the daemon will eventually appear and save the day. 
 Also there are lots of side characters and story arc which contribute nothing to the main storyline, such as the Chinese's arc(the one Jon Ross travelled to China) or Phillip's or even the one of Loki.
 
 ### The book of tea
+*Okakura Kakuzo*
 
 Small book about about the history of teaism(aka 茶道) at Japan, its relation with Zen and Taoism.
 It is very well-written by a Japanese scholar over one-hundred years ago and suprisingly was in English.
+
+### The Soul of A New Machine
+*Tracy Kidder*
+
+The author has done a great job to describe a hardware project, about what struggle does an engineer have such as fixing bugs or trying to keep the deadline.
+I can really relate my day-to-day job to that.
 
 __Ongoing__
 
