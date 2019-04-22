@@ -47,3 +47,11 @@ Lurking through support forums, there are lots of request for this function sinc
 Right now, I have to roll my own caching which is download my node_modules folder to s3(and upload it after build finished). I hope they will provide a better caching mechanism in the future.
 
 So this is my first impression with Azure DevOps. Overall, it is easy to use and setup, provide a generous free-plan to try; however, documentation is not quite good and the web UI is slow and sometimes, incomprehensible.
+
+## Maintainability
+
+As we need to use a propriety agent provided by Microsoft when there is bug in the agent we have to wait for Microsoft to fix it and sometimes this process take lots of time. One incident that I have met is the hosted Ubuntu agent mysteriously couldn't build our Docker image although previously it had been working flawlessly and I have to wait for about 2 months for it to be fixed[^1] during that time there is nothing much that I can to other than using workaround.
+
+That what we have to tolerate when choosing a propriety solution and when we are not their BIG corp customer.
+
+[^1]: [https://developercommunity.visualstudio.com/content/problem/505085/no-agent-found-in-pool-hosted-ubuntu-1604-which-sa.html](https://developercommunity.visualstudio.com/content/problem/505085/no-agent-found-in-pool-hosted-ubuntu-1604-which-sa.html){:target="_blank"}{:rel="nofollow"}
