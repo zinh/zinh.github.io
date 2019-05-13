@@ -3,6 +3,7 @@ layout: post
 title:  "Full-text search: các thuật toán cơ bản"
 date:   2014-11-23 00:03:04
 summary: Giới thiệu những kiến thức cơ bản về full-text search, inverted index, mô hình vector space và thuật toán scoring.
+mathjax: true
 categories: lucene
 ---
 

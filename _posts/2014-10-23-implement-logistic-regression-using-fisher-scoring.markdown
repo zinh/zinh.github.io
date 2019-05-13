@@ -3,6 +3,7 @@ layout: post
 title:  "Implement logistic regression using Fisher's scoring method"
 date:   2014-10-22 23:55:00
 summary: Use logistic regression to solve binary classification problem. For simplicity, I have use Newton method(also called Fisher's scoring) to get the optimize parameters.
+mathjax: true
 categories: ruby
 ---
 
