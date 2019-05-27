@@ -17,7 +17,7 @@ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
-    font-weight: 301;
+    font-weight: 300;
     color: $text-color;
     background-color: $background-color;
 }
@@ -90,6 +90,8 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: $brand-color;
     text-decoration: none;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 
     &:visited {
         color: darken($brand-color, 15%);
