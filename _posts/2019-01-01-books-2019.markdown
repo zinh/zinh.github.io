@@ -37,6 +37,23 @@ It is very well-written by a Japanese scholar over one-hundred years ago and sup
 The author has done a great job to describe a hardware project, about what struggle does an engineer have such as fixing bugs or trying to keep the deadline.
 I can really relate my day-to-day job to that.
 
-__Ongoing__
+### Spy the Lie: Former CIA Officers Teach You How to Detect Deception
+**Philip Houston**
+
+A small book talk about how to know if a person is lying. Although I think we need to take their advice with a grain of salt, I just read another research that stated people usually cannot tell if someone is lying or not and we usually exaggerate about our lying detection ability.
 
 ### The Emperor of All Maladies: A Biography of Cancer
+**Siddhartha Mukherjee**
+
+This is a book by my favorite author on biology topic. He also wrote another book called The Gene: An Intimate History, both of which is quite long but worth the time. This book covers the history and human's struggle with one of our most fatal disease. Very much recommend it if you are into this kind of topic.
+
+### Programming in Haskell
+**Graham Hutton**
+
+The book covers a very basic introduction to functional programming with Haskell. I've been reading it on and off since last year but recently has found time to finish it.
+Anyway, comparing with other well-known introductory books about Haskell such as *Learn You a Haskell for Great Good!* or *Real World Haskell* *Programming in Haskell* provides a more complete and thorough introduction about the topic. It also contains some exercises for us to practise which I find very useful when learning a programming language.
+
+### Designing Data-intensive application
+**Martin Kleppmann**
+
+Although not my first time reading this book(3rd times really), this book still impresses me with the information it contains. If you are into database design or just need to catch up with recent development in database this is your book. It covers a wide range of topic in database system such as indexes, ACID, transaction, NoSQL, OLTP, columnar database, etc. We can see the overall picture of a modern database system, the trade-off it has, some of prominent algorithm, etc. The references section also contains lots of more detailed links/papers/books in case we interest in the topic we can dig in right away.
