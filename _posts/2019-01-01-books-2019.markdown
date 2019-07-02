@@ -57,3 +57,8 @@ Anyway, comparing with other well-known introductory books about Haskell such as
 **Martin Kleppmann**
 
 Although not my first time reading this book(3rd times really), this book still impresses me with the information it contains. If you are into database design or just need to catch up with recent development in database this is your book. It covers a wide range of topic in database system such as indexes, ACID, transaction, NoSQL, OLTP, columnar database, etc. We can see the overall picture of a modern database system, the trade-off it has, some of prominent algorithm, etc. The references section also contains lots of more detailed links/papers/books in case we interest in the topic we can dig in right away.
+
+### The Life-Changing Magic of Tidying Up
+**Marie Kondo**
+
+I heard about Marie's program on Netflix and give this book a try. It is a very concise book about the topic of cleaning your house, basically can be summarised in Marie's mantra *keeping only those things that "spark joy"*. That is quite an interesting view and reflect Japanese's gratitude toward things no matter big or small.
