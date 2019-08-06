@@ -8,7 +8,7 @@ categories: erlang
 ---
 
 ## Giới thiệu về giao thức Websocket
-Tuy cũng dùng chung cổng 80 với HTTP nhưng Websocket là một giao thức hoàn toàn khác.
+Tuy cũng dùng chung cổng 80 với HTTP nhưng Websocket là một giao thức hoàn toàn khác được mô tả chi tiết trong tài liệu RFC 6455.
 
 WebSocket cho phép tạo kênh giao tiếp 2 chiều giữa client và server. Do đó WebSocket thường được dùng trong các ứng dụng cần tính realtime cao như chat, streaming...
 
@@ -112,7 +112,7 @@ parse_header(Packet, Headers) ->
   end.
 {% endhighlight %}
 
-Hàm sinh Key
+Hàm tạo Key
 
 {% highlight erlang %}
 -define(MAGIC_STRING, "258EAFA5-E914-47DA-95CA-C5AB0DC85B11").
