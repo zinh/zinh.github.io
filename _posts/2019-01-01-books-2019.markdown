@@ -82,3 +82,8 @@ The tragedy of the Radium Girls who in the 30s worked for Radium-related product
 **Philip Coggan**
 
 Rudimental introduction of the financial system of London(though can be apply to other financial center all over the world). It shows the participant of this system, how do they interact and what effect they cause to the overall system.
+
+### Bad Choices: How Algorithms Can Help You Think Smarter and Live Happier
+**Ali Almossawi**
+
+Small book with find art introduces about how to apply simple algorithm to everyday issue. What I love about this book is at references for further reading, author has give a short description about that book/article/paper. It is very useful if you want to dig deeper into literature.
