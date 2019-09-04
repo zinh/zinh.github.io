@@ -38,57 +38,57 @@ The author has done a great job to describe a hardware project, about what strug
 I can really relate my day-to-day job to that.
 
 ### 5. Spy the Lie: Former CIA Officers Teach You How to Detect Deception
-**Philip Houston**
+*Philip Houston*
 
 A small book talk about how to know if a person is lying. Although I think we need to take their advice with a grain of salt, I just read another research that stated people usually cannot tell if someone is lying or not and we usually exaggerate about our lying detection ability.
 
 ### 6. The Emperor of All Maladies: A Biography of Cancer
-**Siddhartha Mukherjee**
+*Siddhartha Mukherjee*
 
 This is a book by my favorite author on biology topic. He also wrote another book called The Gene: An Intimate History, both of which is quite long but worth the time. This book covers the history and human's struggle with one of our most fatal disease. Very much recommend it if you are into this kind of topic.
 
 ### 7. Programming in Haskell
-**Graham Hutton**
+*Graham Hutton*
 
 The book covers a very basic introduction to functional programming with Haskell. I've been reading it on and off since last year but recently has found time to finish it.
 Anyway, comparing with other well-known introductory books about Haskell such as *Learn You a Haskell for Great Good!* or *Real World Haskell* *Programming in Haskell* provides a more complete and thorough introduction about the topic. It also contains some exercises for us to practise which I find very useful when learning a programming language.
 
 ### 8. Designing Data-intensive application
-**Martin Kleppmann**
+*Martin Kleppmann*
 
 Although not my first time reading this book(3rd times really), this book still impresses me with the information it contains. If you are into database design or just need to catch up with recent development in database this is your book. It covers a wide range of topic in database system such as indexes, ACID, transaction, NoSQL, OLTP, columnar database, etc. We can see the overall picture of a modern database system, the trade-off it has, some of prominent algorithm, etc. The references section also contains lots of more detailed links/papers/books in case we interest in the topic we can dig in right away.
 
 ### 9. The Life-Changing Magic of Tidying Up
-**Marie Kondo**
+*Marie Kondo*
 
 I heard about Marie's program on Netflix and give this book a try. It is a very concise book about the topic of cleaning your house, basically can be summarised in Marie's mantra *keeping only those things that "spark joy"*. That is quite an interesting view and reflect Japanese's gratitude toward things no matter big or small.
 
 ### 10. The Marshmallow Test: Mastering Self-Control
-**Walter Mischel**
+*Walter Mischel*
 
 The center idea of this book is about delayed gratification and how to reserve your self-control over temptation. The author argues that delayed gratification shown at early age correlates to a more successful future. The experiment conducted is called Marshmallow test which showed a child's choice when presented with two gifts one of which is much less attactive than the other but can be take immmediately while the other one must be wait for an amount of time.
 
 ### 11. The year of flood
-**Margaret Atwood**
+*Margaret Atwood*
 
 This is the second volume of the triology MaddAddam written by Margaret Atwood. I have read the first one(Oryx and Crake) last year. I had some free time to finish the second book this holiday. It show us the slowly degeneration of socialty. Though I think creating intense plot is not the purpose of author so nothing much of revealing here except some connection with the first book.
 
 ### 12. The Radium Girls: The Dark Story of America's Shining Women
-**Kate Moore**
+*Kate Moore*
 
 The tragedy of the Radium Girls who in the 30s worked for Radium-related production company. Though it is well-known by now that contacting with radioactive substance such as radium can lead to serious health problems, it was then still a myth. They even licked radium by ultilizing a technique called lip-pointing instead of cleaning the brush because it was faster. As a result, they faced very serious health issues and had to sue their former employer for damage. Some won, some didn't even live to hear the verdict, some died unknownly of the cause. A truly moving story.
 
 ### 13. The Money Machine: How the City Works
-**Philip Coggan**
+*Philip Coggan*
 
 Rudimental introduction of the financial system of London(though can be apply to other financial center all over the world). It shows the participant of this system, how do they interact and what effect they cause to the overall system.
 
 ### 14. Bad Choices: How Algorithms Can Help You Think Smarter and Live Happier
-**Ali Almossawi**
+*Ali Almossawi*
 
 Small book with find art introduces about how to apply simple algorithm to everyday issue. What I love about this book is at references for further reading, author has give a short description about that book/article/paper. It is very useful if you want to dig deeper into literature.
 
 ### 15. Maddaddam
-**Margaret Atwood**
+*Margaret Atwood*
 
 This is the last of the triology. It told the story of Zeb and Adam's past interleave with the present where the remanining of humane try to survice together with the Crackers. Though there are some illogical plot, I like this one more than the previous. So if to rank between three books, it would be *Oryx and crake* > *Maddaddam* > *The year of blood*
