@@ -8,14 +8,14 @@ categories: misc
 ---
 
 My knowledge of regular expression usually contains just some simple syntax such as `+`, `*`, `[]`, `{}`, `()`.
-However, there are lots of extension to the original regular extension which is based on deterministic finite automata i.e these extension are not actually regular language but programming language's add-on to regular extension; therefore, supporting these extensions and syntex depend on programming language. 
-They provide more power to regular extension but using them without caution may lead to performance issue.
+However, there are lots of extension to the original regular expression which is based on deterministic finite automata i.e these extensions are not actually a regular language but programming language's add-on to regular extension; therefore, supporting for these extensions as well as syntax depend on programming language's implemention. 
+Extension provides more power to regular expression; however, using them without caution may lead to performance issue.
 
-The syntax for these extension usually start with `(?` eg: look-ahead syntax will be `(?=<pattern>)` and look-behind `(?<=<pattern>)`.
+The syntax for regex extension usually starts with `(?` eg: look-ahead syntax will be `(?=<pattern>)` and look-behind `(?<=<pattern>)`.
 
-These two extensions are widely support by programming languages such as perl, ruby, python, nodejs.
+These two extensions are widely supported by programming languages such as perl, ruby, python, nodejs.
 
-As the name implies, look-ahead will match ahead to the current matching position without consuming it. 
+As the name implies, look-ahead will match the current matching position if it is followed by another pattern(without consuming the look-ahead pattern). 
 For example, with this simple regex: `a(?=b)` we will match an `a` only if it is followed by an `b`.
 
 Similarly, look-behind will match only if it is preceeded by a pattern without consuming it. 
