@@ -8,7 +8,8 @@ categories: misc
 ---
 
 My knowledge of regular expression usually contains just some simple syntax such as `+`, `*`, `[]`, `{}`, `()`.
-However, there are lots of extension to the original regular extension which is based on deterministic finite automata i.e these extension are not actually regular language but programming language add-on to regular extension. They provide more power to regular extension.
+However, there are lots of extension to the original regular extension which is based on deterministic finite automata i.e these extension are not actually regular language but programming language's add-on to regular extension; therefore, supporting these extensions and syntex depend on programming language. 
+They provide more power to regular extension but using them without caution may lead to performance issue.
 
 The syntax for these extension usually start with `(?` eg: look-ahead syntax will be `(?=<pattern>)` and look-behind `(?<=<pattern>)`.
 
