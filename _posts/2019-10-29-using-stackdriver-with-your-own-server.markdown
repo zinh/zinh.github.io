@@ -111,4 +111,4 @@ echo '{"message": "test"}' | bundle exec fluent-cat -t stackdriver.test
 
 On Stackdriver's Logs Viewer, the event will be listed inside __GCE VM Instance__ category with `instance_id` is `vm_id` that we configured.
 
-The above setting is just minimum required parameters, there are lots more useful one that we can find in `fluent-plugin-google-cloud`'s source : [ref](https://github.com/GoogleCloudPlatform/fluent-plugin-google-cloud/blob/a7838d2cd05284145da9063739a45cf27b616cf7/lib/fluent/plugin/out_google_cloud.rb#L296)
+The above setting is just minimum required parameters, there are lots more useful one that we can find in `fluent-plugin-google-cloud`'s [source](https://github.com/GoogleCloudPlatform/fluent-plugin-google-cloud/blob/a7838d2cd05284145da9063739a45cf27b616cf7/lib/fluent/plugin/out_google_cloud.rb#L296) or from Google's  [official documentation](https://cloud.google.com/logging/docs/agent/configuration#cloud-fluentd-config)(though not all of available parameters so we will need to consult source code anyway)
