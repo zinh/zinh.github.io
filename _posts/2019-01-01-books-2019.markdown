@@ -99,3 +99,13 @@ This is the last of the triology. It told the story of Zeb and Adam's past inter
 This may be the last novel of post-apocalytic genre that I read this year. The story is quite long with lots of lengthy sequences although the plot is not that complicated.
 In general, the author has built a colorful life underground; there are conflict, revolution, canibalism, religion, fascism and communism. The ending is a little bit hustle and not quite convincing.
 Overall, comparing with other novel that I read, this one lie on the lower end of the scale. However, maybe the sequels is better.
+
+### 17. Nine Pints: A Journey Through the Money, Medicine, and Mysteries of Blood
+*Rose George*
+
+As the book's title suggests, the book told various topics around blood. There are 3 main themes in it: blood donation, bloodborne diseases and blood hygienic.
+
+### 18. Structure and Interpretation of Computer Programs
+*Gerald Jay Sussman, Hal Abelson*
+
+Used as a textbook for introductiory course to computer science at MIT. Scheme(a Lisp dialect) is used to illustrate basic ideas of a computer program. There are lots of good examples as well as exercises in this book. I have also used this chance to actually learn to use Emacs as nothing more suitiable than learning a programming language using an editor implemented by it(although there are a few differences between Emacs's Lisp and Scheme).
