@@ -55,7 +55,7 @@ virt-install --name=centos7
 
 This time, Centos 7 is really run in text intall mode.
 
-__Lastly__, after finishing the installation, we can shutdown this guest, running it again without the boot command(this time we will boot directly from disk and no need for the cdrom parameter), so the command looks like:
+__Lastly__, after finishing the installation, we can shutdown this guest, running it again without the boot command(this time we will boot directly from disk and don't need the cdrom anymore), so the command looks like:
 
 ~~~bash
 virt-install --name=centos7 
