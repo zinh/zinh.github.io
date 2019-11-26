@@ -109,3 +109,6 @@ As the book's title suggests, the book told various topics around blood. There a
 *Gerald Jay Sussman, Hal Abelson*
 
 Used as a textbook for introductiory course to computer science at MIT. Scheme(a Lisp dialect) is used to illustrate basic ideas of a computer program. There are lots of good examples as well as exercises in this book. I have also used this chance to actually learn to use Emacs as nothing more suitiable than learning a programming language using an editor implemented by it(although there are a few differences between Emacs's Lisp and Scheme).
+
+### 20. Drive: The Surprising Truth About What Motivates Us
+*Daniel H. Pink*
