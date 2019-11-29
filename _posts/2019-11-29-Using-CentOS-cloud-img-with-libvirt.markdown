@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using CentOS's cloud image to bootstrap a CentOS virtual machine"
-date: 2019-11-15 00:00:01
+date: 2019-11-29 00:00:01
 summary: CentOS provides preconfigured cloud images which let's conveniently import and using without having to install from scratch. We will do some customise with this image in this post.
 description: CentOS provides preconfigured cloud images which let's conveniently import and using without having to install from scratch. We will do some customise with this image in this post.
 categories: infrastructure
