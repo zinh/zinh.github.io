@@ -1,0 +1,51 @@
+---
+layout: post
+title: "Compiler, linker and loader in Linux"
+date: 2019-12-06 00:00:01
+summary: my explanation of gcc(or clang) compiler, linker and loader
+description: 
+categories: programming
+---
+
+Let's have a simple program in C such as:
+
+~~~ ruby
+// main.c
+int main() {
+  return 0;
+}
+~~~
+
+which does nothing except return 0 to caller;
+
+We compile it using gcc and get an executable.
+
+~~~
+gcc main.c -o main
+~~~
+
+now, there are lots of thing happen while running this command,
+
+First, a preprocessor will preprocess this c source to expand any `#include`, `#define` statemenets. It's result is just another C source.
+After that, the compiler will convert this c source into assembly.
+
+We can single out this step by using the argument:
+
+~~~
+gcc -S main.c
+~~~
+
+which will emit a `main.S` assembly source code.
+
+Then we will need an assembler to actually convert this `.S` file into machine code(i.e binary format)
+
+this step can be run by passing `-c` option to gcc
+
+~~~
+gcc -c main.s
+~~~
+
+If we have only one source and it doesn't use any other library(which usually not the case), the compilation chain can just convert this `.o` file into `ELF` format.
+But if there a many source file and we need to assemble these source file into one, that's the job of linker(the `ld` command).
+
+Now `ld` is not a simple command, to be able to use it directly one need to know about ELF format
