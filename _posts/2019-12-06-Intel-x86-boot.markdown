@@ -45,7 +45,25 @@ this step can be run by passing `-c` option to gcc
 gcc -c main.s
 ~~~
 
+or we can use another tool call GNU Assembler(as), one of the two main tools of GNU's binutilities. The other one is `ld` which is used in liking step.
+
+TODO: fix parameter of as
+~~~
+as main.s
+~~~
+
+The result of assembler step is an object file that is readly to be linked into an executable.
+
+Scanning the assembly source code, we see it defines various sections(eg: .text, .data, ...). These sections vary depends on the target architecture and executable format but let's just stick to Linux and it's default ELF format.
+
+In ELF format, assembly code is devided into 3 main sections
+- `.text`: contain the code that actually will be run on CPU
+- `.data`: contain constant value, initialized variables.
+- `.bss`: contains uninitialize variables.
+
+Actually, ELF allows abitrary kinds of sections but the aforementioned are the main one.
+
 If we have only one source and it doesn't use any other library(which usually not the case), the compilation chain can just convert this `.o` file into `ELF` format.
 But if there a many source file and we need to assemble these source file into one, that's the job of linker(the `ld` command).
 
-Now `ld` is not a simple command, to be able to use it directly one need to know about ELF format
+The linker will read each of its input's sections, merged and relocated them into approriated position in the executable.
