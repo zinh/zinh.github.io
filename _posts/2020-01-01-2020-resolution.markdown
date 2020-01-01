@@ -1,0 +1,53 @@
+---
+layout: post
+title: "2020's resolution"
+date: 2020-01-01 00:00:01
+summary: My 2020's resolution
+description: My plan for this year, 2020, start of a new decade
+categories: misc
+---
+
+2020, start of a new decade and today is January 1st, there is nothing better than getting up early on new year morning and write about my plan.
+
+So last year, I had lots of plan and managed to finish just about 50% of it, hope that I will get a better number this year.
+
+On technical side, I have two big projects for this year: buiding an OS and DB from scratch.
+
+Now to a more detail plan:
+
+## Technical goal
+
+__Courses I want to take__ 
+
+- MIT 6.828: Operating system
+- MIT 18.03: Differential equation
+- CMU 15-721: Advanced database systems
+
+__Programming languages I want to learn__
+
+- modern CPP
+- Scheme
+- Advance data structure in Haskell
+
+__Other technology/framework__
+
+- WebAssembly, I still have not decided what to do with WebAssembly, but maybe implement a WebAssembly loader in one of the programming languages that I learnt.
+- React implementation(especially fiber and concurrent mode)
+- Compiler tooling(LLVM, GNU utilities)
+
+## Books I want to read
+
+- Database Internals: A Deep Dive into How Distributed Data Systems Work
+- Streaming Systems
+- Operating Systems: Three Easy Pieces
+- Brain rules for baby
+
+## Other goal:
+
+- 2 books per month
+- N1
+- More writing
+
+This is way less heavy than last year but I want to have a feasible plan. 
+
+And let's get started.
