@@ -28,7 +28,7 @@ gcc main.c -o main
 
 now, there are lots of thing happen while running this command,
 
-First, a preprocessor will preprocess this c source to expand any `#include`, `#define` statemenets. Its result is just another C source.
+First, a preprocessor will preprocess this c source, expanding any `#include`, `#define` statements. Its result is just another C source.
 After that, the compiler will convert this c source into assembly.
 
 We can single out this step by using the argument:
@@ -47,14 +47,14 @@ this step can be run by passing `-c` option to gcc
 gcc -c main.s
 ~~~
 
-or we can use another tool call GNU Assembler(as), one of the two main tools of GNU's binutilities. The other one is `ld` which is used in liking step.
+or we can use another tool call GNU Assembler(as), one of the two main tools of GNU's binutilities. The other one is `ld` which is used in linking step.
 
 TODO: fix parameter of as
 ~~~
 as main.s
 ~~~
 
-The result of assembler step is an object file that is readly to be linked into an executable.
+The result of assembler is an object file that is readly to be linked into an executable.
 
 Scanning the assembly source code, we see it defines various sections(eg: .text, .data, ...). These sections vary depends on the target architecture and executable format but let's just stick to Linux and it's default ELF format.
 
