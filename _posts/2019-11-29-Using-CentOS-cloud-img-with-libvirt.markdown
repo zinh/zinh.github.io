@@ -13,7 +13,7 @@ These images can be download from the following url:
 
 [https://cloud.centos.org/centos/7/images/](https://cloud.centos.org/centos/7/images/)
 
-I will just using the latest of Centos 7 `https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2`
+I will just using the latest of Centos 7 [CentOS-7-x86_64-GenericCloud.qcow2](https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2)
 
 To import this image, I use `virt-install` with these options:
 

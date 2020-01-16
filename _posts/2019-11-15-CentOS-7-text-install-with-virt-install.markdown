@@ -8,7 +8,7 @@ categories: infrastructure
 ---
 
 It took me quite sometime to figure out how to install Centos 7 in text-mode with `virt-install`. 
-Somehow, Centos 6 can be install normally using standard method but it always crashes during text-installation of Centos 7. In this quick note, let try to solve it.
+Somehow, Centos 6 can be installed normally using standard method but it always crashes during text-installation of Centos 7. In this quick note, let try to solve it.
 
 So, my Virsh version is 0.10.2(virt-install is at 0.600.0) running inside an old Centos 6 host.
 
@@ -26,7 +26,7 @@ virt-install --name=centos7
   --extra-args 'console=ttyS0,115200n8 serial'
 ~~~
 
-this work until Centos 7, which somehow still run the graphical installation and mess up the console. In order to install Centos 7, I've done the following steps.
+this works until Centos 7, which somehow still runs the graphical installation and messes up the console. In order to install Centos 7, I've done the following steps.
 
 __First__, download an ISO, I've used minimal install from one of many Centos's mirrors:
 
