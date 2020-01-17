@@ -2,8 +2,8 @@
 layout: post
 title: "Compiler, linker and loader in Linux"
 date: 2019-12-06 00:00:01
-summary: my explanation of gcc(or clang) compiler, linker and loader, their relationship.
-description: 
+summary: My explanation of gcc(or clang) compiler, linker and loader, their relationship
+description: Explanation the relationship between various tool used to compile a C program
 categories: programming
 ---
 
