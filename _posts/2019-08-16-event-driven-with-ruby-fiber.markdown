@@ -145,7 +145,7 @@ Here is one simple example:
 
 ~~~rb
 require 'fiber'
-require 'em-http-request
+require 'em-http-request'
 
 def async_get(url)
   f = Fiber.current
