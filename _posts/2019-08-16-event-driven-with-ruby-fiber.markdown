@@ -122,9 +122,21 @@ value1 = foo.resume(6) # inside fiber: a = 6; value1 = hello
 value2 = foo.resume(7) # inside fiber: Fiber.yield return 7; val2 = 42
 ~~~
 
-In order to pass a value to a fiber, we pass it as parameter of `Fiber#resume`.
+__Passing value from caller to fiber__
 
-To pass a value from fiber to its caller, we pass it as parameter of `Fiber.yield`
+To pass values to a fiber, we pass them as parameters of `Fiber#resume`.
+
+In our first call to `foo.resume(6)`, 6 is pass to foo as its initial parameter(ie `a`).
+
+In our second call to `foo.resume(7)`, inside Fiber, 7 is the return value from `Fiber.yield`, therefore, `b = 6 * 7`
+
+__Passing value from fiber to its caller__
+
+To pass a value from fiber to its caller, we pass it as parameter of `Fiber.yield`.
+
+In our first call to Fiber.yield, we return the string "hello" to fiber's caller so value1 = "hello".
+
+In our second call to resume, b value is returned so value2 = 42
 
 ## Application of Fiber: combination with EventMachine
 
@@ -157,3 +169,7 @@ end
 ## Application of Fiber: non-blocking IO
 
 With the support of Fiber, we can implement non-blocking IO easily.
+
+## Remark
+
+Fiber is not a concept exclusively to Ruby, many other programming languages have their own non-preemptive multitasking mechanism. For example, we have coroutine in Python, generator in ES6, coroutine in C++20. Though with different name, all of them have the same basic idea as Ruby's Fiber.
