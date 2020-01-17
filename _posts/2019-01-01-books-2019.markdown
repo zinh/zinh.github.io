@@ -9,7 +9,7 @@ categories: misc
 
 My goal of this year is 2 books per month.
 
-### Factfulness
+### 1. Factfulness
 *Hans Rosling*
 
 Contains lots of useful information, teach me how to recognize exageration on newspaper everyday. 
@@ -18,57 +18,111 @@ One thing that I learn and start to notice after reading the book is that newspa
 After all, we are living in a social network era where user's engagement and interaction are the factors. 
 If there is nothing controversal, there is not much interest from user if there is no interest from users, there is no advertisment.
 
-### Freedom™(Daemon #2)
+### 2. Freedom™(Daemon #2)
 *Daniel Suarez*
 
 To be honest, very disappointed and not quite good as part 1. 
 The daemon became an omnipotent force so there is not much of a surprise because we know that whatever bad thing happen, the daemon will eventually appear and save the day. 
 Also there are lots of side characters and story arc which contribute nothing to the main storyline, such as the Chinese's arc(the one Jon Ross travelled to China) or Phillip's or even the one of Loki.
 
-### The book of tea
+### 3. The book of tea
 *Okakura Kakuzo*
 
 Small book about about the history of teaism(aka 茶道) at Japan, its relation with Zen and Taoism.
 It is very well-written by a Japanese scholar over one-hundred years ago and suprisingly was in English.
 
-### The Soul of A New Machine
+### 4. The Soul of A New Machine
 *Tracy Kidder*
 
 The author has done a great job to describe a hardware project, about what struggle does an engineer have such as fixing bugs or trying to keep the deadline.
 I can really relate my day-to-day job to that.
 
-### Spy the Lie: Former CIA Officers Teach You How to Detect Deception
-**Philip Houston**
+### 5. Spy the Lie: Former CIA Officers Teach You How to Detect Deception
+*Philip Houston*
 
 A small book talk about how to know if a person is lying. Although I think we need to take their advice with a grain of salt, I just read another research that stated people usually cannot tell if someone is lying or not and we usually exaggerate about our lying detection ability.
 
-### The Emperor of All Maladies: A Biography of Cancer
-**Siddhartha Mukherjee**
+### 6. The Emperor of All Maladies: A Biography of Cancer
+*Siddhartha Mukherjee*
 
 This is a book by my favorite author on biology topic. He also wrote another book called The Gene: An Intimate History, both of which is quite long but worth the time. This book covers the history and human's struggle with one of our most fatal disease. Very much recommend it if you are into this kind of topic.
 
-### Programming in Haskell
-**Graham Hutton**
+### 7. Programming in Haskell
+*Graham Hutton*
 
 The book covers a very basic introduction to functional programming with Haskell. I've been reading it on and off since last year but recently has found time to finish it.
 Anyway, comparing with other well-known introductory books about Haskell such as *Learn You a Haskell for Great Good!* or *Real World Haskell* *Programming in Haskell* provides a more complete and thorough introduction about the topic. It also contains some exercises for us to practise which I find very useful when learning a programming language.
 
-### Designing Data-intensive application
-**Martin Kleppmann**
+### 8. Designing Data-intensive application
+*Martin Kleppmann*
 
 Although not my first time reading this book(3rd times really), this book still impresses me with the information it contains. If you are into database design or just need to catch up with recent development in database this is your book. It covers a wide range of topic in database system such as indexes, ACID, transaction, NoSQL, OLTP, columnar database, etc. We can see the overall picture of a modern database system, the trade-off it has, some of prominent algorithm, etc. The references section also contains lots of more detailed links/papers/books in case we interest in the topic we can dig in right away.
 
-### The Life-Changing Magic of Tidying Up
-**Marie Kondo**
+### 9. The Life-Changing Magic of Tidying Up
+*Marie Kondo*
 
 I heard about Marie's program on Netflix and give this book a try. It is a very concise book about the topic of cleaning your house, basically can be summarised in Marie's mantra *keeping only those things that "spark joy"*. That is quite an interesting view and reflect Japanese's gratitude toward things no matter big or small.
 
-### The Marshmallow Test: Mastering Self-Control
-**Walter Mischel**
+### 10. The Marshmallow Test: Mastering Self-Control
+*Walter Mischel*
 
 The center idea of this book is about delayed gratification and how to reserve your self-control over temptation. The author argues that delayed gratification shown at early age correlates to a more successful future. The experiment conducted is called Marshmallow test which showed a child's choice when presented with two gifts one of which is much less attactive than the other but can be take immmediately while the other one must be wait for an amount of time.
 
-### The year of flood
-**Margaret Atwood**
+### 11. The year of flood
+*Margaret Atwood*
 
 This is the second volume of the triology MaddAddam written by Margaret Atwood. I have read the first one(Oryx and Crake) last year. I had some free time to finish the second book this holiday. It show us the slowly degeneration of socialty. Though I think creating intense plot is not the purpose of author so nothing much of revealing here except some connection with the first book.
+
+### 12. The Radium Girls: The Dark Story of America's Shining Women
+*Kate Moore*
+
+The tragedy of the Radium Girls who in the 30s worked for Radium-related production company. Though it is well-known by now that contacting with radioactive substance such as radium can lead to serious health problems, it was then still a myth. They even licked radium by ultilizing a technique called lip-pointing instead of cleaning the brush because it was faster. As a result, they faced very serious health issues and had to sue their former employer for damage. Some won, some didn't even live to hear the verdict, some died unknownly of the cause. A truly moving story.
+
+### 13. The Money Machine: How the City Works
+*Philip Coggan*
+
+Rudimental introduction of the financial system of London(though can be apply to other financial center all over the world). It shows the participant of this system, how do they interact and what effect they cause to the overall system.
+
+### 14. Bad Choices: How Algorithms Can Help You Think Smarter and Live Happier
+*Ali Almossawi*
+
+Small book with find art introduces about how to apply simple algorithm to everyday issue. What I love about this book is at references for further reading, author has give a short description about that book/article/paper. It is very useful if you want to dig deeper into literature.
+
+### 15. Maddaddam
+*Margaret Atwood*
+
+This is the last of the triology. It told the story of Zeb and Adam's past interleave with the present where the remanining of humane try to survice together with the Crackers. Though there are some illogical plot, I like this one more than the previous. So if to rank between three books, it would be *Oryx and crake* > *Maddaddam* > *The year of blood*
+
+### 16. Metro 2033
+*Dmitry Glukhovsky*
+
+This may be the last novel of post-apocalytic genre that I read this year. The story is quite long with lots of lengthy sequences although the plot is not that complicated.
+In general, the author has built a colorful life underground; there are conflict, revolution, canibalism, religion, fascism and communism. The ending is a little bit hustle and not quite convincing.
+Overall, comparing with other novel that I read, this one lie on the lower end of the scale. However, maybe the sequels is better.
+
+### 17. Nine Pints: A Journey Through the Money, Medicine, and Mysteries of Blood
+*Rose George*
+
+As the book's title suggests, the book told various topics around blood. There are 3 main themes in it: blood donation, bloodborne diseases and blood hygienic.
+
+### 18. Structure and Interpretation of Computer Programs
+*Gerald Jay Sussman, Hal Abelson*
+
+Used as a textbook for introductiory course to computer science at MIT. Scheme(a Lisp dialect) is used to illustrate basic ideas of a computer program. There are lots of good examples as well as exercises in this book. I have also used this chance to actually learn to use Emacs as nothing more suitiable than learning a programming language using an editor implemented by it(although there are a few differences between Emacs's Lisp and Scheme).
+
+### 19. Drive: The Surprising Truth About What Motivates Us
+*Daniel H. Pink*
+
+### 20. The Underground Railroad
+*Colson Whitehead* (2017 Pulitzer Prize for Fiction)
+
+Slavery racism and historical fiction is not a topic that I usually read. This novel is very well-written, fascinating.
+
+### 21. Norse Mythology
+*Neil Gaiman*
+
+Neil Gaiman is my favorite author on mythology topic. I have read some of his other works such as The Sandman, American Gods. All of them revolve around gods from various culture.
+Overall, Norse Mythology is a short book. The stories are arranged in chronological order from the creation of Nine Worlds untill Ragnarok. One suprising thing is how different Thor has been depicted in Marvel's comic versus the traditional one.
+
+
+This is the last book I read this year. Well, I am still short of another three books in order to finish my goal(two books per month, or 24 books per year). But still, it is a great leap and I am looking forward to the books that I will read next year.

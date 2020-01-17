@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Advent of Code 2019"
+date: 2019-12-01 00:00:01
+summary: Advent of Code is a coding puzzle event that hold from December 1st to 24th. It contains well-crafted coding problems with increasing difficulty when the event go on. It is a very good chances to learn or review a programming language.
+description: Advent of Code is a coding puzzle event that hold from December 1st to 24th. It contains well-crafted coding problems with increasing difficulty when the event go on. It is a very good chances to learn or review a programming language. Last year, I've used Python, this year I will try it with C(or CPP) whichever is easier to implement.
+categories: misc
+---
+
+Advent of Code is a coding puzzle event that hold from December 1st to 24th. It contains well-crafted coding problems with increasing difficulty when the event go on. It is a very good chances to learn or review a programming language.
+
+I've used Python last time, this year though very much busier than last year, I will try to use C and CPP(whichever is easier to implement).
