@@ -38,7 +38,7 @@ bar 2
 
 So, with this model, how can we let `foo` and `bar` run simultaneously?
 
-It's easy, we can just put each of them in their own thread(though Ruby's GIL will prevent `foo` and `bar` running in parallel, let's just assume that they are executed concurrently).
+It's easy, we can just put each of them in their own thread(though MRI Ruby's GIL will prevent `foo` and `bar` running in parallel, let's just assume that they are executed concurrently, or alternatively using JRuby).
 
 ~~~ rb
 # thread.rb
@@ -53,10 +53,19 @@ t1.join
 t2.join
 ~~~
 
+We can see the output interleaves between foo and bar.
+
+~~~
+bar 1
+foo 1
+bar 2
+foo 2
+~~~
+
 By spawning a new thread for each function, we let the OS(or in our case, ruby VM) decides when and how to execute foo and bar simultaneously.
 This model is known as Preemptive Multitasking.
 
-There is another model called Cooperative Multitasking(or non-preemptive multitasking). Its idea is that OS/VM will not schedule our function for us, it's our responsibilty to start, stop of function in order to achieve concurrency. And Ruby's Fiber provides us some primitives to let us schedule tasks by ourself.
+There is another model called Cooperative Multitasking(or non-preemptive multitasking). Its idea is that OS/VM will not schedule our function for us, it's our responsibilty to start, stop our function in order to achieve concurrency. And Ruby's Fiber provides us some primitives to let us schedule tasks by ourself.
 
 Let's have some example.
 
@@ -164,11 +173,50 @@ EM.run do
 end
 ~~~
 
-`async_get` has wrap EventMachine callback mechanism inside a fiber, it let our code looks like it is executed sequencally
+`async_get` has wrap EventMachine callback mechanism inside a fiber, it let our code looks like it is executed sequencally. This usage somewhat reflects *async, await* mechanism of Javascript.
+
+In my code, I have used `Fiber.current` which will return the current fiber and this function defined in `fiber` library hence `require 'fiber'` is needed.
 
 ## Application of Fiber: non-blocking IO
 
 With the support of Fiber, we can implement non-blocking IO easily.
+
+We will implement an non-blocking IO server using Fiber.
+
+The idea is that we will maintain an array of fiber, each correspond to a TCP connection.
+
+~~~rb
+class Reactor
+  def initialize
+    @readable = {}
+    @writeable = {}
+  end
+end
+~~~
+
+In the event-loop, we create an inifinite loop, each time, we check if there is any readable and writeable available to read/write
+
+~~~rb
+class Reactor
+  def initialize
+    # ...
+  end
+
+  def run
+    while true
+      readable, writeable = IO.select(@readable.keys, @writeable.keys)
+      if readable.any? or writeable.any?
+        readable.each{|io| @readable[io].resume}
+      end
+    end
+  end
+end
+~~~
+
+~~~rb
+reactor = Reactor.new
+TCPServer
+~~~
 
 ## Remark
 
