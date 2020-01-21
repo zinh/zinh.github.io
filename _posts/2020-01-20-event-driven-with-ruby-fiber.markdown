@@ -147,6 +147,20 @@ In our first call to Fiber.yield, we return the string "hello" to fiber's caller
 
 In our second call to resume, b value is returned so value2 = 42
 
+One last example before moving to application of Fiber, let's implement an infinite Fibonacci generator.
+
+~~~rb
+fibo = Fiber.new do
+  a, b = 1, 1
+  while true
+    Fiber.yield(a)
+    a, b = b, a + b
+  end
+end
+
+10.times{ puts fibo.resume }
+~~~
+
 ## Application of Fiber: combination with EventMachine
 
 Combine Fiber with EventMachine give us another way to structure our program more intuitively.
