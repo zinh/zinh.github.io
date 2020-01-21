@@ -1,15 +1,15 @@
 ---
 layout: post
 title: "Event driven non blocking IO with Ruby's fiber"
-date: 2019-08-16 15:16:00
-summary: How can we implement reactor using Ruby's fiber
-description: Fiber is with Ruby since version 1.9. However recently has been resurface due to actively work on improving Ruby's concurrency performance. In this blog post, we will get some basic use of Fiber and try to implementing an Reactor server using Fiber.
+date: 2020-01-20 15:16:00
+summary: In this post, I will introduce about Ruby's fiber and some of its application in concurrency processing.
+description: In this post, I will introduce about Ruby's fiber and some of its application in concurrency processing.
 categories: ruby
 ---
 
 Fiber is with Ruby since version 1.9. However recently it has been resurfaced due to active work on improving Ruby's concurrency performance. In this blog post, I will explain some basic usage with Fiber.
 
-To put is simply, Fiber is just a function that can be stop and resume. To understand how it is of any use to stop and resume a function at will, let's compare it with the tradionally sequential execution model.
+To put is simply, Fiber is just a function that can be stopped and resumed. To understand how it is of any use to stop and resume a function at will, let's compare it with the tradionally sequential execution model.
 
 ~~~rb
 # sequencial.rb
@@ -36,7 +36,7 @@ bar 1
 bar 2
 ~~~
 
-So, with this model, how can we let `foo` and `bar` run simultaneously?
+With this model, how can we let `foo` and `bar` run simultaneously?
 
 It's easy, we can just put each of them in their own thread(though MRI Ruby's GIL will prevent `foo` and `bar` running in parallel, let's just assume that they are executed concurrently, or alternatively using JRuby).
 
@@ -67,7 +67,7 @@ This model is known as *Preemptive Multitasking*.
 
 There is another model called *Cooperative Multitasking*(or *non-preemptive multitasking*). Its idea is that OS/VM will not schedule our function for us, it's our responsibilty to start, stop and resume our function in order to achieve concurrency. And Ruby's Fiber provides us some primitives to let us schedule tasks by ourself.
 
-Let's have some example.
+Let's have some examples.
 
 ### Fiber basic
 
@@ -75,13 +75,13 @@ To define a fiber, we use `Fiber.new`
 
 ~~~rb
 # fiber.rb
-foo = Fiber.new
+foo = Fiber.new do
   puts "foo 1"
   Fiber.yield
   puts "foo 2"
 end
 
-bar = Fiber.new
+bar = Fiber.new do
   puts "bar 1"
   Fiber.yield
   puts "bar 2"
@@ -103,7 +103,7 @@ bar 1
 ~~~
 
 In our example, we have used `Fiber.yield`, it means halt the current fiber and return control to it's parent.
-So in our first `foo.resume`, it means that we want to run `foo` until the first `yield` point, then stop it.
+So in our first call of `foo.resume`, it means that we want to run `foo` until the first `yield` point, then stop it.
 After that, running `bar` until its first `yield` point then stop it.
 This explains our output.
 
