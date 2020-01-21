@@ -102,7 +102,7 @@ foo 1
 bar 1
 ~~~
 
-In our example, we have used `Fiber.yield`, it means halt the current fiber and return control to it's parent.
+In our example, I have used `Fiber.yield`, it means halt the current fiber and return control to it's parent.
 So in our first call of `foo.resume`, it means that we want to run `foo` until the first `yield` point, then stop it.
 After that, running `bar` until its first `yield` point then stop it.
 This explains our output.
@@ -116,9 +116,9 @@ bar.resume # output: bar 2
 foo.resume # output: foo 2
 ~~~
 
-As we can see, the effect looks just like multi-threading, output is altenated between foo and bar.
+As we can see, the effect looks just like multi-thread, output is alternated between foo and bar.
 
-Next, let see how can we passing message between fibers.
+Next, let's see how can we passing message between fibers.
 
 ## Passing messages between fibers
 
