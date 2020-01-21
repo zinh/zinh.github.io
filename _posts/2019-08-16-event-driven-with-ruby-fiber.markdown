@@ -63,9 +63,9 @@ foo 2
 ~~~
 
 By spawning a new thread for each function, we let the OS(or in our case, ruby VM) decides when and how to execute foo and bar simultaneously.
-This model is known as Preemptive Multitasking.
+This model is known as *Preemptive Multitasking*.
 
-There is another model called Cooperative Multitasking(or non-preemptive multitasking). Its idea is that OS/VM will not schedule our function for us, it's our responsibilty to start, stop our function in order to achieve concurrency. And Ruby's Fiber provides us some primitives to let us schedule tasks by ourself.
+There is another model called *Cooperative Multitasking*(or *non-preemptive multitasking*). Its idea is that OS/VM will not schedule our function for us, it's our responsibilty to start, stop and resume our function in order to achieve concurrency. And Ruby's Fiber provides us some primitives to let us schedule tasks by ourself.
 
 Let's have some example.
 
@@ -116,7 +116,7 @@ bar.resume # output: bar 2
 foo.resume # output: foo 2
 ~~~
 
-As we can see, Fiber let us schedule the execution by ourself.
+As we can see, the effect looks just like multi-threading, output is altenated between foo and bar.
 
 Next, let see how can we passing message between fibers.
 
@@ -179,11 +179,9 @@ In my code, I have used `Fiber.current` which will return the current fiber and 
 
 ## Application of Fiber: non-blocking IO
 
-With the support of Fiber, we can implement non-blocking IO easily.
+With the support of Fiber, we can implement non-blocking IO quite easily. Let's make an echo server with Fiber.
 
-We will implement an non-blocking IO server using Fiber.
-
-The idea is that we will maintain an array of fiber, each correspond to a TCP connection.
+The idea is that we will maintain a Hash of fiber, each correspond to a TCP connection.
 
 ~~~rb
 class Reactor
@@ -194,30 +192,77 @@ class Reactor
 end
 ~~~
 
-In the event-loop, we create an inifinite loop, each time, we check if there is any readable and writeable available to read/write
+In the event-loop, we check if there is any TCP connection available by using `IO.select`(which is a blocking call) then just resume the corresponding fiber of that connection.
 
 ~~~rb
 class Reactor
-  def initialize
-    # ...
-  end
+  # ...
 
   def run
-    while true
-      readable, writeable = IO.select(@readable.keys, @writeable.keys)
-      if readable.any? or writeable.any?
-        readable.each{|io| @readable[io].resume}
-      end
+    while @readable.any? || @writeable.any? 
+      readable, writeable = IO.select(@readable, @writeable)
+      readable.each{ |io| @readable[io].resume }
+      writeable.each{ |io| @writeable[io].resume }
     end
   end
 end
 ~~~
 
+Here, we will define another 2 methods to append to `@readable` and `@writeable`, after that, 
+halt the Fiber and wait until it is invoked by our event-loop.
+
+~~~rb
+class Reactor
+  # ...
+  def await_readable(io)
+    @readable[io] = Fiber.current
+    Fiber.yield
+    @readable.delete(io)
+  end
+
+  def await_writeable(io)
+    @writeable[io] = Fiber.current
+    Fiber.yield
+    @writeable.delete(io)
+  end
+end
+~~~
+
+Now to our main program, we will first initialize our object
+
 ~~~rb
 reactor = Reactor.new
-TCPServer
+server = TCPServer.new('localhost', 8080)
 ~~~
+
+then create a Fiber for `server` and a new Fiber for each connection
+
+~~~rb
+Fiber.new do
+  # wait for connection, meanwhile, halt this Fiber
+  reactor.await_readable(server) 
+  client = server.accept
+  Fiber.new do
+    # wait for this socket to be readable, meanwhile, halt it
+    reactor.await_readable(client) 
+    request = client.gets
+
+    # wait for this socket to be writeable, meanwhile, halt it
+    client.await_writeable(client) 
+
+    # just send back the request then close
+    client.puts(request) 
+    client.close
+  end
+end.resume
+
+reactor.run
+~~~
+
+We can see that our program would be able to handle concurrency connection without needing of threading or multi-process.
+
+Once again, our `await_readable` `await_writeable` mimick `async/await` mechanism of ES6.
 
 ## Remark
 
-Fiber is not a concept exclusively to Ruby, many other programming languages have their own non-preemptive multitasking mechanism. For example, we have coroutine in Python, generator in ES6, coroutine in C++20. Though with different name, all of them have the same basic idea as Ruby's Fiber.
+Fiber is not a concept exclusively to Ruby, many other programming languages have their own non-preemptive multitasking mechanism. For example, we have coroutine in Python, generator in ES6, coroutine in C++20. Though with different names, all of them have the same basic idea as Ruby's Fiber.
