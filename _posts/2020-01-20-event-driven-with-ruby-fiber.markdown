@@ -280,3 +280,7 @@ Once again, our `await_readable` `await_writeable` mimick `async/await` mechanis
 ## Remark
 
 Fiber is not a concept exclusively to Ruby, many other programming languages have their own non-preemptive multitasking mechanism. For example, we have coroutine in Python, generator in ES6, coroutine in C++20. Though with different names, all of them have the same basic idea as Ruby's Fiber.
+
+## References
+
+The reactor server's code is borrowed from [Fibers Are the Right Solution](https://www.codeotaku.com/journal/2018-11/fibers-are-the-right-solution/index){:target="_blank"}{:rel="nofollow"}
