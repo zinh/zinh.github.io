@@ -1,0 +1,30 @@
+---
+layout: post
+title: "Books 2020"
+date: 2020-01-30 15:16:00
+summary: Summary of books that I have been reading this year
+description: Summary of books that I have been reading this year
+categories: misc
+---
+
+Books that I have read this year.
+
+__1. The Fifth Season__
+
+*N. K. Jemisin*
+
+__2. How Green Was My Valley__
+
+*Richard Llewellyn*
+
+__3. Brain Rules for Baby: How to Raise a Smart and Happy Child from Zero to Five__
+
+*John Medina*
+
+__4. A Tour of C++__
+
+*Bjarne Stroustrup*
+
+__5. Database Internals__
+
+*Alex Petrov*
