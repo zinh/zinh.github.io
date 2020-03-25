@@ -5,3 +5,6 @@ _site/
 *.swp
 .ruby-version
 *.swo
+
+.bundle
+vendor
