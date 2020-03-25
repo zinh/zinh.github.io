@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Build your own React: DOM generator"
+title: "Build your own React, part 1: DOM generator"
 date: 2020-03-25 00:16:00
 summary: In order to understand a little bit more about React, I've set a goal to build myself a library with the same functionality as React. In this post, I will begin with DOM generation and JSX.
 description: In order to understand a little bit more about React, I've set a goal to build myself a library with the same functionality as React. In this post, I will begin with DOM generation and JSX.
