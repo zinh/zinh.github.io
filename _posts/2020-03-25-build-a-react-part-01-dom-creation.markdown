@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build your own React: DOM generator"
-date: 2020-03-25 15:16:00
+date: 2020-03-25 00:16:00
 summary: In order to understand a little bit more about React, I've set a goal to build myself a library with the same functionality as React. In this post, I will begin with DOM generation and JSX.
 description: In order to understand a little bit more about React, I've set a goal to build myself a library with the same functionality as React. In this post, I will begin with DOM generation and JSX.
 categories: javascript
@@ -13,11 +13,11 @@ Before we begin, let's review some of the browser API to manipulate DOM node.
 
 We just need to know some of the basic DOM manipulation functions:
 
-- document.createElement(tagName[, options]) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement)
-- document.createTextNode(data) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode)
-- Node.appendChild(child) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)
-- Node.replaceChild(newChild, oldChild) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/replaceChild)
-- Node.removeChild(child) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/replaceChild)
+- document.createElement(tagName[, options]) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement){:rel="nofollow"}
+- document.createTextNode(data) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode){:rel="nofollow"}
+- Node.appendChild(child) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild){:rel="nofollow"}
+- Node.replaceChild(newChild, oldChild) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/replaceChild){:rel="nofollow"}
+- Node.removeChild(child) [ref](https://developer.mozilla.org/en-US/docs/Web/API/Node/replaceChild){:rel="nofollow"}
 
 No need to explain as the function name is quite clear but you can follow the reference url to read more about each functions.
 As an example, let's convert this HTML to the equivalent JS
@@ -169,6 +169,6 @@ let createInstance = (type, props) => {
 
 That is all that we need to render a JSX. Here are the full code of this first part:
 
-[codepen](https://codepen.io/harue/pen/NWqOmjx)
+[codepen](https://codepen.io/harue/pen/NWqOmjx){:rel="nofollow"}
 
 In my next post, I will implement the remaining types of element, which is Class Component and Functional Component.
