@@ -147,7 +147,7 @@ We will have a convention such that event is any thing that start with `on`(eg: 
 // Some helper functions
 let isAttribute = attrName => attrName != 'children' && !isEvent(attrName);
 let isEvent = attrName => attrName.startsWith('on');
-let eventName = event => event.substring(3).toLowerCase();
+let eventName = event => event.substring(2).toLowerCase();
 
 let createInstance = (type, props) => {
   // now we will handle our first and most simple element type, ie: TEXT_NODE
@@ -161,7 +161,7 @@ let createInstance = (type, props) => {
 
   for(let key in props) {
     if (isEvent(key))
-      node.addEventListener(eventName(key), props[event])
+      node.addEventListener(eventName(key), props[key])
     else if (isAttribute(key))
       node.setAttribute(key, props[key])
   }
