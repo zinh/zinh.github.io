@@ -7,7 +7,9 @@ description: In order to understand a little bit more about React, I've set a go
 categories: javascript
 ---
 
-Before we begin, let's review some of the browser API to manipulate DOM node.
+In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. In later posts, I will cover topic such as class, functional component, reconciliation, fiber, concurrent mode and hooks.
+
+Before we begin, let's review some of browser API to manipulate DOM node.
 
 # Basic DOM node manipulation
 
@@ -50,9 +52,9 @@ divNode.appendChild(inputNode);
 
 # JSX
 
-JSX is really just a syntatic sugar for Javascript(specifically React) that ease the pain of writing HTML code in Javascript, but really, we can use React without using any JSX.
+JSX is just syntatic sugar for Javascript(specifically React) that ease the pain of writing HTML code in Javascript, but in fact, we can use React without any JSX.
 
-We can use Babel repl(at https://babeljs.io/repl) to see what JSX will be translated to
+We can use Babel repl(at https://babeljs.io/repl) to see what JSX will be translated to, for example:
 
 ```html
 <div class="search-form">
@@ -61,7 +63,7 @@ We can use Babel repl(at https://babeljs.io/repl) to see what JSX will be transl
 </div>
 ```
 
-will be translate to this JS snippet
+will be translate into this JS snippet
 
 ```js
 React.createElement(
@@ -81,13 +83,14 @@ Here we can see our first exposed function from React which is `createElement`. 
 
 # Implement createElement
 
-`createElement` is a simple function that take a node type, its properties and return an object to represent it. We will call this object an element.
+`createElement` is a simple function that take a node type, its properties and return an object to represent it. We will call this object an element. So what will our element looks like?
+
+It will have a `type` key, indicate type of this element, whether it's a DOM or a class component, etc.
+
+It also needs a `props` containing all of its properties and children.
 
 ```js
 let createElement = (type, options, ...children) => {
-  // In this post, type is just simple string to represent a DOM Node type
-  // There are other types(class component and functional component) 
-  //   that will be implemented in later post.
   return {
     type,
     props: Object.assign({ children }, options)
@@ -97,10 +100,10 @@ let createElement = (type, options, ...children) => {
 
 Now, if we look at `children` part, we can see there are two types of children:
   - The one created by `React.createElement`
-  - A simple string such as the string "Search" in above example.
+  - A simple string such as the string "Search" in `React.createElement("label", null, "Search"),`
 
-So, to unite these two types, we have to change our function a little bit.
-If it's a string, we will return an element with type `TEXT_NODE` and only one props which is its text content.
+So, to unite these two types, we need to change our function a little bit.
+If it's a string, we will return an element with type of `TEXT_NODE` and only one props which is its text content.
 Of course, there are more types in React, in fact, 2 more: Class component and functional component. We will implement these types in later posts.
 
 ```js
@@ -123,6 +126,8 @@ let createElement = (type, options, ...children) => {
 
 The element created by `createElement` will be passed to `render` function in order to actually create a DOM node and add it to DOM tree.
 
+For now, our render will be as simple as:
+
 ```js
 let render = (element, parentNode) => {
   let node = createInstance(element.type, element.props);
@@ -131,11 +136,12 @@ let render = (element, parentNode) => {
 ```
 
 In `props`, there are three types of keys:
+
 - attribute
 - event
 - `children`
 
-We will have a convention such that event is any thing that start with `on`(eg: onClick, onBlur), otherwise it's a html attribute.
+We will have a convention such that event is any thing that start with `on`(eg: onClick, onBlur), otherwise it's a HTML attribute.
 
 ```js
 // Some helper functions
@@ -144,9 +150,12 @@ let isEvent = attrName => attrName.startsWith('on');
 let eventName = event => event.substring(3).toLowerCase();
 
 let createInstance = (type, props) => {
+  // now we will handle our first and most simple element type, ie: TEXT_NODE
   if (type == 'TEXT_NODE') {
     return document.createTextNode(props.value);
   }
+
+  // This is our second type, for now it's just a string indicate a DOM node's type
   let node = document.createElement(type);
 
   for(let key in props) {
@@ -156,7 +165,7 @@ let createInstance = (type, props) => {
       node.setAttribute(key, props[key])
   }
 
-  // loop through children and recursivelly render them
+  // loop through children and recursivelly create them
   let children = props.children || [];
   children.forEach(child => {
     let childNode = createInstance(child.type, child.props);
