@@ -7,7 +7,7 @@ description: In order to understand a little bit more about React, I've set a go
 categories: javascript
 ---
 
-In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. In later posts, I will cover topic such as class, functional component, reconciliation, fiber, concurrent mode and hooks.
+In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. Later on, other topics such as class, functional component, reconciliation, fiber, concurrent mode and hooks will be covered.
 
 Before we begin, let's review some of browser API to manipulate DOM node.
 
