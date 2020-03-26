@@ -155,7 +155,8 @@ let createInstance = (type, props) => {
     return document.createTextNode(props.value);
   }
 
-  // This is our second type, for now it's just a string indicate a DOM node's type
+  // This is our second type, 
+  // for now it's just a string indicate a DOM node's type
   let node = document.createElement(type);
 
   for(let key in props) {
