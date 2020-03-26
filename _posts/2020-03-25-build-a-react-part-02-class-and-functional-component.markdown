@@ -70,3 +70,5 @@ let createInstance = (type, props) => {
   }
 }
 ```
+
+# Re-render when state change
