@@ -7,6 +7,12 @@ description: In order to understand a little bit more about React, I've set a go
 categories: javascript
 ---
 
+__Index:__
+
+__1.__ Part 1: DOM generator
+
+[__2.__ Part 2: Class and Functional Component](/javascript/2020/03/25/build-a-react-part-02-class-and-functional-component.html)
+
 In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. Later on, other topics such as class, functional component, reconciliation, fiber, concurrent mode and hooks will be covered.
 
 Before we begin, let's review some of browser API to manipulate DOM node.
