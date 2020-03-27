@@ -13,7 +13,7 @@ __Index:__
 
 __2.__ Part 2: Class and Functional Component
 
-In this second post of thee series, I will add support for Class and Functional Component. We will start with the simpler one:
+In this second part of the series, I will add support for Class and Functional Component. We will start with the simpler one:
 
 # Functional component
 
@@ -32,7 +32,7 @@ let createInstance = (type, props) => {
 }
 ```
 
-and we can write code like this:
+this enables us to write code like this
 
 
 ```js

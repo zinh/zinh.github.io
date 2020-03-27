@@ -13,7 +13,7 @@ __1.__ Part 1: DOM generator
 
 [__2.__ Part 2: Class and Functional Component](/javascript/2020/03/25/build-a-react-part-02-class-and-functional-component.html)
 
-In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. Later on, other topics such as class, functional component, reconciliation, fiber, concurrent mode and hooks will be covered.
+In this series, I would like to make myself a library that behave like React. In this post, I will start with generate DOM from JSX. Later on, other topics such as class, functional component, reconciliation, fiber, concurrent mode and hooks will be covered. As I am very bad at naming, I will just call this library React.
 
 Before we begin, let's review some of browser API to manipulate DOM node.
 
@@ -126,6 +126,64 @@ let createElement = (type, options, ...children) => {
     )
   }
 }
+```
+
+Some example output of `createElement`
+
+```js
+React.createElement("label", null, "Search")
+// {
+//   type: 'label',
+//   props: {
+//     children: [
+//       {type: 'TEXT_NODE', value: 'Search'}
+//     ]
+//   }
+// }
+
+React.createElement("input", { name: "keyword", type: "text" })
+// {
+//   type: 'input',
+//   props: {
+//     name: 'keyword',
+//     type: 'text'
+//     children: []
+//   }
+// }
+
+React.createElement(
+  "div",
+  {
+    class: "search-form"
+  },
+  React.createElement("label", null, "Search"),
+  React.createElement("input", {
+    name: "keyword",
+    type: "text"
+  })
+);
+
+// {
+//   type: 'div',
+//   props: {
+//     class: 'search-form',
+//     chldren: [
+//       { type: 'label', props: { 
+//           children: [
+//             {type: 'TEXT_NODE', value: 'Search'}
+//           ]
+//         }
+//       },
+//       { type: 'input'
+//         props: {
+//           name: 'keyword',
+//           type: 'text',
+//           children: []
+//         }
+//       }
+//     ]
+//   }
+// }
 ```
 
 # Implement render
