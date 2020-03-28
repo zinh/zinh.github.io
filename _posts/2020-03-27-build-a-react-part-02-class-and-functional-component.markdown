@@ -139,6 +139,6 @@ class Component {
 
 Our re-render mechanism is very simple, we call `createInstance` to create a new DOM then use `replaceChild` to replace it to the old one. We also need to keep track of the DOM node that was rendered; hence, the assignment `this.dom = node`.
 
-So, our React works but not quite performant because it will create a new DOM everytime we change state. In reality, we need another step to decide which will DOM we can reused and which needed to create given current props and new props. This step is called _reconciliation_ and is what will be implemented in my next post.
+So, our React works but not quite performant because it will create a new DOM everytime we change state. In reality, we need another step to decide which DOM we can reuse and which needed to create given current props and new props. This step is called _reconciliation_ and is what will be implemented in my next post.
 
 Anyway, the full code of this part is at [codepen](https://codepen.io/harue/pen/eYNQvoV){:rel="nofollow"}
