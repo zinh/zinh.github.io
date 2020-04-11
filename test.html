@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/javascript" src="react.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+        <script type="text/babel">
+          class Favorite extends React.Component {
+            constructor(props) {
+              super(props);
+              this.state = { currentValue: 1 };
+            }
+
+            render(){
+              return <div>
+                <span>{ this.state.currentValue }</span>
+                <button onClick={(evt) => this.setState({currentValue: this.state.currentValue + 1})} >Like</button>
+                <button onClick={(evt) => this.state.currentValue > 0 && this.setState({currentValue: this.state.currentValue - 1})} >Unlike</button>
+                </div>
+            }
+          }
+          React.render(<div><Favorite/><Favorite/></div>, document.getElementById("root"));
+        </script>
+  </body>
+</html>
