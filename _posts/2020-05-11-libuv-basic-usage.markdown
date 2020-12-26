@@ -24,7 +24,7 @@ This post assumes that we've already had libuv compiled and installed somewhere 
 
 ## Initiate event loop 
 
-The center part of the event loop's initialization is `uv_loop_t` and `uv_loop_init`.
+The center part of event loop's initialization is `uv_loop_t` struct and `uv_loop_init` function.
 
 > uv_loop_init signature:
 >
@@ -50,7 +50,7 @@ You may notice that all libuv public function and data structure have `uv_` as i
 
 libuv support various type of IO events, including:
 
-- File IO operations such as open/read/write files
+- File IO operations such as open/read/write file, pipe,...
 - Networking operations such as socket(TCP, UDP)
 
 File operation is just the same as normal synchronous version of libc.
