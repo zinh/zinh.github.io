@@ -1,0 +1,82 @@
+---
+layout: post
+title: "Ruby 3: Non-blocking Fiber"
+date: 2020-12-25 00:16:00
+summary: In this next post of the series, let's implement the usual class and functional component.
+description: In this next post of the series, let's implement the usual class and functional component.
+categories: ruby
+---
+
+Ruby 3 was just released today(2020/12/25) with a lot of new features, among them are:
+- Static type
+- Ractor
+- Non-blocking fiber
+
+I'll focus on non-blocking fiber in this post.
+
+I have written an introduction post about Fiber some months ago.
+In case you haven't heard about Fiber before, here it is: [Event driven non blocking IO with Ruby's fiber
+](/ruby/2020/01/20/event-driven-with-ruby-fiber.html)
+
+Notable changes to Fiber in Ruby 3 is the new boolean option `blocking` and the default is `blocking: false` for every `Fiber.new` operation.
+So what does this keyword mean?
+
+When `blocking: true`, fiber will act as it is before.
+
+The story becomes interesting when `blocking: false`. It will make this fiber to become a non-blocking fiber.
+Inside this fiber whenever there is a blocking operation , eg: IO, network, sleep, etc, it will be suspended(ie `yield`)
+and transfer control to other fiber.
+
+Obviously, the next question is how can the former fiber continue its execution when says the IO operation is unblocked?
+We will need a *scheduler*(ie an event-loop) to keep track of which fiber is in blocking state and when it's posible to wake up.
+
+Ruby doesn't provide a scheduler. It's up to us to implement the scheduler whatever we like. We can even use EventMachine as a scheduler.
+
+In the next part, we will implement a simple scheduler.
+
+## Fiber.scheduler
+
+A fiber scheduler is like an event-loop. It keeps track of which fiber is in blocking state and its corresponding blocking operation.
+When blocking operation finished or available, scheduler will resume its fiber.
+
+To implement a scheduler, we must implement the following hooks:
+- `io_wait`
+- `process_wait`
+- `kernel_sleep`
+- `block` and `unblock`
+
+These hooks will be called when a non-blocking fiber call a blocking operation(eg: IO(`io_wait`), sleep(`kernel_sleep`))
+
+A naive implementation of scheduler can be like
+
+```rb
+class Scheduler
+  # trigger by events: IO#wait, IO#wait_readable, IO#wait_writeable
+  def io_wait(io, events, timeout)
+  end
+
+  # trigger by events: Kernel#sleep, Mutex#sleep
+  def kernel_sleep(duration = nil)
+  end
+
+  # trigger by events: Process::Status.wait
+  def process_wait(pid, flags)
+  end
+
+  # trigger by events: Thread#join, Mutex
+  def block(blocker, timeout = nil)
+  end
+
+  # trigger when a previous block called is unblock
+  def unblock(blocker, fiber)
+  end
+  
+  # Called when current thread exits
+  def close
+  end
+end
+```
+
+With a scheduler available, we can start using non-blocking Fiber by calling `Fiber.set_scheduler`
+
+Now, let implement a simple `io_wait` scheduler
