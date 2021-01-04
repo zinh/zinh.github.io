@@ -2,8 +2,8 @@
 layout: post
 title: "Ruby 3: Non-blocking Fiber"
 date: 2020-12-25 00:16:00
-summary: In this next post of the series, let's implement the usual class and functional component.
-description: In this next post of the series, let's implement the usual class and functional component.
+summary: In this post, we will explore Ruby 3's new non-blocking Fiber and write a simple Fiber scheduler
+description: In this post, we will explore Ruby 3's new non-blocking Fiber and write a simple Fiber scheduler
 categories: ruby
 ---
 
