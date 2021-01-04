@@ -14,7 +14,7 @@ Ruby 3 was just released today(2020/12/25) with a lot of new features, among the
 
 I'll focus on non-blocking fiber in this post.
 
-I have written an introduction post about Fiber some months ago.
+I have written an introduction about Fiber some months ago.
 In case you haven't heard about Fiber before, here it is: [Event driven non blocking IO with Ruby's fiber
 ](/ruby/2020/01/20/event-driven-with-ruby-fiber.html)
 
@@ -23,12 +23,12 @@ So what does this keyword mean?
 
 When `blocking: true`, fiber will act as it is before.
 
-The story becomes interesting when `blocking: false`(this is the default value of `blocking`). It will make this fiber to become a non-blocking fiber.
-Inside this fiber whenever there is a blocking operation , eg: IO, network, sleep, etc, it will be suspended(ie `yield`)
+The story becomes interesting when `blocking: false`(this is the default). It will make this fiber to become a *non-blocking fiber*.
+Inside this fiber whenever there is a blocking operation such as IO, network, sleep, etc, it will be suspended(ie `yield`)
 and transfer control to other fiber.
 
 Obviously, the next question is how can the former fiber continue its execution when says the IO operation finished?
-We will need a *scheduler*(ie an event-loop) to keep track of which fiber is in blocking state and when it's posible to wake up.
+We will need a *scheduler*(ie an event-loop) to keep track of which fiber is in blocking state and when it's posible to resume.
 
 Ruby doesn't provide a scheduler. It's up to us to implement the scheduler whatever we like. We can even use EventMachine as a scheduler.
 
@@ -77,13 +77,13 @@ class Scheduler
 end
 ```
 
-With a scheduler available, we can start using non-blocking Fiber by calling `Fiber.set_scheduler`
+With a scheduler, we can start using non-blocking Fiber by calling `Fiber.set_scheduler`
 
 Now, let implement a simple `kernel_sleep` scheduler
 
 ### kernel_sleep
 
-`kernel_sleep` hook will be called for event such as `Kernel.sleep`. Our scheduler will need to support `kernel_sleep` and `close`
+`kernel_sleep` hook will be called for events such as `Kernel.sleep`. Our scheduler will need to support `kernel_sleep` and `close` hooks
 
 ```rb
 require 'fiber'
@@ -125,7 +125,7 @@ class SimpleScheduler
 end
 ```
 
-To use our `SimpleFiber`, we will need to call `Fiber.set_scheduler`
+To use our `SimpleScheduler`, we will need to call `Fiber.set_scheduler`
 
 ```rb
 scheduler = SimpleScheduler.new
@@ -155,6 +155,9 @@ Fiber 1: wakeup
 Fiber 2: wakeup
 ```
 
+We can see that while fiber 1 is sleeping, it is halted and fiber 2 gets its chance to run.
+Our scheduler keeps track of how long these fibers needs to sleep then resume when the time comes.
+
 ### io_wait
 
 We'll use this simple program to test `io_wait`
@@ -168,7 +171,7 @@ end.resume
 
 Fiber's document of `io_wait` reads:
 
-> io_wait(io, events, timeout)
+> io_wait(io, events, timeout):
 >
 > events is a bit mask of IO::READABLE, IO::WRITABLE, and IO::PRIORITY.
 >
@@ -196,6 +199,8 @@ class SimpleScheduler
     unless (events & IO::WRITABLE).zero?
       @writable[io] = Fiber.current
     end
+
+    # small exercise: add IO::PRIORITY
   
     # halt fiber and transfer control to its parent
     Fiber.yield
@@ -216,7 +221,7 @@ class SimpleScheduler
       readable, writable = IO.select(@readable.keys, @writable.keys, [], 0)
 
       # when there's an io that's ready
-      # we remove it from our @readable/@writable and resume the corresponding fiber
+      # we remove it from our @readable/@writable and resume its corresponding fiber
       readable&.each do |io|
         fiber = @readable.delete(io)
         fiber.resume
@@ -240,9 +245,9 @@ end
 
 However, when run this scheduler against our test program(the one making http request to google), we'll get this exception:
 
-> undefined method `block' for #<SimpleScheduler>
+> undefined method 'block' for \#\<SimpleScheduler\>
 
-which implies that somewhere in http library, `block/unblock` hook is called.
+which implies that somewhere in Ruby's http library, `block/unblock` hook is called.
 
 Let's add `block/unblock`
 
@@ -276,11 +281,11 @@ end
 # we also need to update our event-loop
 def run
   # let's review what we're tracking:
-  # @readable: for fiber that are waiting to read
-  # @writable: for fiber that are waiting to write
-  # @waiting: for fiber that are sleeping
-  # @blocking: for fiber that are blocked
-  # @ready: for fiber that are unblocked
+  # @readable: for fibers that are waiting to read
+  # @writable: for fibers that are waiting to write
+  # @waiting: for fibers that are sleeping
+  # @blocking: for fibers that are blocked
+  # @ready: for fibers that are unblocked
   while @readable.any? or @writable.any? or @waiting.any? or @blocking.positive? or @ready.any?
     readable, writable = IO.select(@readable.keys + [@urgent.first], @writable.keys, [], 0)
 
