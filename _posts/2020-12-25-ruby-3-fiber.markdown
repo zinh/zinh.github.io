@@ -30,7 +30,7 @@ and transfer control to other fiber.
 Obviously, the next question is how can the former fiber continue its execution when says the IO operation finished?
 We will need a *scheduler*(ie an event-loop) to keep track of which fiber is in blocking state and when it's posible to resume.
 
-Ruby doesn't provide a scheduler. It's up to us to implement the scheduler whatever we like. We can even use EventMachine as a scheduler.
+Ruby doesn't provide a scheduler. It's up to us to implement the scheduler whatever we like.
 
 In the next part, we will implement a simple scheduler.
 
@@ -79,7 +79,7 @@ end
 
 With a scheduler, we can start using non-blocking Fiber by calling `Fiber.set_scheduler`
 
-Now, let implement a simple `kernel_sleep` scheduler
+Now, let implement a simple `kernel_sleep` hook.
 
 ### kernel_sleep
 
@@ -95,6 +95,7 @@ class SimpleScheduler
   end
 
   def run
+    # we will loop until there is no more event
     # Our event loop for now will only check for sleeping fibers
     while @waiting.any?
       @waiting.keys.each do |fiber|
@@ -108,6 +109,8 @@ class SimpleScheduler
   end
 
   def kernel_sleep(duration = nil)
+    # this function(and other hooks) will run in context of the fiber calling sleep
+    # hence Fiber.current will be our target fiber that need to be halted
     @waiting[Fiber.current] = current_time + duration
     # halt this fiber and transfer control to its parent
     Fiber.yield
@@ -322,12 +325,12 @@ I've added the complete implemetation of `simple_scheduler` at the end of this p
 ## Conclusion
 
 Non-blocking Fiber provides a simple interface to handle non-blocking IO.
-To us user, we probaly don't deal directly with fiber but through other wrapper such as [Async](https://github.com/socketry/async).
+To us user, we probably don't deal directly with fiber but through other wrapper such as [Async](https://github.com/socketry/async).
 
 In Ruby 3.0, non-blocking Fiber is still in development, there're some IO event that aren't Fiber-friendly.
 We'll need to wait sometime for it to become mature.
 
-Lastly, there're some improvements that I'll leave as an exercise to you
+Lastly, there're some improvements that I'll leave as an exercise
 - In our IO.select call, we return immediatelly if there is no event(by passing 0 as its last parameter).
 It would be more efficent if it can wait for a while.
 How can we achieve that?
