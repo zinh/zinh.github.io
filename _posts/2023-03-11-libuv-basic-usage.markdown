@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Basic usage of libuv"
-date: 2020-05-11 00:16:00
+date: 2023-03-11 00:16:00
 summary: This post server as my note while fiddling with libuv, I will write some basic program using libuv.
 description: libuv is the one taking care of event-loop in nodejs. It is what make nodejs so good at IO operations while still running under a single thread. I will explain some basic usage of libuv in this post
 categories: javascript
