@@ -14,14 +14,14 @@ As the documentation from AWS is not quite clear on setting up, this post is how
 
 # Client side
 
-1. Create user pool
+## 1. Create user pool
 
 User pool is like your user's table. It will contain user's information such as email, username, password, etc.
 So the first step with Cognito is to create a user pool.
 
 AWS has a step-by-step guide on setting up a user pool at [Tutorial: create user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-create-user-pool.html)
 
-2. Create an app client
+## 2. Create an app client
 
 An app client will specify how your app will authenticate with your user's pool. We can choose a client -> cogito authentication flow, client -> server -> cognito flow, or even a custom flow.
 
@@ -29,13 +29,17 @@ For more detail, refer to this guide: [Configuring a user pool app client](https
 
 In this post, I've choosen client -> cognito flow(no need to implement a server).
 
-3. Create hosted UI
+## 3. Create hosted UI
 
-4. Client's code
+Hosted UI is AWS's provided login page, if we don't want to create a login page, we can use hosted UI.
+We can make some simple modification to the look of hosted UI by provide our own css file. Here is what we can custom the hosted UI: [Customizing the built-in sign-in and sign-up webpages](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-app-ui-customization.html)
 
-4.1. Redirect to hosted UI
+## 4. Client's code
 
-4.2. Callback endpoint
+### 4.1. Redirect to hosted UI
+
+### 4.2. Callback endpoint
+
 After user has successfully login, they will be redirected back to callback endpoint with `code` parameter.
 We will use this code to exchange for access_token.
 
