@@ -73,9 +73,26 @@ int uv_fs_open(uv_loop_t* loop,
 - `req`: everytime we create an event handler, we need to create its coresponding request. The request depends on IO operation.
 In file IO, request's type is `uv_fs_t`. We will need to create and initialize this variable before passing it to `uv_fs_open`
 - path, flags, mode is the same as [open(2)](http://man7.org/linux/man-pages/man2/open.2.html)
-- that last parameter is our callback function.
+- that last parameter is our callback function. It needs to have a signature of `void callback(uv_fs_t* req)`
 
+So to open a file, we'll use it as:
+
+```c
+void open_cb(uv_fs_t *req) {
+  // a do nothing callback
+}
+
+uv_fs_t req = malloc(sizeof(uv_fs_t));
+uv_fs_open(loop, req, filepath, O_RDONLY, NULL, open_cb);
 ```
+
+The `open_cb` is our callback function which will be called after file-open operation finished. File descriptor will pass to req->result.
+
+Notice that until we start the event loop, no operation will be run yet.
+
+After open a file, we can read and write to it using `uv_fs_read` and `uv_fs_write`. Their signature are as follow:
+
+```c
 int uv_fs_read(uv_loop_t* loop, 
                uv_fs_t* req, 
                uv_file file, 
@@ -85,7 +102,7 @@ int uv_fs_read(uv_loop_t* loop,
                uv_fs_cb cb)`
 ```
 
-```
+```c
 int uv_fs_write(uv_loop_t* loop, 
                 uv_fs_t* req, 
                 uv_file file, 
@@ -95,6 +112,17 @@ int uv_fs_write(uv_loop_t* loop,
                 uv_fs_cb cb)`
 ```
 
+Now let add a file-read operation. It will need to implemented inside our `open_cb`.
+
+```c
+void open_cb(uv_fs_t *req) {
+  // req->result is file descriptor
+  iov = uv_buf_init(buffer, sizeof(buffer));
+  uv_fs_t read_request = malloc(sizeof(uv_fs_t));
+  uv_fs_read(uv_default_loop(), &read_req, req->result,
+    &iov, 1, -1, read_cb);
+}
+```
 ## Run event loop
 
 ## References
