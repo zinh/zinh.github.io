@@ -2,16 +2,17 @@
 layout: post
 title: "Basic usage of libuv"
 date: 2020-05-11 00:16:00
-summary: This post server as my note whilte fiddling with libuv, I will write some basic program using libuv.
+summary: This post server as my note while fiddling with libuv, I will write some basic program using libuv.
 description: libuv is the one taking care of event-loop in nodejs. It is what make nodejs so good at IO operations while still running under a single thread. I will explain some basic usage of libuv in this post
 categories: javascript
 ---
 
 ## libuv and its relation with nodejs
 
-Event loop is a concept of Javascript. Every Javascript implementation need to implement an eventloop.
-V8 has a default eventloop that can be overrided or extended.
-NodeJS override this event loop by using libuv.
+Event loop is a concept of Javascript. Every Javascript implementation need to implement an event loop.
+V8 has a default event loop that can be replaced or extended.
+NodeJS uses libuv for its event loop implementation.
+
 Libuv is implemented in C so in order to use it one need to have some knowledge of C, or use other's language binding.
 
 This post assumes that we've already had libuv compiled and installed somewhere in our library load path.
@@ -60,7 +61,7 @@ We have 3 main functions for file operations:
 
 This function is use to open a file, its signature:
 
-```
+```c
 int uv_fs_open(uv_loop_t* loop, 
                uv_fs_t* req, 
                const char* path, 
@@ -82,11 +83,15 @@ void open_cb(uv_fs_t *req) {
   // a do nothing callback
 }
 
-uv_fs_t req = malloc(sizeof(uv_fs_t));
-uv_fs_open(loop, req, filepath, O_RDONLY, NULL, open_cb);
+uv_fs_t open_req;
+uv_loop_t loop;
+int main(){
+  uv_loop_init(&loop);
+  uv_fs_open(&loop, &open_req, filepath, O_RDONLY, NULL, open_cb);
+}
 ```
 
-The `open_cb` is our callback function which will be called after file-open operation finished. File descriptor will pass to req->result.
+The `open_cb` is our callback function which will be called after file-open operation finished. File descriptor will pass to `req->result`.
 
 Notice that until we start the event loop, no operation will be run yet.
 
@@ -112,18 +117,48 @@ int uv_fs_write(uv_loop_t* loop,
                 uv_fs_cb cb)`
 ```
 
-Now let add a file-read operation. It will need to implemented inside our `open_cb`.
+- `loop`, `cb` and `req` is the same as `uv_fs_open`
+- `file` is the file descriptor(result of open request, `open_req.result`)
+- `bufs` is an array of `uv_buf_t` each element represents a buffer that we'll read from/write to. This allows us to read/write into multiple buffers at the same time.
+- `nbufs` is length of bufs
+- `offset` is the position to read from/write to. -1 for current file pointer.
+
+Now let add a file-read operation. It will happen inside our `open_cb`.
 
 ```c
+char buffer[1024];
+
 void open_cb(uv_fs_t *req) {
   // req->result is file descriptor
   iov = uv_buf_init(buffer, sizeof(buffer));
-  uv_fs_t read_request = malloc(sizeof(uv_fs_t));
-  uv_fs_read(uv_default_loop(), &read_req, req->result,
+  uv_fs_t read_req;
+  uv_fs_read(uv_default_loop(), &read_req, open_req.result,
     &iov, 1, -1, read_cb);
+}
+
+void read_cb(uv_fs_t *req) {
+  // req->result is number of character read
+  // let just write it back to stdout
+  if (req->result > 0) {
+    printf("%.*s", req->result, buffer);
+    // continue reading till EOF
+    iov = uv_buf_init(buffer, sizeof(buffer));
+    uv_fs_t read_req;
+    uv_fs_read(uv_default_loop(), &read_req, open_req.result,
+      &iov, 1, -1, read_cb);
+  } else if (req->result == 0) {
+    // we've reached EOF
+  }
 }
 ```
 ## Run event loop
+
+To start event loop, we'll use `uv_run`
+
+```c
+uv_run(loop, UV_RUN_DEFAULT);
+uv_loop_close(loop); // also clean up after event loop return
+```
 
 ## References
 
