@@ -9,13 +9,11 @@ categories: javascript
 
 ## libuv and its relation with nodejs
 
-Event loop is a concept of Javascript. Every Javascript implementation need to implement an event loop.
-V8 has a default event loop that can be replaced or extended.
-NodeJS uses libuv for its event loop implementation.
+When working with Javascript, there is the concept of event loop and the non-blocking model that we should aware of. Every Javascript runtime needs to have its own event loop implementation.
 
-Libuv is implemented in C so in order to use it one need to have some knowledge of C, or use other's language binding.
+An event loop is like a job queue where events will be pushed into it and be processed in time. Those events can be an IO event, a user's input, etc. Each event will be associated with a callback(or handler) that the event loop calls when it proccess the event.
 
-This post assumes that we've already had libuv compiled and installed somewhere in our library load path.
+NodeJS use [libuv](https://libuv.org/) as its event loop library. In this post, I will make some simple program with libuv.
 
 ## Programming model of livuv
 
