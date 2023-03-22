@@ -8,9 +8,11 @@ categories: infrastructure
 ---
 
 I have struggled for quite sometimes on setting up Cognito and how to put it in your web application as an authentication service.
-As the documentation from AWS is not quite clear on setting up, this post is how I done it.
+As the documentation from AWS is not quite clear on setting up, how different pieces fit together, this post is how I done it.
 
 # The setup
+
+[![](https://mermaid.ink/img/pako:eNptUctuwyAQ_BXEOSEGYow5ROpT6q1SpR4qXwhgG9UG18Zt0yj_Xtw4aaWUEzs7M_vaQ-W1gQIO5m00TplbK6tetoUD8XWyD1bZTroA7nvvgnH6MnPjK2eDv0xcS_V6Vpz0y81mFgiAEWh8Zd2RMcORcOIKQBCQSplhAMFHrwuruYQAFIGrx4cT-cOG-h_hzP7bwhqBZ9lYLYM5MuECtqZvpdVxK_tJV8BQm9YUUMSvNqUcm1DAwh0iVY7BP-2cgiL0o1nAsZuc5iVCUcpmOKN3Olbsz2DjpTYx3MOw66YTVHYI0VJ5V9pqwse-iXAdQjeI1WpKoyoONm6R8u1qsLqOy67fc7ZihHFJqGEZlSmlWm1xzkuyxqXOEkwkPBwWMN7kxfvfrmI8VfmEYskoSRFOc8JyllOe4XQBdxHHa4Io5glNaIYzznMefb5-TBjiNME0IynhScZwdvgGP6a8tw?type=png)](https://mermaid.live/edit#pako:eNptUctuwyAQ_BXEOSEGYow5ROpT6q1SpR4qXwhgG9UG18Zt0yj_Xtw4aaWUEzs7M_vaQ-W1gQIO5m00TplbK6tetoUD8XWyD1bZTroA7nvvgnH6MnPjK2eDv0xcS_V6Vpz0y81mFgiAEWh8Zd2RMcORcOIKQBCQSplhAMFHrwuruYQAFIGrx4cT-cOG-h_hzP7bwhqBZ9lYLYM5MuECtqZvpdVxK_tJV8BQm9YUUMSvNqUcm1DAwh0iVY7BP-2cgiL0o1nAsZuc5iVCUcpmOKN3Olbsz2DjpTYx3MOw66YTVHYI0VJ5V9pqwse-iXAdQjeI1WpKoyoONm6R8u1qsLqOy67fc7ZihHFJqGEZlSmlWm1xzkuyxqXOEkwkPBwWMN7kxfvfrmI8VfmEYskoSRFOc8JyllOe4XQBdxHHa4Io5glNaIYzznMefb5-TBjiNME0IynhScZwdvgGP6a8tw)
 
 # Client side
 
@@ -23,11 +25,11 @@ AWS has a step-by-step guide on setting up a user pool at [Tutorial: create user
 
 ## 2. Create an app client
 
-An app client will specify how your app will authenticate with your user's pool. We can choose a client -> cogito authentication flow, client -> server -> cognito flow, or even a custom flow.
+An app client will specify how your app will authenticate with your user's pool. We can choose a client → cogito authentication flow, client → server → cognito flow, or even a custom flow.
 
 For more detail, refer to this guide: [Configuring a user pool app client](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html?icmpid=docs_cognito_console_help_panel)
 
-In this post, I've choosen client -> cognito flow(no need to implement a server).
+In this post, I've choosen client → cognito flow(no need to implement a server).
 
 ## 3. Create hosted UI
 
@@ -37,6 +39,8 @@ We can make some simple modification to the look of hosted UI by provide our own
 ## 4. Client's code
 
 ### 4.1. Redirect to hosted UI
+
+After creating a hosted UI, Cognito will provide an endpoint for us to redirect users. They will go to this endpoint, login(or register) and after a success login will be redirected back to our application. Our app will receive a `code` parameter that we'll use to exchange for access token.
 
 ### 4.2. Callback endpoint
 
@@ -59,7 +63,7 @@ const response = await fetch("https://sakura-vinh.auth.ap-northeast-1.amazoncogn
 const body = await response.json();
 ```
 
-# Server side
+# 5. Server side
 
 Now let's say we have an API server and we need to protect it using Cogito user's pool.
 I'll use express and cognito-express package.
@@ -108,7 +112,7 @@ authenticatedRoute.get("/hello", function(_req, res, _next) {
 });
 ```
 
-# Cognito's identity pool
+# 6. Cognito's identity pool
 
 One interesting thing to do with Cognito is we can let our user have a temporary access to AWS so that for example an authenticated user can call an Lambda on front-end.
 
