@@ -91,7 +91,7 @@ df = pd.read_sql('SELECT * FROM test_table', con)
 
 Although I can connect and load data from Access, sometimes I get some weird errors from pyodbc(or MDBTools). My suggestion is as soon as we can load Access data, save it to other natively supported database systems on Linux such as sqlite. It's easy to do that from pandas
 
-```
+```python
 import pyodbc
 import sqlite3
 import pandas as pd
