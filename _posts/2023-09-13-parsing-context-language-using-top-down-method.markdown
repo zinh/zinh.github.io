@@ -96,3 +96,16 @@ Input: `(5)`
 |6|5)|E -> T|Tiếp tục mở rộng E theo rule 1|
 |7|5)|T -> int|mở rộng T dùng rule 3, match terminal symbol int với 5|
 |8|)||match với ) ở bước 5 => chấp nhận chuỗi (5)|
+
+__Hạn chế của recursive descent__: recursive descent có một số hạn chế như
+
+- Không thể parse CFG có prefix giống nhau ở vế phải. Quay lại ví dụ về CFG cho biểu thức +, * rule 3 và 4 có cùng prefix `int`, điều này sẽ gây ra
+Ví dụ: input = `2 * 3`
+
+Factor prefix:
+
+- E -> T \| E + T
+- T -> intQ \| (E)
+- Q -> *T \| ε
+
+- Left-recursive grammar: symbol ở vế trái là prefix ở vế phải(ví dụ: S -> Sa)
