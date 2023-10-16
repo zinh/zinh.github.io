@@ -108,4 +108,31 @@ Factor prefix:
 - T -> intQ \| (E)
 - Q -> *T \| ε
 
-- Left-recursive grammar: symbol ở vế trái là prefix ở vế phải(ví dụ: S -> Sa)
+- Left-recursive grammar: symbol ở vế trái là prefix ở vế phải(ví dụ: E -> E + T)
+
+Loại bỏ left-recursive grammar:
+
+Quy tắc chung để loại bỏ left-recursive như sau:
+
+- A -> Aα \| β
+
+được thay thế bằng:
+
+- A -> βA'
+- A' -> αA' \| ε
+
+```
+E -> T | E+T
+↓↓↓
+E -> TE'
+E' -> +TE' | ε
+```
+
+Như vậy với ngữ pháp ban đầu, sau khi loại bỏ left-recursive và left factor ta được bộ ngữ pháp sau:
+
+```
+E -> TE'
+E' -> +TE' | ε
+T -> intQ | (E)
+Q -> *T | ε
+```
