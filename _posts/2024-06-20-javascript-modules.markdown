@@ -95,13 +95,13 @@ We can declare our `.js` file an ESM module by set the type attribute of script 
 ```html
 <script type="module" src="./main.js"></script>
 
-<!-- or directly inside script !>
+<!-- or directly inside script -->
 <script type="module">
   import { add } from './main.js';
   console.log(add(1,2));
 </script>
 
-<!-- without type=module, usaged of import/export will raise error !>
+<!-- without type=module, usaged of import/export will raise error -->
 <script>
   import { add } from './main.js'; // will raise SyntaxError
 </script>
@@ -131,7 +131,7 @@ To make it easier to import module from an URL, we can use importmap.
 }
 </script>
 
-<!-- in our module we can import from React !>
+<!-- in our module we can import from React -->
 <script type="module">
   // instead of import React from "https://esm.sh/react@18.2.0"
   // we can use:
