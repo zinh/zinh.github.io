@@ -85,3 +85,55 @@ Javascript originally doesn't have a proper module system. So if you want to use
 The browser's Javascript engine will load and run this js file. Somewhere in that file, there is a statement like `window.jQuery = ...` and this allows you to call jQuery everywhere in your code.
 
 This is the standard for a while. Then we have bundler tools(webpack, gulp, parcel, etc). These tools allow us to properly structure our project into smaller chunks, we can export/import as we want and the bundler will bundle all of them into single file, ready to use in browser.
+
+Then around 2017, the ESM standard arrived, allowed us to use import/export keyword in our client's script.
+
+## ESM in browser
+
+We can declare our `.js` file an ESM module by set the type attribute of script tag to module, ie:
+
+```html
+<script type="module" src="./main.js"></script>
+
+<!-- or directly inside script !>
+<script type="module">
+  import { add } from './main.js';
+  console.log(add(1,2));
+</script>
+
+<!-- without type=module, usaged of import/export will raise error !>
+<script>
+  import { add } from './main.js'; // will raise SyntaxError
+</script>
+```
+
+then inside `main.js` we can use import/export statement.
+
+```js
+// main.js
+import { add } from './lib.js';
+console.log(add(1,2));
+```
+
+## importmap
+
+To make it easier to import module from an URL, we can use importmap.
+
+```html
+<script type="importmap">
+{
+    "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react-dom": "https://esm.sh/react-dom@18.3.1"
+    }
+}
+</script>
+
+<!-- in our module we can import from React !>
+<script type="module">
+  // instead of import React from "https://esm.sh/react@18.2.0"
+  // we can use:
+  import React from "react";
+  import { createRoot } from "react-dom";
+</script>
+```
