@@ -7,13 +7,13 @@ description: Summarize of module and how to use it in Javascript
 categories: javascript
 ---
 
-Javascript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts: covering modules in the Nodejs environment and those used in the browser environment.
+Javascript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts: covering modules in the NodeJS environment and those used in the browser environment.
 
 # Module in NodeJS
 
 ## CommonJS
 
-Traditionally, Nodejs relied on the CommonJS module system for managing code. This system allows developers to use the `require` statement to import functionalities from other files.
+Traditionally, NodeJS relied on the CommonJS module system for managing code. This system allows developers to use the `require` statement to import functionalities from other files.
 
 ```js
 // a.js
@@ -31,7 +31,7 @@ CommonJS is the default when NodeJS intepretes a `.js` file. We can explicit tel
 
 ## ESM
 
-Javascript's standard committee(a.k.a TC39) later introduces another module system, it is called ECMAScript Module or ESM. Naturally, NodeJS also adopts this standard and added support for ESM since NodeJS 14.
+The ECMAScript Technical Committee (TC39), which defines the standard for Javascript, later introduced another module system called ECMAScript Modules (ESM). Naturally, NodeJS adopted this standard and began supporting ESM starting with version 14.
 
 ESM includes the keyword import/export. Here is an example:
 
@@ -76,17 +76,17 @@ So the advice here is if it's your own code, try to be as explicit as possible s
 
 # Module in browser
 
-Javascript originally doesn't have a proper module system. So if you want to use a library, you use a script tag in your code:
+Javascript originally lacked a proper module system. To include libraries like jQuery, developers added a script tag in their HTML file.
 
 ```js
 <script type="javascript" src="jquery.js"></script>
 ```
 
-The browser's Javascript engine will load and run this js file. Somewhere in that file, there is a statement like `window.jQuery = ...` and this allows you to call jQuery everywhere in your code.
+The browser's Javascript engine would then load and execute this external Javascript file. Often, such libraries would define a global variable (e.g., window.jQuery = ...) to make their functionality accessible throughout the page.
 
-This is the standard for a while. Then we have bundler tools(webpack, gulp, parcel, etc). These tools allow us to properly structure our project into smaller chunks, we can export/import as we want and the bundler will bundle all of them into single file, ready to use in browser.
+This approach served as the standard for a while. Then came build tools like Webpack, Gulp, and Parcel. These tools allow for better project structure by enabling you to organize your code into smaller modules. You can use export and import statements to manage dependencies between these modules, and the build tool will bundle them into a single file optimized for the browser.
 
-Then around 2017, the ESM standard arrived, allowed us to use import/export keyword in our client's script.
+Around 2017, the ECMAScript Modules (ESM) standard arrived, allowing developers to directly use import and export keywords within their client-side Javascript code.
 
 ## ESM in browser
 
@@ -114,6 +114,8 @@ then inside `main.js` we can use import/export statement.
 import { add } from './lib.js';
 console.log(add(1,2));
 ```
+
+* While the `.mjs` extension might be tempting for these types of files, browsers are quite strict about the MIME type for Javascript files. Therefore, if your server is configured to return the correct MIME type (text/javascript) for `.mjs` files, you can use this extension. Otherwise, it's best to stick with the `.js` extension on the browser side for better compatibility.
 
 ## importmap
 
