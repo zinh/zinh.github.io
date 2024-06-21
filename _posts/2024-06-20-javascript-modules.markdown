@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "Module in Javascript"
+title: "Module in JavaScript"
 date: 2024-06-20 00:16:00
-summary: Summarize of module and how to use it in Javascript
-description: Summarize of module and how to use it in Javascript
+summary: JavaScript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts covering modules in the NodeJS environment and those used in the browser environment.
+description: Summarize of module and how to use it in JavaScript
 categories: javascript
 ---
 
-Javascript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts: covering modules in the NodeJS environment and those used in the browser environment.
+JavaScript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts: covering modules in the NodeJS environment and those used in the browser environment.
 
 # Module in NodeJS
 
@@ -31,7 +31,7 @@ CommonJS is the default when NodeJS intepretes a `.js` file. We can explicit tel
 
 ## ESM
 
-The ECMAScript Technical Committee (TC39), which defines the standard for Javascript, later introduced another module system called ECMAScript Modules (ESM). Naturally, NodeJS adopted this standard and began supporting ESM starting with version 14.
+The ECMAScript Technical Committee (TC39), which defines the standard for JavaScript, later introduced another module system called ECMAScript Modules (ESM). Naturally, NodeJS adopted this standard and began supporting ESM starting with version 14.
 
 ESM includes the keyword import/export. Here is an example:
 
@@ -76,17 +76,17 @@ So the advice here is if it's your own code, try to be as explicit as possible s
 
 # Module in browser
 
-Javascript originally lacked a proper module system. To include libraries like jQuery, developers added a script tag in their HTML file.
+JavaScript originally lacked a proper module system. To include libraries like jQuery, developers added a script tag in their HTML file.
 
 ```js
 <script type="javascript" src="jquery.js"></script>
 ```
 
-The browser's Javascript engine would then load and execute this external Javascript file. Often, such libraries would define a global variable (e.g., window.jQuery = ...) to make their functionality accessible throughout the page.
+The browser's JavaScript engine would then load and execute this external JavaScript file. Often, such libraries would define a global variable (e.g., window.jQuery = ...) to make their functionality accessible throughout the page.
 
 This approach served as the standard for a while. Then came build tools like Webpack, Gulp, and Parcel. These tools allow for better project structure by enabling you to organize your code into smaller modules. You can use export and import statements to manage dependencies between these modules, and the build tool will bundle them into a single file optimized for the browser.
 
-Around 2017, the ECMAScript Modules (ESM) standard arrived, allowing developers to directly use import and export keywords within their client-side Javascript code.
+Around 2017, the ECMAScript Modules (ESM) standard arrived, allowing developers to directly use import and export keywords within their client-side JavaScript code.
 
 ## ESM in browser
 
@@ -115,7 +115,7 @@ import { add } from './lib.js';
 console.log(add(1,2));
 ```
 
-* While the `.mjs` extension might be tempting for these types of files, browsers are quite strict about the MIME type for Javascript files. Therefore, if your server is configured to return the correct MIME type (text/javascript) for `.mjs` files, you can use this extension. Otherwise, it's best to stick with the `.js` extension on the browser side for better compatibility.
+* While the `.mjs` extension might be tempting for these types of files, browsers are quite strict about the MIME type for JavaScript files. Therefore, if your server is configured to return the correct MIME type (`text/javascript`) for `.mjs` files, you can use this extension. Otherwise, it's best to stick with the `.js` extension on the browser side for better compatibility.
 
 ## importmap
 
@@ -139,3 +139,5 @@ To make it easier to import module from an URL, we can use importmap.
   import { createRoot } from "react-dom";
 </script>
 ```
+
+* importmap is generally available since 2023 which is quite new at the time of this post.
