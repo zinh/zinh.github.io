@@ -7,14 +7,13 @@ description: Summarize of module and how to use it in Javascript
 categories: javascript
 ---
 
-Module in Javascript always confuses me. In this post, I will try to gather and summarize how to use it in Javascript.
-I will split this post into 2 parts: module on NodeJS and module on browser.
+Javascript modules can be a puzzling concept for many developers. In this post, I will try to gather and summarize how to use them effectively. I will split this post into two parts: covering modules in the Nodejs environment and those used in the browser environment.
 
 # Module in NodeJS
 
 ## CommonJS
 
-Originally, NodeJS introduces CommonJS as its native module system. So that we can, for example, write code like this:
+Traditionally, Nodejs relied on the CommonJS module system for managing code. This system allows developers to use the `require` statement to import functionalities from other files.
 
 ```js
 // a.js
@@ -76,3 +75,13 @@ Current version of NodeJS also introduce a experiental flag `--experimental-requ
 So the advice here is if it's your own code, try to be as explicit as possible such as using the `.mjs` and `.cjs` extension.
 
 # Module in browser
+
+Javascript originally doesn't have a proper module system. So if you want to use a library, you use a script tag in your code:
+
+```js
+<script type="javascript" src="jquery.js"></script>
+```
+
+The browser's Javascript engine will load and run this js file. Somewhere in that file, there is a statement like `window.jQuery = ...` and this allows you to call jQuery everywhere in your code.
+
+This is the standard for a while. Then we have bundler tools(webpack, gulp, parcel, etc). These tools allow us to properly structure our project into smaller chunks, we can export/import as we want and the bundler will bundle all of them into single file, ready to use in browser.
