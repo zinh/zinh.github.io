@@ -115,7 +115,7 @@ import { add } from './lib.js';
 console.log(add(1,2));
 ```
 
-* While the `.mjs` extension might be tempting for these types of files, browsers are quite strict about the MIME type for JavaScript files. Therefore, if your server is configured to return the correct MIME type (`text/javascript`) for `.mjs` files, you can use this extension. Otherwise, it's best to stick with the `.js` extension on the browser side for better compatibility.
+＊While the `.mjs` extension might be tempting for these types of files, browsers are quite strict about the MIME type for JavaScript files. Therefore, if your server is configured to return the correct MIME type (`text/javascript`) for `.mjs` files, you can use this extension. Otherwise, it's best to stick with the `.js` extension on the browser side for better compatibility.
 
 ## importmap
 
@@ -140,4 +140,4 @@ To make it easier to import module from an URL, we can use importmap.
 </script>
 ```
 
-* importmap is generally available since 2023 which is quite new at the time of this post.
+＊importmap is generally available since 2023 which is quite new at the time of this post.
