@@ -78,7 +78,7 @@ So the advice here is if it's your own code, try to be as explicit as possible s
 
 JavaScript originally lacked a proper module system. To include libraries like jQuery, developers added a script tag in their HTML file.
 
-```js
+```html
 <script type="javascript" src="jquery.js"></script>
 ```
 
