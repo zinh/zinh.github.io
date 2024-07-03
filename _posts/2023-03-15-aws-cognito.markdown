@@ -7,8 +7,8 @@ description: Notes on how to setup AWS Cognito as authentication service for you
 categories: infrastructure
 ---
 
-I have struggled for quite sometimes on setting up Cognito and how to put it in your web application as an authentication service.
-As the documentation from AWS is not quite clear on setting up, how different pieces fit together, this post is how I done it.
+I have struggled for quite some time with setting up Cognito and integrating it into a web application as an authentication service.
+The documentation from AWS is not very clear on how to set it up and how the different pieces fit together. This post explains how I did it.
 
 # The setup
 
@@ -18,14 +18,15 @@ As the documentation from AWS is not quite clear on setting up, how different pi
 
 ## 1. Create user pool
 
-User pool is like your user's table. It will contain user's information such as email, username, password, etc.
-So the first step with Cognito is to create a user pool.
+A user pool is like your users' table. It will contain user information such as email, username, password, etc.
+The first step with Cognito is to create a user pool.
 
 AWS has a step-by-step guide on setting up a user pool at [Tutorial: create user pool](https://docs.aws.amazon.com/cognito/latest/developerguide/tutorial-create-user-pool.html)
 
 ## 2. Create an app client
 
-An app client will specify how your app will authenticate with your user's pool. We can choose a client → cogito authentication flow, client → server → cognito flow, or even a custom flow.
+An app client specifies how your app will authenticate with your user pool.
+You can choose a client → Cognito authentication flow, client → server → Cognito flow, or even a custom flow.
 
 For more detail, refer to this guide: [Configuring a user pool app client](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-client-apps.html?icmpid=docs_cognito_console_help_panel)
 
@@ -114,17 +115,17 @@ authenticatedRoute.get("/hello", function(_req, res, _next) {
 
 # 6. Cognito's identity pool
 
-One interesting thing to do with Cognito is we can let our user have a temporary access to AWS so that for example an authenticated user can call an Lambda on front-end.
+One interesting feature of Cognito is that we can allow our users to have temporary access to AWS. For example, an authenticated user can call a Lambda function from the front-end.
 
-To do this, we need to create an identity pool(also known as Federated Identities). With identity pool, we can use Cognito's user pool as a identity source or we can use other OAuth services such as Facebook, SAML, etc.
+To do this, we need to create an identity pool (also known as Federated Identities). With an identity pool, we can use Cognito's user pool as an identity source, or we can use other OAuth services such as Facebook, SAML, etc.
 
-I'll just use my user pool as a identity source.
+I'll use my user pool as the identity source.
 
-1. Create an identity pool
-2. Create a role with approriate permission
-3. Client code
+1. Create an identity pool.
+2. Create a role with appropriate permissions.
+3. Client code.
 
-From 4.2 above we can get access_token, id_token and refresh_token from Cognito. We will use this id_token to exchange for Identity ID using [GetID](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetId.html) command
+From 4.2 above we can get access_token, id_token and refresh_token from Cognito. We will use this id_token to exchange for an Identity ID using [GetID](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetId.html) command
 
 ```js
 import { CognitoIdentityClient, GetIdCommand, GetCredentialsForIdentityCommand } from "@aws-sdk/client-cognito-identity";
