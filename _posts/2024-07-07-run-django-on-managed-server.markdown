@@ -39,9 +39,12 @@ settings.configure(
         DEBUG=True,
         SECRET_KEY="my-secret-key"
 )
+
+# path: / 
 def index(request):
     return HttpResponse("index")
 
+# path: /blog
 def blog(request):
     return HttpResponse("blog")
 
@@ -55,7 +58,7 @@ if __name__ == "__main__":
     CGIHandler().run(application)
 ```
 
-With this file, the server can serve Django content so that when I access /django/index.cgi, it will return the index content, and /django/index.cgi/blog will return the blog content.
+With this file, the server can serve Django content so that when I access `/django/index.cgi`, it will return the index content, and `/django/index.cgi/blog` will return the blog content.
 
 I will add a .htaccess file to rewrite URLs to a shorter form:
 
