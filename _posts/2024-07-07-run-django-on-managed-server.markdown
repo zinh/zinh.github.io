@@ -59,7 +59,7 @@ With this file, the server can serve Django content so that when I access /djang
 
 I will add a .htaccess file to rewrite URLs to a shorter form:
 
-```
+```htaccess
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.cgi/$1 [QSA,L]
