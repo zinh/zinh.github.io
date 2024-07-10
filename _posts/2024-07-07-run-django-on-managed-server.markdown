@@ -27,7 +27,7 @@ Now, let's create a very simple Django application. I'll call it index.cgi:
 
 ```python
 #!/home/myname/www/django/py/bin/python
-# index.cgi
+#~/www/django/index.cgi
 from wsgiref.handlers import CGIHandler
 from django.conf import settings
 from django.http import HttpResponse
