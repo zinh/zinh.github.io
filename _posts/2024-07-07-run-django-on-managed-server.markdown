@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Run Django in my managed server"
+title: "Getting Django to Work on a Cheap Shared Hosting Plan"
 date: 2024-07-09 00:16:00
-summary: I am renting a dirt cheap managed server, in this post I will explain how to run django with it
-description: Summarize of module and how to use it in JavaScript
+summary: This blog post explains how to set up a Django application on a shared server using SSH access, pyenv, and Apache with a .htaccess file for URL rewriting.
+description: This blog post explains how to set up a Django application on a shared server using SSH access, pyenv, and Apache with a .htaccess file for URL rewriting
 categories: infrastructure
 ---
 
