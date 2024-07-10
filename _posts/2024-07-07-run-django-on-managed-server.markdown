@@ -46,7 +46,7 @@ def blog(request):
     return HttpResponse("blog")
 
 urlpatterns = [
-    path("", index)
+    path("", index),
     path("blog", blog)
 ]
 
