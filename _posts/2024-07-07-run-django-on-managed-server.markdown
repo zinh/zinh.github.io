@@ -7,7 +7,7 @@ description: Summarize of module and how to use it in JavaScript
 categories: infrastructure
 ---
 
-I am renting a very cheap managed server with very generous specs (300 GB disk, TBs of bandwidth, etc.) for about $3/month. Though there are some limitations such as running on fairly old technology, only supporting a web server with Apache and PHP through CGI/FastCGI, and there is no root access. However, they provide SSH access, so I can manage to run a modern framework with it.
+I am renting a very cheap shared server with very generous specs (300 GB disk, TBs of bandwidth, etc.) for about $3/month. Though there are some limitations such as running on fairly old technology, basically a CPanel shared host, only supporting web server with Apache with PHP through CGI, no root access. However, they provide SSH access, so I can manage to run a modern framework with it.
 
 Let's first install python. I use pyenv to `manage` python versions:
 
@@ -15,7 +15,7 @@ Let's first install python. I use pyenv to `manage` python versions:
 pyenv install 3.10.2
 ```
 
-The Apache webserver serves files under ~/www, so I will create a subfolder there and then make a virtual environment for Python:
+The Apache webserver serves files under `~/www`, so I will create a subfolder there and then make a virtual environment for Python:
 
 ```
 mkdir ~/www/django && cd ~/www/django
@@ -23,7 +23,7 @@ python -mvenv py
 ./py/bin/pip install django
 ```
 
-Now, let's create a very simple Django application. I'll call it index.cgi:
+Now, let's create a very simple Django application. I'll call it index.cgi(also need to chmod u+x):
 
 ```python
 #!/home/myname/www/django/py/bin/python
@@ -68,4 +68,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ index.cgi/$1 [QSA,L]
 ```
 
-With this .htaccess configuration, accessing /django will point to the index, and /django/blog will point to the blog.
+With this .htaccess configuration, accessing `/django` will point to the index, and `/django/blog` will point to the blog.
